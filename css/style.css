@@ -28,7 +28,7 @@ nav {
     transition: 0.3s;
     padding: 0px 100px;
     z-index: 999;
-    background-color: rgba(66, 66, 66, 0.823);
+    background-color: rgba(66, 66, 66, 0);
 }
 
 nav .logo {
@@ -327,6 +327,33 @@ nav ul li ul li {
 
   /* --------------------   DEA-SIM   --------------------- */
 
+  .deaSim_nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0px 100px;
+    z-index: 999;
+  }
+  .rg_h2{
+    color: white;
+  }
+
+  .deaSim_main {
+    width: 90vw;
+    padding: 10px;
+    margin: 60px auto;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    border-radius: 5px;
+  }
+
+  /* --------------------   DEA-SIM-TABLE   --------------------- */
+
   .dea_table_container {
     border: 2px solid rgb(0, 0, 0);
     padding: 1px 5px;
@@ -340,4 +367,42 @@ nav ul li ul li {
   .dea_table_container tbody tr td {
     padding: 2px 20px;
     background-color: rgb(117, 117, 117);
+  }
+
+   /* --------------------   SVG Design  --------------------- */
+
+   svg .knoten-text{
+     fill: rgb(86, 86, 86);
+     font-weight: bold;
+     font-size: 4px;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   }
+
+   svg .kanten-text{
+    fill: rgb(115, 121, 191);
+    font-weight: bold;
+    font-size: 4px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  svg .arrow-circle {
+    fill: none;
+    stroke: rgb(71, 71, 71);
+    stroke-width: 0.5px;
+  }
+
+  svg .knoten-body {
+    stroke: rgb(213, 184, 130);
+    stroke-width: 0.5px;
+    fill: white;
+  }
+
+  svg .kanten-body {
+    stroke: rgb(71, 71, 71);
+    stroke-width: 0.5px;
+  }
+
+  svg .bg-grid {
+    stroke: rgba(128, 128, 128, 0.503);
+    stroke-width: 0.2px;
   }

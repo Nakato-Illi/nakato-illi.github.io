@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav>
+    <nav class="deaSim-nav">
         <a href="index.html" class="logo">Tec/info</a>
         <h2 class="rg_h2">Reber Grammer Simulator</h2>
         <ul class="nav_conatiner">
@@ -19,9 +19,14 @@
 
     <main class="deaSim_main">
 
+
+      <!--
+        Table mit den Werten des Reber Grammars
+      -->
+
         <table class="dea_table_container">
             <p>
-                Reber Grammer = (Q, &sum;, &part;&part;, S, F) <br>
+                Reber Grammer = (Q, &sum;, &part;, S, F) <br>
                 <br>
                 Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
                 &sum; =  B, E, P, S, T, V, X <br>
@@ -103,52 +108,134 @@
           </table> 
 
 
-           <svg width="1000px" viewBox="0 0 170 100" style="border: green solid;">
+           <!-- Graphen mit ansprechbaren Parts in SVG  -->
+           <svg width="1000px" viewBox="0 0 170 100" style="border: rgba(128, 128, 128, 0.483) solid;">
 
-        <style>
-            .myArc{
-                stroke: rgb(229, 255, 0);
-            }
-        </style>
 
-        <path stroke="green" stroke-width=".2" d="M10 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M20 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M30 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M40 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M50 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M60 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M70 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M80 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M90 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M100 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M110 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M120 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M130 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M140 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M150 0 V100"/>
-        <path stroke="green" stroke-width=".2" d="M160 0 V100"/>
+            <!-- Hintergrund als Orientierung -->
+        <path class="bg-grid" d="M10 0 V100"/>
+        <path class="bg-grid" d="M20 0 V100"/>
+        <path class="bg-grid" d="M30 0 V100"/>
+        <path class="bg-grid" d="M40 0 V100"/>
+        <path class="bg-grid" d="M50 0 V100"/>
+        <path class="bg-grid" d="M60 0 V100"/>
+        <path class="bg-grid" d="M70 0 V100"/>
+        <path class="bg-grid" d="M80 0 V100"/>
+        <path class="bg-grid" d="M90 0 V100"/>
+        <path class="bg-grid" d="M100 0 V100"/>
+        <path class="bg-grid" d="M110 0 V100"/>
+        <path class="bg-grid" d="M120 0 V100"/>
+        <path class="bg-grid" d="M130 0 V100"/>
+        <path class="bg-grid" d="M140 0 V100"/>
+        <path class="bg-grid" d="M150 0 V100"/>
+        <path class="bg-grid" d="M160 0 V100"/>
 
-        <path stroke="green" stroke-width=".2" d="M0 10 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 20 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 30 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 40 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 50 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 60 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 70 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 80 H170"/>
-        <path stroke="green" stroke-width=".2" d="M0 90 H170"/>
+        <path class="bg-grid" d="M0 10 H170"/>
+        <path class="bg-grid" d="M0 20 H170"/>
+        <path class="bg-grid" d="M0 30 H170"/>
+        <path class="bg-grid" d="M0 40 H170"/>
+        <path class="bg-grid" d="M0 50 H170"/>
+        <path class="bg-grid" d="M0 60 H170"/>
+        <path class="bg-grid" d="M0 70 H170"/>
+        <path class="bg-grid" d="M0 80 H170"/>
+        <path class="bg-grid" d="M0 90 H170"/>
 
-        <circle cx="10" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
-        <circle cx="40" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <!-- Arrow gebogen für die Kanten die im Selben Zusatnd Enden  -->
+        <path class="arrow-circle" d="M53 21 A6 6, 0, 1 1, 57 18"></path>
+        <path class="arrow-circle" d="M53 19 v4 l2 -2 z"/>
+        <path class="arrow-circle" d="M53 81 A6 6, 0, 1 0, 57 82"></path>
+        <path class="arrow-circle" d="M53 79 v4 l2 -2 z"/>
 
-        <circle cx="60" cy="20" r="5" stroke="white" stroke-width="0.2" fill="red" />
-        <text x="80" y="50" stroke="#51c5cf" stroke-width="0.2px" dy=".3em"> B </text>
-        <circle cx="60" cy="80" r="5" stroke="white" stroke-width="0.2" fill="red" />
-        <circle cx="110" cy="20" r="5" stroke="white" stroke-width="0.2" fill="red" />
-        <circle cx="110" cy="80" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <!-- KNOTEN  -->
+        <circle class="knoten-body" cx="10" cy="50" r="5" />
+        <circle class="knoten-body" cx="40" cy="50" r="5" />
 
-        <circle cx="160" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
-        <circle cx="130" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <circle class="knoten-body" cx="60" cy="20" r="5" />
+        <circle class="knoten-body" cx="60" cy="80" r="5" />
+        <circle class="knoten-body" cx="110" cy="20" r="5" />
+        <circle class="knoten-body" cx="110" cy="80" r="5" />
+
+        <circle class="knoten-body" cx="160" cy="50" r="5" />
+        <circle class="knoten-body" cx="130" cy="50" r="5" />
+
+       
+            <!-- KANTEN  -->
+          <marker id="arrow0-1" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="15" y1="50" x2="32" y2="50" marker-end="url(#arrow0-1)" />
+
+          <marker id="arrow1-2" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="43" y1="45" x2="55" y2="26" marker-end="url(#arrow1-2)" />
+
+          <marker  id="arrow1-3" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="42" y1="56" x2="53" y2="75" marker-end="url(#arrow1-3)" />
+
+          <marker id="arrow2-4" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="65" y1="20" x2="102" y2="20" marker-end="url(#arrow2-4)" />
+
+          <marker id="arrow3-5" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="65" y1="80" x2="102" y2="80" marker-end="url(#arrow3-5)" />
+
+          <marker id="arrow4-3" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="106" y1="25" x2="65" y2="74" marker-end="url(#arrow4-3)" />
+
+          <marker id="arrow4-6" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="115" y1="23" x2="127" y2="42" marker-end="url(#arrow4-6)" />
+
+          <marker id="arrow5-4" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="110" y1="74" x2="110" y2="28" marker-end="url(#arrow5-4)" />
+
+          <marker id="arrow5-6" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="128" y1="56" x2="117" y2="75" marker-end="url(#arrow5-6)" />
+
+          <marker id="arrow6-7" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          </marker>
+          <line class="kanten-body" x1="135" y1="50" x2="152" y2="50" marker-end="url(#arrow6-7)" />
+
+          <!-- KNOTEN-BEZEICHNUNG  -->
+          <text class="knoten-text" x="07" y="51"> q0 </text>
+          <text class="knoten-text" x="37" y="51"> q1 </text>
+          <text class="knoten-text" x="57" y="21"> q2 </text>
+          <text class="knoten-text" x="57" y="81"> q3 </text>
+          <text class="knoten-text" x="107" y="21"> q4 </text>
+          <text class="knoten-text" x="107" y="81"> q5 </text>
+          <text class="knoten-text" x="127" y="51"> q6 </text>
+          <text class="knoten-text" x="157" y="51"> q7 </text>
+
+          <!-- KANTEN-BEZEICHNUNG  -->
+          <text class="kanten-text" x="23" y="48"> B </text>
+          <text class="kanten-text" x="45" y="35"> T </text>
+          <text class="kanten-text" x="82" y="48"> X </text>
+          <text class="kanten-text" x="43" y="68"> P </text>
+          <text class="kanten-text" x="105" y="52"> P </text>
+          <text class="kanten-text" x="83" y="19"> X </text>
+          <text class="kanten-text" x="83" y="85"> V </text>
+          <text class="kanten-text" x="123" y="34"> S </text>
+          <text class="kanten-text" x="123" y="69"> V </text>
+          <text class="kanten-text" x="143" y="48"> E </text>
+
+          <text class="kanten-text" x="45" y="10"> S </text>
+          <text class="kanten-text" x="45" y="93"> T </text>
+
+          
 
     </svg>
 
