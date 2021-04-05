@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekte Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Tec/info</a>
+        <h2 class="rg_h2">Reber Grammer Simulator</h2>
+        <ul class="nav_conatiner">
+            <li><a href="index.html">Home</a></li>
+        </ul>
+        
+    </nav>
+
+    <main class="deaSim_main">
+
+        <table class="dea_table_container">
+            <p>
+                Reber Grammer = (Q, &sum;, &part;&part;, S, F) <br>
+                <br>
+                Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
+                &sum; =  B, E, P, S, T, V, X <br>
+                S = q0
+                F = { q6 }
+                <br>
+                <br>
+                &part;: Q x &sum; &#8594; Q
+            </p>
+        <thead>
+            <tr>
+              <th>Q</th>
+              <th>&sum;</th>
+              <th>Q</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="tr1">
+              <td>q0</td>
+              <td>B</td>
+              <td>q1</td>
+            </tr>
+            <tr id="tr2">
+              <td>q1</td>
+              <td>P</td>
+              <td>q3</td>
+            </tr>
+            <tr id="tr3">
+              <td>q1</td>
+              <td>T</td>
+              <td>q2</td>
+            </tr>
+            <tr id="tr4">
+              <td>q2</td>
+              <td>S</td>
+              <td>q2</td>
+            </tr>
+            <tr id="tr5">
+              <td>q2</td>
+              <td>X</td>
+              <td>q4</td>
+            </tr>
+            <tr id="tr6">
+              <td>q3</td>
+              <td>T</td>
+              <td>q3</td>
+            </tr>
+            <tr id="tr7">
+              <td>q3</td>
+              <td>V</td>
+              <td>q5</td>
+            </tr>
+            <tr id="tr8">
+              <td>q4</td>
+              <td>S</td>
+              <td>q6</td>
+            </tr>
+            <tr id="tr9">
+              <td>q4</td>
+              <td>X</td>
+              <td>q3</td>
+            </tr>
+            <tr id="tr10">
+              <td>q5</td>
+              <td>P</td>
+              <td>q4</td>
+            </tr>
+            <tr id="tr11">
+              <td>q5</td>
+              <td>V</td>
+              <td>q6</td>
+            </tr>
+            <tr id="tr12">
+                <td>q6</td>
+                <td>E</td>
+                <td>q7</td>
+            </tr>
+        </tbody>
+          </table> 
+
+
+           <svg width="1000px" viewBox="0 0 170 100" style="border: green solid;">
+
+        <style>
+            .myArc{
+                stroke: rgb(229, 255, 0);
+            }
+        </style>
+
+        <path stroke="green" stroke-width=".2" d="M10 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M20 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M30 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M40 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M50 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M60 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M70 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M80 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M90 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M100 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M110 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M120 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M130 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M140 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M150 0 V100"/>
+        <path stroke="green" stroke-width=".2" d="M160 0 V100"/>
+
+        <path stroke="green" stroke-width=".2" d="M0 10 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 20 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 30 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 40 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 50 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 60 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 70 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 80 H170"/>
+        <path stroke="green" stroke-width=".2" d="M0 90 H170"/>
+
+        <circle cx="10" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <circle cx="40" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+
+        <circle cx="60" cy="20" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <text x="80" y="50" stroke="#51c5cf" stroke-width="0.2px" dy=".3em"> B </text>
+        <circle cx="60" cy="80" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <circle cx="110" cy="20" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <circle cx="110" cy="80" r="5" stroke="white" stroke-width="0.2" fill="red" />
+
+        <circle cx="160" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+        <circle cx="130" cy="50" r="5" stroke="white" stroke-width="0.2" fill="red" />
+
+    </svg>
+
+
+    </main>
+
+</body>
+</html>
