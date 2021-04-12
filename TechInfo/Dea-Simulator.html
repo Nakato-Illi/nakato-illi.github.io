@@ -19,6 +19,19 @@
 
     <main class="deaSim_main">
 
+      
+      <div>
+        <label for="gen_but">Zufallswort generieren</label><br>
+        <button id="gen_but" onclick="generateRandomWord()">Generieren</button>
+        <input type="text" id="gen_tex"><br>
+      </div> 
+
+      <form>
+        <label for="fname">Geben Sie eine Zeichenkette ein:</label>
+        <input type="text" id="fname" name="fname"><br>
+      </form>
+      
+    
 
       <!--
         Table mit den Werten des Reber Grammars
@@ -29,7 +42,7 @@
                 Reber Grammer = (Q, &sum;, &part;, S, F) <br>
                 <br>
                 Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
-                &sum; =  B, E, P, S, T, V, X <br>
+                &sum; = <span id="eingabe">B, E, P, S, T, V, X</span> <br>
                 S = q0
                 F = { q6 }
                 <br>
@@ -242,5 +255,9 @@
 
     </main>
 
+
+
+
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -343,15 +343,15 @@ nav ul li ul li {
     color: white;
   }
 
-  .deaSim_main {
-    width: 90vw;
-    padding: 10px;
-    margin: 60px auto;
-    background-color: rgb(255, 255, 255);
+ /*
+ .dea_sec {
     display: flex;
-    border-radius: 5px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 80px;
+    padding-top: 50px;
   }
-
+ */
   /* --------------------   DEA-SIM-TABLE   --------------------- */
 
   .dea_table_container {
