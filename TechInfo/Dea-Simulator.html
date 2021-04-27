@@ -1,263 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekte Home</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekte Home</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+
+
+
+  </style>
+
 </head>
+
 <body>
-    <nav class="deaSim-nav">
-        <a href="index.html" class="logo">Tec/info</a>
-        <h2 class="rg_h2">Reber Grammer Simulator</h2>
-        <ul class="nav_conatiner">
-            <li><a href="index.html">Home</a></li>
-        </ul>
-        
-    </nav>
+  <nav class="deaSim-nav">
+    <a href="index.html" class="logo">Tec/info</a>
+    <h2 class="rg_h2">Reber Grammer Simulator</h2>
+    <ul class="nav_conatiner">
+      <li><a href="index.html">Home</a></li>
+    </ul>
 
-    <main class="deaSim_main">
+  </nav>
 
-      
-      <div>
-        <label for="gen_but">Zufallswort generieren</label><br>
-        <button id="gen_but" onclick="generateRandomWord()">Generieren</button>
-        <input type="text" id="gen_tex"><br>
-      </div> 
+  <main class="deaSim_main">
 
-      <form>
-        <label for="fname">Geben Sie eine Zeichenkette ein:</label>
-        <input type="text" id="fname" name="fname"><br>
-      </form>
-      
-    
+    <div class="textmainlinks">
 
-      <!--
-        Table mit den Werten des Reber Grammars
-      -->
+      <p class="rgParameter">
+        5-Tupel RG = (Q, &sum;, &part;, S, F) <br>
+        <br>
+        Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
+        &sum; = <span id="eingabe"></span> <br>
+        S = q0
+        <br>
+        F = { q7 }
+        <br>
+        &part;: Q x &sum; &#8594; Q
+      </p>
 
-        <table class="dea_table_container">
-            <p>
-                Reber Grammer = (Q, &sum;, &part;, S, F) <br>
-                <br>
-                Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
-                &sum; = <span id="eingabe">B, E, P, S, T, V, X</span> <br>
-                S = q0
-                F = { q6 }
-                <br>
-                <br>
-                &part;: Q x &sum; &#8594; Q
-            </p>
+      <table class="dea_table_container">
+
         <thead>
-            <tr>
-              <th>Q</th>
-              <th>&sum;</th>
-              <th>Q</th>
-            </tr>
+          <tr>
+            <th>Q</th>
+            <th>&sum;</th>
+            <th>Q</th>
+          </tr>
         </thead>
-        <tbody>
-            <tr id="tr1">
-              <td>q0</td>
-              <td>B</td>
-              <td>q1</td>
-            </tr>
-            <tr id="tr2">
-              <td>q1</td>
-              <td>P</td>
-              <td>q3</td>
-            </tr>
-            <tr id="tr3">
-              <td>q1</td>
-              <td>T</td>
-              <td>q2</td>
-            </tr>
-            <tr id="tr4">
-              <td>q2</td>
-              <td>S</td>
-              <td>q2</td>
-            </tr>
-            <tr id="tr5">
-              <td>q2</td>
-              <td>X</td>
-              <td>q4</td>
-            </tr>
-            <tr id="tr6">
-              <td>q3</td>
-              <td>T</td>
-              <td>q3</td>
-            </tr>
-            <tr id="tr7">
-              <td>q3</td>
-              <td>V</td>
-              <td>q5</td>
-            </tr>
-            <tr id="tr8">
-              <td>q4</td>
-              <td>S</td>
+        <tbody id="tBody">
+          <!-- <tr id="tr1">
+            
+          </tr>
+          <tr id="tr2">
+            <td>q1</td>
+            <td>P</td>
+            <td>q3</td>
+          </tr>
+          <tr id="tr3">
+            <td>q1</td>
+            <td>T</td>
+            <td>q2</td>
+          </tr>
+          <tr id="tr4">
+            <td>q2</td>
+            <td>S</td>
+            <td>q2</td>
+          </tr>
+          <tr id="tr5">
+            <td>q2</td>
+            <td>X</td>
+            <td>q4</td>
+          </tr>
+          <tr id="tr6">
+            <td>q3</td>
+            <td>T</td>
+            <td>q3</td>
+          </tr>
+          <tr id="tr7">
+            <td>q3</td>
+            <td>V</td>
+            <td>q5</td>
+          </tr>
+          <tr id="tr8">
+            <td>q4</td>
+            <td>S</td>
+            <td>q6</td>
+          </tr>
+          <tr id="tr9">
+            <td>q4</td>
+            <td>X</td>
+            <td>q3</td>
+          </tr>
+          <tr id="tr10">
+            <td>q5</td>
+            <td>P</td>
+            <td>q4</td>
+          </tr>
+          <tr id="tr11">
+            <td>q5</td>
+            <td>V</td>
+            <td>q6</td>
+          </tr>
+          <tr id="tr12">
               <td>q6</td>
-            </tr>
-            <tr id="tr9">
-              <td>q4</td>
-              <td>X</td>
-              <td>q3</td>
-            </tr>
-            <tr id="tr10">
-              <td>q5</td>
-              <td>P</td>
-              <td>q4</td>
-            </tr>
-            <tr id="tr11">
-              <td>q5</td>
-              <td>V</td>
-              <td>q6</td>
-            </tr>
-            <tr id="tr12">
-                <td>q6</td>
-                <td>E</td>
-                <td>q7</td>
-            </tr>
+              <td>E</td>
+              <td>q7</td>
+          </tr>-->
         </tbody>
-          </table> 
+      </table>
+
+     
+
+    </div>
 
 
-           <!-- Graphen mit ansprechbaren Parts in SVG  -->
-           <svg width="1000px" viewBox="0 0 170 100" style="border: rgba(128, 128, 128, 0.483) solid;">
+
+    <div class="conatiner_gr">
 
 
-            <!-- Hintergrund als Orientierung -->
-        <path class="bg-grid" d="M10 0 V100"/>
-        <path class="bg-grid" d="M20 0 V100"/>
-        <path class="bg-grid" d="M30 0 V100"/>
-        <path class="bg-grid" d="M40 0 V100"/>
-        <path class="bg-grid" d="M50 0 V100"/>
-        <path class="bg-grid" d="M60 0 V100"/>
-        <path class="bg-grid" d="M70 0 V100"/>
-        <path class="bg-grid" d="M80 0 V100"/>
-        <path class="bg-grid" d="M90 0 V100"/>
-        <path class="bg-grid" d="M100 0 V100"/>
-        <path class="bg-grid" d="M110 0 V100"/>
-        <path class="bg-grid" d="M120 0 V100"/>
-        <path class="bg-grid" d="M130 0 V100"/>
-        <path class="bg-grid" d="M140 0 V100"/>
-        <path class="bg-grid" d="M150 0 V100"/>
-        <path class="bg-grid" d="M160 0 V100"/>
+      <!-- Graphen mit ansprechbaren Parts in SVG  -->
+      <svg  viewBox="0 0 170 100">
 
-        <path class="bg-grid" d="M0 10 H170"/>
-        <path class="bg-grid" d="M0 20 H170"/>
-        <path class="bg-grid" d="M0 30 H170"/>
-        <path class="bg-grid" d="M0 40 H170"/>
-        <path class="bg-grid" d="M0 50 H170"/>
-        <path class="bg-grid" d="M0 60 H170"/>
-        <path class="bg-grid" d="M0 70 H170"/>
-        <path class="bg-grid" d="M0 80 H170"/>
-        <path class="bg-grid" d="M0 90 H170"/>
+
+        <!-- Hintergrund als Orientierung -->
+        <path class="bg-grid" d="M10 0 V100" />
+        <path class="bg-grid" d="M20 0 V100" />
+        <path class="bg-grid" d="M30 0 V100" />
+        <path class="bg-grid" d="M40 0 V100" />
+        <path class="bg-grid" d="M50 0 V100" />
+        <path class="bg-grid" d="M60 0 V100" />
+        <path class="bg-grid" d="M70 0 V100" />
+        <path class="bg-grid" d="M80 0 V100" />
+        <path class="bg-grid" d="M90 0 V100" />
+        <path class="bg-grid" d="M100 0 V100" />
+        <path class="bg-grid" d="M110 0 V100" />
+        <path class="bg-grid" d="M120 0 V100" />
+        <path class="bg-grid" d="M130 0 V100" />
+        <path class="bg-grid" d="M140 0 V100" />
+        <path class="bg-grid" d="M150 0 V100" />
+        <path class="bg-grid" d="M160 0 V100" />
+
+        <path class="bg-grid" d="M0 10 H170" />
+        <path class="bg-grid" d="M0 20 H170" />
+        <path class="bg-grid" d="M0 30 H170" />
+        <path class="bg-grid" d="M0 40 H170" />
+        <path class="bg-grid" d="M0 50 H170" />
+        <path class="bg-grid" d="M0 60 H170" />
+        <path class="bg-grid" d="M0 70 H170" />
+        <path class="bg-grid" d="M0 80 H170" />
+        <path class="bg-grid" d="M0 90 H170" />
 
         <!-- Arrow gebogen für die Kanten die im Selben Zusatnd Enden  -->
-        <path class="arrow-circle" d="M53 21 A6 6, 0, 1 1, 57 18"></path>
-        <path class="arrow-circle" d="M53 19 v4 l2 -2 z"/>
-        <path class="arrow-circle" d="M53 81 A6 6, 0, 1 0, 57 82"></path>
-        <path class="arrow-circle" d="M53 79 v4 l2 -2 z"/>
+        <path id="arrow2-2" class="arrow-circle" stroke="green" d="M53 21 A6 6, 0, 1 1, 57 18"></path>
+        <path id="arrowhead2-2" class="arrow-circle" stroke="green" d="M53 19 v4 l2 -2 z" />
+        <path id="arrow3-3" class="arrow-circle" stroke="green" d="M53 81 A6 6, 0, 1 0, 57 82"></path>
+        <path id="arrowhead3-3" class="arrow-circle" stroke="green" d="M53 79 v4 l2 -2 z" />
 
         <!-- KNOTEN  -->
-        <circle class="knoten-body" cx="10" cy="50" r="5" />
-        <circle class="knoten-body" cx="40" cy="50" r="5" />
+        <circle id="node0" class="knoten-body" cx="10" cy="50" r="5" />
+        <circle id="node1" class="knoten-body" cx="40" cy="50" r="5" />
 
-        <circle class="knoten-body" cx="60" cy="20" r="5" />
-        <circle class="knoten-body" cx="60" cy="80" r="5" />
-        <circle class="knoten-body" cx="110" cy="20" r="5" />
-        <circle class="knoten-body" cx="110" cy="80" r="5" />
+        <circle id="node2" class="knoten-body" cx="60" cy="20" r="5" />
+        <circle id="node3" class="knoten-body" cx="60" cy="80" r="5" />
+        <circle id="node4" class="knoten-body" cx="110" cy="20" r="5" />
+        <circle id="node5" class="knoten-body" cx="110" cy="80" r="5" />
 
-        <circle class="knoten-body" cx="160" cy="50" r="5" />
-        <circle class="knoten-body" cx="130" cy="50" r="5" />
+        <circle id="node7" class="knoten-body" cx="160" cy="50" r="5" />
+        <circle id="node6" class="knoten-body" cx="130" cy="50" r="5" />
 
-       
-            <!-- KANTEN  -->
-          <marker id="arrow0-1" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+
+        <!-- KANTEN  -->
+        <marker id="arrow0-1" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+          markerUnits="strokeWidth">
+          <path d="M0,0 L0,4 L3,2 z" />
+        </marker>
+        <line id="arrow_0-1" class="kanten-body" stroke="green" x1="15" y1="50" x2="32" y2="50"
+          marker-end="url(#arrow0-1)" />
+
+        <marker id="arrow1-2" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+          markerUnits="strokeWidth">
+          <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line class="kanten-body" x1="15" y1="50" x2="32" y2="50" marker-end="url(#arrow0-1)" />
+          <line id="arrow_1-2" class="kanten-body" stroke="green" x1="43" y1="45" x2="55" y2="26"
+            marker-end="url(#arrow1-2)" />
 
-          <marker id="arrow1-2" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+          <marker id="arrow1-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+            markerUnits="strokeWidth">
+            <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line class="kanten-body" x1="43" y1="45" x2="55" y2="26" marker-end="url(#arrow1-2)" />
+          <line id="arrow_1-3" class="kanten-body" stroke="green" x1="42" y1="56" x2="53" y2="75"
+              marker-end="url(#arrow1-3)" />
 
-          <marker  id="arrow1-3" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+            <marker id="arrow2-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+              markerUnits="strokeWidth">
+              <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line class="kanten-body" x1="42" y1="56" x2="53" y2="75" marker-end="url(#arrow1-3)" />
+          <line id="arrow_2-4" class="kanten-body" stroke="green" x1="65" y1="20" x2="102" y2="20"
+                marker-end="url(#arrow2-4)" />
 
-          <marker id="arrow2-4" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+              <marker id="arrow3-5" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                markerUnits="strokeWidth">
+                <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="65" y1="20" x2="102" y2="20" marker-end="url(#arrow2-4)" />
+          <line id="arrow_3-5" class="kanten-body" stroke="green" x1="65" y1="80" x2="102" y2="80"
+                  marker-end="url(#arrow3-5)" />
 
-          <marker id="arrow3-5" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+                <marker id="arrow4-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                  markerUnits="strokeWidth">
+                  <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="65" y1="80" x2="102" y2="80" marker-end="url(#arrow3-5)" />
+          <line id="arrow_4-3" class="kanten-body" stroke="green" x1="106" y1="25" x2="65" y2="74"
+                    marker-end="url(#arrow4-3)" />
 
-          <marker id="arrow4-3" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+                  <marker id="arrow4-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                    orient="auto" markerUnits="strokeWidth">
+                    <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="106" y1="25" x2="65" y2="74" marker-end="url(#arrow4-3)" />
+          <line id="arrow_4-6" class="kanten-body" stroke="green" x1="115" y1="23" x2="127" y2="42"
+                      marker-end="url(#arrow4-6)" />
 
-          <marker id="arrow4-6" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+                    <marker id="arrow5-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                      orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="115" y1="23" x2="127" y2="42" marker-end="url(#arrow4-6)" />
+          <line id="arrow_5-4" class="kanten-body" stroke="green" x1="110" y1="74" x2="110" y2="28"
+                        marker-end="url(#arrow5-4)" />
 
-          <marker id="arrow5-4" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+                      <marker id="arrow5-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                        orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="110" y1="74" x2="110" y2="28" marker-end="url(#arrow5-4)" />
+          <line id="arrow_5-6" class="kanten-body" stroke="green" x1="116" y1="78" x2="127" y2="57"
+                          marker-end="url(#arrow5-6)" />
 
-          <marker id="arrow5-6" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
+                        <marker id="arrow6-7" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                          orient="auto" markerUnits="strokeWidth">
+                          <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line class="kanten-body" x1="128" y1="56" x2="117" y2="75" marker-end="url(#arrow5-6)" />
+          <line id="arrow_6-7" class="kanten-body" stroke="green" x1="135" y1="50" x2="152" y2="50"
+                            marker-end="url(#arrow6-7)" />
 
-          <marker id="arrow6-7" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L0,4 L3,2 z" fill="rgb(71, 71, 71)" />
-          </marker>
-          <line class="kanten-body" x1="135" y1="50" x2="152" y2="50" marker-end="url(#arrow6-7)" />
+                          <!-- KNOTEN-BEZEICHNUNG  -->
+                          <text class="knoten-text" x="07" y="51"> q0 </text>
+                          <text class="knoten-text" x="37" y="51"> q1 </text>
+                          <text class="knoten-text" x="57" y="21"> q2 </text>
+                          <text class="knoten-text" x="57" y="81"> q3 </text>
+                          <text class="knoten-text" x="107" y="21"> q4 </text>
+                          <text class="knoten-text" x="107" y="81"> q5 </text>
+                          <text class="knoten-text" x="127" y="51"> q6 </text>
+                          <text class="knoten-text" x="157" y="51"> q7 </text>
 
-          <!-- KNOTEN-BEZEICHNUNG  -->
-          <text class="knoten-text" x="07" y="51"> q0 </text>
-          <text class="knoten-text" x="37" y="51"> q1 </text>
-          <text class="knoten-text" x="57" y="21"> q2 </text>
-          <text class="knoten-text" x="57" y="81"> q3 </text>
-          <text class="knoten-text" x="107" y="21"> q4 </text>
-          <text class="knoten-text" x="107" y="81"> q5 </text>
-          <text class="knoten-text" x="127" y="51"> q6 </text>
-          <text class="knoten-text" x="157" y="51"> q7 </text>
+                          <!-- KANTEN-BEZEICHNUNG  -->
+                          <text id="letter0-1" class="kanten-text" x="23" y="48"> B </text>
+                          <text id="letter1-2" class="kanten-text" x="45" y="35"> T </text>
+                          <text id="letter4-3" class="kanten-text" x="82" y="48"> X </text>
+                          <text id="letter1-3" class="kanten-text" x="43" y="68"> P </text>
+                          <text id="letter5-4" class="kanten-text" x="105" y="52"> P </text>
+                          <text id="letter2-4" class="kanten-text" x="83" y="19"> X </text>
+                          <text id="letter3-5" class="kanten-text" x="83" y="85"> V </text>
+                          <text id="letter4-6" class="kanten-text" x="123" y="34"> S </text>
+                          <text id="letter5-6" class="kanten-text" x="123" y="69"> V </text>
+                          <text id="letter6-7" class="kanten-text" x="143" y="48"> E </text>
 
-          <!-- KANTEN-BEZEICHNUNG  -->
-          <text class="kanten-text" x="23" y="48"> B </text>
-          <text class="kanten-text" x="45" y="35"> T </text>
-          <text class="kanten-text" x="82" y="48"> X </text>
-          <text class="kanten-text" x="43" y="68"> P </text>
-          <text class="kanten-text" x="105" y="52"> P </text>
-          <text class="kanten-text" x="83" y="19"> X </text>
-          <text class="kanten-text" x="83" y="85"> V </text>
-          <text class="kanten-text" x="123" y="34"> S </text>
-          <text class="kanten-text" x="123" y="69"> V </text>
-          <text class="kanten-text" x="143" y="48"> E </text>
-
-          <text class="kanten-text" x="45" y="10"> S </text>
-          <text class="kanten-text" x="45" y="93"> T </text>
-
-          
-
-    </svg>
-
-
-    </main>
+                          <text id="letter2-2" class="kanten-text" x="45" y="10"> S </text>
+                          <text id="letter3-3" class="kanten-text" x="45" y="93"> T </text>
 
 
 
+      </svg>
 
-    <script src="js/main.js"></script>
+      
+
+    </div>
+
+
+    <div class="container_function">
+
+
+      <div>
+        <label for="gen_but">Zufallswort generieren:</label>
+        <button id="gen_but" onclick="generateRandomWord()">Generieren</button>
+
+      </div>
+
+
+      <div class="zeichenketten">
+
+        <form onsubmit="return false">
+          <label for="fname">Zeichenkette eingeben:</label>
+            <input type="text|submit" id="word_input" name="fname" oninput="value = value.toUpperCase()"></input>
+            <button id="isCorrekt" onclick="inputReady()">OK</button>
+
+        </form>
+
+
+        <span class="wortFeld" type="text" id="gen_tex">Zeichenkette...</span>
+
+      </div>
+
+      <div class="container_control">
+        
+        <button onclick="checkWord(true)">Start / Wiederholen</button>
+        <button onclick="pause()">Stop</button>
+        <button onclick="checkWord(false)">Schrittweise</button>
+        <button onClick="history.go(0);">Eingabe_Zurücksetzen</button>
+    
+        <div class="slidecontainer">
+          <p>Geschwindigkeit</p>
+          <input type="range" min="1" max="100" value="80" class="slider" id="myRange" oninput="setSpeed(value)">
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+
+
+
+  <script src="js/main.js"></script>
 </body>
+
 </html>
