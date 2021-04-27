@@ -147,10 +147,10 @@ nav ul li ul li {
 }
 .deaSim_main {
   display: flex;
-  justify-content: center;
-  width: 95vw;
-  margin: 60px auto;
-  color: white;
+  justify-content: space-evenly;
+  margin: 0px auto;
+  margin-top: 80px;
+  color: rgb(255, 255, 255);
 }
 /* --------------------   AboutSection!   --------------------- */
 
@@ -339,11 +339,7 @@ nav ul li ul li {
 
   /* --------------------   DEA-SIM   --------------------- */
 
-   
-.deaSim_main {
-  margin: 120px auto;
-  display: flex;
-}
+
   .deaSim_nav{
     position: fixed;
     top: 0;
@@ -369,11 +365,12 @@ nav ul li ul li {
     border: 2px solid rgb(0, 0, 0);
     padding: 1px 5px;
     height: 460px;
+    color: black;
   }
 
   .dea_table_container thead tr th {
-    padding: 0 10px;
-    background-color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    background-color: rgba(174, 116, 44, 0.809);
   }
 
   .dea_table_container tbody tr td{
@@ -383,7 +380,6 @@ nav ul li ul li {
   /*------------------------Text links--------------------------*/
 
   .textmainlinks {
-    min-width: 300px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -394,12 +390,10 @@ nav ul li ul li {
     font-size: 15px;
     letter-spacing: 0.1rem;
     line-height: 1.7rem;
-    margin-bottom: 30px;
-    padding-left: 10px;
   }
 
   .container_function {
-    background-color: rgb(69, 69, 69);
+    background-color: rgb(125, 125, 125);
     max-width: 300px;
     border-radius: 5px;
     padding: 15px 5px;
@@ -439,8 +433,10 @@ nav ul li ul li {
   }
 
   .wortFeld {
-    background-color: rgb(30, 28, 28);
-    color: rgb(186, 186, 186);
+    background-color: rgb(255, 161, 47);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: rgb(72, 72, 72);
     padding: 10px;
     margin: 30px 0 0 0;
     display: block;
@@ -452,12 +448,13 @@ nav ul li ul li {
 
   .conatiner_gr {
     margin: 0 20px;
+    align-self: center;
   }
 
   svg {
-    width: 1000px;
+    height: 600px;
+    width: 800px;
     border: rgb(255, 161, 47) solid;
-    margin: 60px 20px;
     border-radius: 5px;
   }
 

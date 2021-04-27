@@ -11,9 +11,9 @@ var minLength = 5;
 
 //Variablen für das Aussehen
 var activeColor = 'rgb(255, 161, 47)';
-var edgeColor = 'grey';
+var edgeColor = 'lightgrey';
 var nodeColor = 'white';
-var tableColor = 'gray';
+var tableColor = 'lightgrey';
 var faildColor = 'red';
 var successColor = 'lightgreen';
 
@@ -465,4 +465,5 @@ class Knoten {
 }
 
 initProgram();
+
 
