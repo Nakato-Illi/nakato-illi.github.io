@@ -364,12 +364,13 @@ nav ul li ul li {
   .dea_table_container {
     border: 2px solid rgb(0, 0, 0);
     padding: 1px 5px;
-    height: 460px;
+    margin-top: 10px;
+    height: 420px;
     color: black;
   }
 
   .dea_table_container thead tr th {
-    padding: 10px 10px;
+    padding: 5px 5px;
     background-color: rgba(174, 116, 44, 0.809);
   }
 
@@ -395,6 +396,7 @@ nav ul li ul li {
   .container_function {
     background-color: rgb(125, 125, 125);
     max-width: 300px;
+    max-height: 620px;
     border-radius: 5px;
     padding: 15px 5px;
     font-size: 18px;
@@ -407,6 +409,7 @@ nav ul li ul li {
     margin: 8px 0;
     width: 157px;
     font-size: large;
+    border: 0;
   }
   .container_function #gen_but:hover {
     background-color: rgb(255, 161, 47);
@@ -426,6 +429,7 @@ nav ul li ul li {
 
   .zeichenketten button {
     padding: 8px;
+    border: 0;
   }
   .zeichenketten button:hover {
     background-color: rgb(255, 161, 47);
@@ -436,10 +440,11 @@ nav ul li ul li {
     background-color: rgb(255, 161, 47);
     font-size: 22px;
     letter-spacing: 3px;
-    color: rgb(72, 72, 72);
+    color: rgba(72, 72, 72, 0.463);
     padding: 10px;
     margin: 30px 0 0 0;
     display: block;
+    overflow:auto;
   }
 
 
@@ -505,6 +510,7 @@ nav ul li ul li {
   padding: 10px 0;
   margin: 10px 0;
   font-size: 18px;
+  border: 0;
 }
 .container_control button:hover {
   background-color:rgb(255, 161, 47);
