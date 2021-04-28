@@ -412,7 +412,7 @@ nav ul li ul li {
     border: 0;
   }
   .container_function #gen_but:hover {
-    background-color: rgb(255, 161, 47);
+    background-color: rgb(255, 196, 124);
     transition: 0.2s;
   }
 
@@ -432,7 +432,7 @@ nav ul li ul li {
     border: 0;
   }
   .zeichenketten button:hover {
-    background-color: rgb(255, 161, 47);
+    background-color: rgb(253, 192, 116);
     transition: 0.2s;
   }
 
@@ -513,7 +513,7 @@ nav ul li ul li {
   border: 0;
 }
 .container_control button:hover {
-  background-color:rgb(255, 161, 47);
+  background-color:rgb(255, 193, 117);
 }
 
 .slidecontainer{
