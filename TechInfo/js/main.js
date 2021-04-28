@@ -1,5 +1,12 @@
+var hintWord = "Prüfungsfeld";
 var genButton = document.getElementById('gen_but');
 var genText = document.getElementById('gen_tex');
+var textbox = document.getElementById('gen_tex');
+var editWordText = document.getElementById('in_gen_tex');
+var editOK = document.getElementById('edit_ok');
+var inputOK = document.getElementById('isCorrekt');
+editWord(false);
+var editText = document.getElementById('wortandern');
 var inputAlphabet = document.getElementById('eingabe');
 var tBody = document.getElementById('tBody');
 var result = document.getElementById('result_bool');
@@ -22,7 +29,8 @@ var wordToCheck;
 var originWord;
 var index = 0; //Index des Buchstaben in der Zeichenkette, die geprüft wird.
 var auto = true; //gibt an, ob die Überprüfung automatisch oder manuell ablaufen soll.
-var inAction = false; //gibt an, ob gerade überprüft wird.
+var inAction = false;
+manageClickability(false); //gibt an, ob gerade überprüft wird.
 var playEndAnim = false;
 var prev;
 var activeNode;
@@ -38,6 +46,7 @@ var isEdge = false;
  * 
  */
 function generateRandomWord() {
+    editWord(false);
     let length = getRandomNumber(minLength, maxLength - minLength);
     let middle = kanten.filter((k) => !k.isStart() && !k.isEnd());
     let previous = kanten.find((kante) => kante.isStart());
@@ -91,6 +100,7 @@ function reset() {
 function checkWord(isauto) {
     if(!inAction){
         inAction = true;
+        manageClickability(true);
         reset();
     } 
     auto = isauto;
@@ -155,6 +165,7 @@ function isLetterCorrect() {
 function finishCheck(success) {
     //console.log('finiche-----------------------',success);
     inAction = false;
+    manageClickability(false);
     playEndAnim = true;
     endAnimation(10,success);
     if(success){
@@ -227,14 +238,42 @@ function isWordCorrect(word) {
     return res;
 }
 
+function manageClickability(status){
+    editText.disabled = status;
+    inputWord.disabled = status;
+    genButton.disabled = status;
+    inputOK.disabled = status;
+}
+
+function editWord(edit){
+    edit && (editWordText.value = originWord || genText.innerHTML);
+    !edit && editWordText.value && (genText.innerHTML = editWordText.value);
+    // !edit && (genText.innerHTML = editWordText.value || hintWord);
+    editWordText.style.display = edit?'block':'none';
+    editOK.style.display = edit?'block':'none';
+    genText.style.display =  edit?'none':'block';
+
+    edit && editWordText.focus();
+    // !edit && (editWordText.value = '');
+     !edit && (originWord = null);
+
+    // textbox.appendChild(editWordText);
+    // textbox.removeChild(textbox.firstChild);
+    // textbox.appendChild(genText);
+    
+    // editWordText.value = originWord || genText.innerHTML;
+}
+
 /**
  * accepts the manually input word to be checked
  * and displays it. 
  */
 function inputReady(){
+    editWord(false);
     if(inputWord.value)genText.innerHTML = inputWord.value;
+    originWord = inputWord.value;
     inputWord.value = '';
-    originWord = null;
+    
     playEndAnim = false;
 }
 

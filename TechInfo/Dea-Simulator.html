@@ -292,13 +292,18 @@
 
         <form onsubmit="return false">
           <label for="fname">Zeichenkette eingeben:</label>
-            <input type="text|submit" id="word_input" name="fname" oninput="value = value.toUpperCase()"></input>
+            <input background type="text|submit" id="word_input" name="fname" oninput="value = value.toUpperCase()"></input>
             <button id="isCorrekt" onclick="inputReady()">OK</button>
 
         </form>
 
 
+      <div id="text_box">
         <span class="wortFeld" type="text" id="gen_tex">Prüfungsfeld</span>
+        <input class="wortFeld2" type="text" id="in_gen_tex" oninput="value = value.toUpperCase()"></input>  
+        <button id="edit_ok" onclick="editWord(false)">OK</button>
+      </div>
+      <button id="wortandern" onclick="editWord(true)">Eingabe bearbeiten</button>
 
       </div>
 
