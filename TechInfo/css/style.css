@@ -147,7 +147,7 @@ nav ul li ul li {
 }
 .deaSim_main {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   margin: 0px auto;
   margin-top: 80px;
   color: rgb(255, 255, 255);
@@ -518,6 +518,7 @@ nav ul li ul li {
   }
 
   svg {
+    display: flex;
     height: 600px;
     width: 800px;
     border: rgb(255, 161, 47) solid;
