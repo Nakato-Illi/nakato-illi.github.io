@@ -5,7 +5,10 @@ var textbox = document.getElementById('gen_tex');
 var editWordText = document.getElementById('in_gen_tex');
 var editOK = document.getElementById('edit_ok');
 var inputOK = document.getElementById('isCorrekt');
-editWord(false);
+var start = document.getElementById('start');
+var stopp = document.getElementById('stop');
+var step = document.getElementById('step');
+// editWord(false);
 var editText = document.getElementById('wortandern');
 var inputAlphabet = document.getElementById('eingabe');
 var tBody = document.getElementById('tBody');
@@ -46,6 +49,7 @@ var isEdge = false;
  * 
  */
 function generateRandomWord() {
+    
     editWord(false);
     let length = getRandomNumber(minLength, maxLength - minLength);
     let middle = kanten.filter((k) => !k.isStart() && !k.isEnd());
@@ -75,6 +79,7 @@ function generateRandomWord() {
     genText.innerHTML = resultWord;
     //isWordCorrect(resultWord);
     console.log(resultWord[3]);
+    manageStates();
 
 }
 
@@ -98,12 +103,14 @@ function reset() {
  * @param isauto wether to continue the word-checking automatically or manually.
  */
 function checkWord(isauto) {
+    if(genText.innerHTML === hintWord) return;
     if(!inAction){
         inAction = true;
         manageClickability(true);
         reset();
     } 
     auto = isauto;
+    manageStates();
     isLetterCorrect();
 }
 
@@ -152,7 +159,8 @@ function isLetterCorrect() {
         }, speed);
 
     } else {
-        finishCheck(wordToCheck.length == index?true:false);
+        let end = prev && prev.isEnd();
+        finishCheck(wordToCheck.length == index&&end?true:false);
         console.log('finiche-----------------------',wordToCheck.length,' ', index,' ', edge,' ', prev,wordToCheck);
     }
 
@@ -165,6 +173,7 @@ function isLetterCorrect() {
 function finishCheck(success) {
     //console.log('finiche-----------------------',success);
     inAction = false;
+    manageStates();
     manageClickability(false);
     playEndAnim = true;
     endAnimation(10,success);
@@ -245,6 +254,15 @@ function manageClickability(status){
     inputOK.disabled = status;
 }
 
+function manageStates(){
+    console.log('manageStates: ', genText.innerHTML);
+    let s = genText.innerHTML === hintWord;
+    start.disabled = s||inAction?true:false;
+    step.disabled = s?true:false;
+    stopp.disabled = inAction&&auto?false:true;
+    editText.disabled = s||inAction?true:false;
+}
+
 function editWord(edit){
     edit && (editWordText.value = originWord || genText.innerHTML);
     !edit && editWordText.value && (genText.innerHTML = editWordText.value);
@@ -269,12 +287,15 @@ function editWord(edit){
  * and displays it. 
  */
 function inputReady(){
+    if(!inputWord.value) return;
+    
     editWord(false);
     if(inputWord.value)genText.innerHTML = inputWord.value;
     originWord = inputWord.value;
     inputWord.value = '';
     
     playEndAnim = false;
+    manageStates();
 }
 
 /**
@@ -332,6 +353,9 @@ function initProgram() {
     });
     inputAlphabet.innerHTML = alphabet.substring(2);
     initColors();
+    manageStates();
+    editWord(false);
+
     //console.log('kanten: ',kanten);
 }
 
