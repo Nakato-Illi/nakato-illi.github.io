@@ -32,13 +32,50 @@
 
       <p class="rgParameter">
         5-Tupel RG = (Q, &sum;, &part;, S, F) <br>
-        Q = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
-        &sum; = <span id="eingabe"></span> <br>
-        S = q0
+        
+        <span class="dropdown">
+          <button class="dropbtn">Q</button>
+          <span class="dropdown-content">
+            <span>Q ist die Zustandsmenge</span>
+          </span>
+        </span>
+        
+         = { q0, q1, q2, q3, q4, q5, q6, q7 } <br>
+
+         <span class="dropdown">
+          <button class="dropbtn">&sum;</button>
+          <span class="dropdown-content">
+            <span>&sum; ist das Eingabealphabet</span>
+          </span>
+        </span>
+
+         = <span id="eingabe"></span> <br>
+         
+         <span class="dropdown">
+          <button class="dropbtn">S</button>
+          <span class="dropdown-content">
+            <span>S sthet für den Startzustand</span>
+          </span>
+        </span>
+        = q0
         <br>
-        F = { q7 }
+        
+        <span class="dropdown">
+          <button class="dropbtn">F</button>
+          <span class="dropdown-content">
+            <span>F steht für die Menge der Endzustände</span>
+          </span>
+        </span>
+         = { q7 }
         <br>
-        &part;: Q x &sum; &#8594; Q
+
+        <span class="dropdown">
+          <button class="dropbtn">&part;</button>
+          <span class="dropdown-content">
+            <span>&part; beschreibt die Zustandsüberführungsfunktion</span>
+          </span>
+        </span>
+        : Q x &sum; &#8594; Q<sup>?</sup>
       </p>
 
       <table class="dea_table_container">
@@ -51,64 +88,6 @@
           </tr>
         </thead>
         <tbody id="tBody">
-          <!-- <tr id="tr1">
-            
-          </tr>
-          <tr id="tr2">
-            <td>q1</td>
-            <td>P</td>
-            <td>q3</td>
-          </tr>
-          <tr id="tr3">
-            <td>q1</td>
-            <td>T</td>
-            <td>q2</td>
-          </tr>
-          <tr id="tr4">
-            <td>q2</td>
-            <td>S</td>
-            <td>q2</td>
-          </tr>
-          <tr id="tr5">
-            <td>q2</td>
-            <td>X</td>
-            <td>q4</td>
-          </tr>
-          <tr id="tr6">
-            <td>q3</td>
-            <td>T</td>
-            <td>q3</td>
-          </tr>
-          <tr id="tr7">
-            <td>q3</td>
-            <td>V</td>
-            <td>q5</td>
-          </tr>
-          <tr id="tr8">
-            <td>q4</td>
-            <td>S</td>
-            <td>q6</td>
-          </tr>
-          <tr id="tr9">
-            <td>q4</td>
-            <td>X</td>
-            <td>q3</td>
-          </tr>
-          <tr id="tr10">
-            <td>q5</td>
-            <td>P</td>
-            <td>q4</td>
-          </tr>
-          <tr id="tr11">
-            <td>q5</td>
-            <td>V</td>
-            <td>q6</td>
-          </tr>
-          <tr id="tr12">
-              <td>q6</td>
-              <td>E</td>
-              <td>q7</td>
-          </tr>-->
         </tbody>
       </table>
 
@@ -281,7 +260,9 @@
 
 
       <div>
-        <label for="gen_but">Zufallswort generieren:</label>
+        <label for="gen_but">
+          Zufallswort generieren:
+        </label>
         <button id="gen_but" onclick="generateRandomWord()">Generieren</button>
 
       </div>

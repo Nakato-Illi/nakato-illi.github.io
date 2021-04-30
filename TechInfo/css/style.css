@@ -372,6 +372,7 @@ nav ul li ul li {
   .dea_table_container thead tr th {
     padding: 5px 5px;
     background-color: rgba(174, 116, 44, 0.809);
+    color: #f1f1f1;
   }
 
   .dea_table_container tbody tr td{
@@ -471,7 +472,42 @@ nav ul li ul li {
     margin-top: 15px;
     margin-left: 5px;
   }
+
+  /* --------------------   Info dropdown  --------------------- */
   
+  /* Style The Dropdown Button */
+.dropbtn {
+  background-color: #80808066;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0 5px;
+  font-size: 16px;
+  min-width: 30px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0086bf;
+  padding: 0 13px;
+  z-index: 1;
+  margin-left: 3px;
+  width: max-content;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: inline;
+}
+
 
    /* --------------------   SVG Design  --------------------- */
 
