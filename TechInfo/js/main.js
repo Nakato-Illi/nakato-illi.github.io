@@ -1,14 +1,12 @@
 var hintWord = "Prüfungsfeld";
-var genButton = document.getElementById('gen_but');
+var genCorrectButton = document.getElementById('gen_but_corr');
+var genWrongButton = document.getElementById('gen_but_wrong');
 var genText = document.getElementById('gen_tex');
-var textbox = document.getElementById('gen_tex');
-var editWordText = document.getElementById('in_gen_tex');
 var editOK = document.getElementById('edit_ok');
 var inputOK = document.getElementById('isCorrekt');
 var start = document.getElementById('start');
 var stopp = document.getElementById('stop');
 var step = document.getElementById('step');
-// editWord(false);
 var editText = document.getElementById('wortandern');
 var inputAlphabet = document.getElementById('eingabe');
 var tBody = document.getElementById('tBody');
@@ -16,7 +14,7 @@ var result = document.getElementById('result_bool');
 var inputWord = document.getElementById('word_input');
 var kanten = [];
 var knoten = [];
-var maxLength = 20;
+var maxLength = 10;
 var minLength = 5;
 
 //Variablen für das Aussehen
@@ -26,6 +24,8 @@ var nodeColor = 'white';
 var tableColor = 'lightgrey';
 var faildColor = 'red';
 var successColor = 'lightgreen';
+var startIndicator = '->';
+var endIndicator = '*';
 
 //Variablen für die Überprüfung
 var wordToCheck;
@@ -48,38 +48,66 @@ var isEdge = false;
  * 
  * 
  */
-function generateRandomWord() {
-    
-    editWord(false);
-    let length = getRandomNumber(minLength, maxLength - minLength);
-    let middle = kanten.filter((k) => !k.isStart() && !k.isEnd());
+function generateRandomRightWord() {
     let previous = kanten.find((kante) => kante.isStart());
     let resultWord = previous.getKantenName();
     playEndAnim = false;
+    originWord && (genText.innerHTML = originWord);
     originWord = null;
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; true; i++) {
         let poss = getNextPossible(previous, kanten);
         if (!poss || poss.length === 0) break;
-        if (i === length - 2) {
-            let last = kanten.filter((k) => k.getEndPos() === "6");
-            resultWord += last[getRandomNumber(0, last.length - 1)].getKantenName();
-            continue;
-        } else if (i === length - 1) {
-            resultWord += kanten.find((kante) => kante.isEnd()).getKantenName();
-            break;
-        }
+        previous = poss[getRandomNumber(0, poss.length - 1)]
+        resultWord += previous.getKantenName();
+    }
+    console.log('1 generateRandomRightWord: ',resultWord, originWord, genText.innerHTML);
+    if(resultWord === genText.innerHTML) {
+        console.log('2 generateRandomRightWord: ',resultWord, originWord, genText.innerHTML);
+        generateRandomRightWord();
+    }
+    else {
+        genText.innerHTML = resultWord;
+    console.log(resultWord[3]);
+    isWordCorrect();
+    manageStates();
+    }
+    
+}
+
+/**
+ * generates a random word using the inputAlphabet with a random length 
+ * between @var minLength and @var maxLength
+ * 
+ * 
+ */
+ function generateRandomWrongWord() {
+    
+    let length = getRandomNumber(minLength, maxLength - minLength);
+    let previous = kanten.find((kante) => kante.isStart());
+    let resultWord = previous.getKantenName();
+    playEndAnim = false;
+    originWord && (genText.innerHTML = originWord);
+    originWord = null;
+    for (let i = 0; i < length; i++) {
         let r = getRandomNumber(0,10);
-        console.log('rand: ',r, length);
-        previous = r<10?poss[getRandomNumber(0, poss.length - 1)]:
-                        middle[getRandomNumber(0, middle.length - 1)];
-        //console.log(i,' poss:  ',poss, ' prev: ',previous);
+        // console.log('rand: ',r, length);
+        previous = kanten[getRandomNumber(0, kanten.length - 1)];
         resultWord += previous.getKantenName();
     }
 
-    genText.innerHTML = resultWord;
+    console.log('1 generateRandomWrongWord: ',resultWord, originWord, genText.innerHTML);
+    if((resultWord === genText.innerHTML) || isWordCorrect(resultWord)) {
+        console.log('2 generateRandomWrongWord: ',resultWord, originWord, genText.innerHTML);
+        generateRandomWrongWord();
+    }
+    else {
+         genText.innerHTML = resultWord;
     //isWordCorrect(resultWord);
     console.log(resultWord[3]);
+    isWordCorrect();
     manageStates();
+    }
+   
 
 }
 
@@ -104,6 +132,7 @@ function reset() {
  */
 function checkWord(isauto) {
     if(genText.innerHTML === hintWord) return;
+    inputWord.value = '';
     if(!inAction){
         inAction = true;
         manageClickability(true);
@@ -218,8 +247,10 @@ function changeLetterColor(color){
  * @param word the word to be checked.
  * @returns if word is correct or not.
  */
-function isWordCorrect(word) {
+function isWordCorrect(w) {
     let res = true;
+    
+    word = w || originWord || genText.innerHTML;
     if (word.length < 5) res = false;
     let last = kanten.filter((k) => k.getEndPos() === "6");
 
@@ -243,19 +274,26 @@ function isWordCorrect(word) {
             if (!l) { res = false; break; }
         }
     }
-    result.innerHTML = res ? 'richtig' : 'falsch';
+    if(!w){
+        inputWord.value = '';
+        result.style.color = res ? successColor : faildColor;
+        result.style.fontSize = '20px';
+        result.style.padding = '5px';
+        result.innerHTML = res ? 'richtig' : 'falsch';
+    }
     return res;
 }
 
 function manageClickability(status){
     editText.disabled = status;
     inputWord.disabled = status;
-    genButton.disabled = status;
+    genCorrectButton.disabled = status;
+    genWrongButton.disabled = status;
     inputOK.disabled = status;
 }
 
 function manageStates(){
-    console.log('manageStates: ', genText.innerHTML);
+    // console.log('manageStates: ', genText.innerHTML);
     let s = genText.innerHTML === hintWord;
     start.disabled = s||inAction?true:false;
     step.disabled = s?true:false;
@@ -263,23 +301,9 @@ function manageStates(){
     editText.disabled = s||inAction?true:false;
 }
 
-function editWord(edit){
-    edit && (editWordText.value = originWord || genText.innerHTML);
-    !edit && editWordText.value && (genText.innerHTML = editWordText.value);
-    // !edit && (genText.innerHTML = editWordText.value || hintWord);
-    editWordText.style.display = edit?'block':'none';
-    editOK.style.display = edit?'block':'none';
-    genText.style.display =  edit?'none':'block';
-
-    edit && editWordText.focus();
-    // !edit && (editWordText.value = '');
-     !edit && (originWord = null);
-
-    // textbox.appendChild(editWordText);
-    // textbox.removeChild(textbox.firstChild);
-    // textbox.appendChild(genText);
-    
-    // editWordText.value = originWord || genText.innerHTML;
+function editWord(){
+    inputWord.value = originWord || genText.innerHTML;
+    inputWord.focus();
 }
 
 /**
@@ -289,12 +313,12 @@ function editWord(edit){
 function inputReady(){
     if(!inputWord.value) return;
     
-    editWord(false);
     if(inputWord.value)genText.innerHTML = inputWord.value;
     originWord = inputWord.value;
     inputWord.value = '';
     
     playEndAnim = false;
+    isWordCorrect();
     manageStates();
 }
 
@@ -354,7 +378,6 @@ function initProgram() {
     inputAlphabet.innerHTML = alphabet.substring(2);
     initColors();
     manageStates();
-    editWord(false);
 
     //console.log('kanten: ',kanten);
 }
@@ -405,9 +428,11 @@ class Kante {
     svgRef;
     constructor(row) {
         this.row = row;
-        this.start = row.childNodes[0].innerHTML;
+        this.start = new String(row.childNodes[0].innerHTML);
         this.kante = row.childNodes[1].innerHTML;
-        this.end = row.childNodes[2].innerHTML;
+        this.end = new String(row.childNodes[2].innerHTML);
+        this.isStart() && (row.childNodes[0].innerHTML = startIndicator+' '+ this.start);
+        this.isEnd() && (row.childNodes[2].innerHTML = this.end+' '+endIndicator);
         let from = this.start.substring(1);
         let to = this.end.substring(1);
         this.svgRef = {

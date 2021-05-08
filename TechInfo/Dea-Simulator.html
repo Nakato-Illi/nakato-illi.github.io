@@ -156,70 +156,70 @@
           markerUnits="strokeWidth">
           <path d="M0,0 L0,4 L3,2 z" />
         </marker>
-        <line id="arrow_0-1" class="kanten-body" stroke="green" x1="15" y1="50" x2="32" y2="50"
+        <line id="arrow_0-1" class="kanten-body" stroke="green" x1="15" y1="50" x2="33.2" y2="50"
           marker-end="url(#arrow0-1)" />
 
         <marker id="arrow1-2" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
           markerUnits="strokeWidth">
           <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line id="arrow_1-2" class="kanten-body" stroke="green" x1="43" y1="45" x2="55" y2="26"
+          <line id="arrow_1-2" class="kanten-body" stroke="green" x1="43" y1="46" x2="56" y2="26"
             marker-end="url(#arrow1-2)" />
 
           <marker id="arrow1-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
             markerUnits="strokeWidth">
             <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line id="arrow_1-3" class="kanten-body" stroke="green" x1="42" y1="56" x2="53" y2="75"
+          <line id="arrow_1-3" class="kanten-body" stroke="green" x1="43" y1="54" x2="55" y2="75"
               marker-end="url(#arrow1-3)" />
 
             <marker id="arrow2-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
               markerUnits="strokeWidth">
               <path d="M0,0 L0,4 L3,2 z"  />
           </marker>
-          <line id="arrow_2-4" class="kanten-body" stroke="green" x1="65" y1="20" x2="102" y2="20"
+          <line id="arrow_2-4" class="kanten-body" stroke="green" x1="65" y1="20" x2="103" y2="20"
                 marker-end="url(#arrow2-4)" />
 
               <marker id="arrow3-5" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
                 markerUnits="strokeWidth">
                 <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_3-5" class="kanten-body" stroke="green" x1="65" y1="80" x2="102" y2="80"
+          <line id="arrow_3-5" class="kanten-body" stroke="green" x1="65" y1="80" x2="103" y2="80"
                   marker-end="url(#arrow3-5)" />
 
                 <marker id="arrow4-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
                   markerUnits="strokeWidth">
                   <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_4-3" class="kanten-body" stroke="green" x1="106" y1="25" x2="65" y2="74"
+          <line id="arrow_4-3" class="kanten-body" stroke="green" x1="107" y1="24" x2="65" y2="75"
                     marker-end="url(#arrow4-3)" />
 
                   <marker id="arrow4-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
                     orient="auto" markerUnits="strokeWidth">
                     <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_4-6" class="kanten-body" stroke="green" x1="115" y1="23" x2="127" y2="42"
+          <line id="arrow_4-6" class="kanten-body" stroke="green" x1="113" y1="24" x2="126" y2="44"
                       marker-end="url(#arrow4-6)" />
 
                     <marker id="arrow5-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
                       orient="auto" markerUnits="strokeWidth">
                       <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_5-4" class="kanten-body" stroke="green" x1="110" y1="74" x2="110" y2="28"
+          <line id="arrow_5-4" class="kanten-body" stroke="green" x1="110" y1="75" x2="110" y2="27"
                         marker-end="url(#arrow5-4)" />
 
                       <marker id="arrow5-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
                         orient="auto" markerUnits="strokeWidth">
                         <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_5-6" class="kanten-body" stroke="green" x1="116" y1="78" x2="127" y2="57"
+          <line id="arrow_5-6" class="kanten-body" stroke="green" x1="113" y1="76" x2="125.5" y2="55.5"
                           marker-end="url(#arrow5-6)" />
 
                         <marker id="arrow6-7" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
                           orient="auto" markerUnits="strokeWidth">
                           <path d="M0,0 L0,4 L3,2 z" />
           </marker>
-          <line id="arrow_6-7" class="kanten-body" stroke="green" x1="135" y1="50" x2="152" y2="50"
+          <line id="arrow_6-7" class="kanten-body" stroke="green" x1="135" y1="50" x2="153" y2="50"
                             marker-end="url(#arrow6-7)" />
 
                           <!-- KNOTEN-BEZEICHNUNG  -->
@@ -263,8 +263,11 @@
         <label for="gen_but">
           Zufallswort generieren:
         </label>
-        <button id="gen_but" onclick="generateRandomWord()">Generieren</button>
-
+        <div class="gen_but_zufall">
+          <button id="gen_but_corr" onclick="generateRandomRightWord()">Korrektes Wort</button>
+          <button id="gen_but_wrong" onclick="generateRandomWrongWord()">Falsches Wort</button>
+          
+        </div>
       </div>
 
 
@@ -278,14 +281,14 @@
 
         </form>
 
-
-      <div id="text_box">
+        <span type="text" >Wort ist: </span> <span type="text" id="result_bool"></span>
+      <!-- <div id="text_box"> -->
         <span class="wortFeld" type="text" id="gen_tex">Prüfungsfeld</span>
-        <input class="wortFeld2" type="text" id="in_gen_tex" oninput="value = value.toUpperCase()"></input>  
+        <!-- <input class="wortFeld2" type="text" id="in_gen_tex" oninput="value = value.toUpperCase()"></input>  
         <button id="edit_ok" onclick="editWord(false)">OK</button>
-      </div>
-      <button id="wortandern" onclick="editWord(true)">Eingabe bearbeiten</button>
-
+      </div> -->
+      <button id="wortandern" onclick="editWord()">Eingabe bearbeiten</button>
+      
       </div>
 
       <div class="container_control">

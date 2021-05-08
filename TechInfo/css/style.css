@@ -396,7 +396,7 @@ nav ul li ul li {
 
   .container_function {
     background-color: rgb(125, 125, 125);
-    max-width: 300px;
+    max-width: 280px;
     max-height: 620px;
     border-radius: 5px;
     padding: 15px 5px;
@@ -404,22 +404,24 @@ nav ul li ul li {
     letter-spacing: 1.2px;
   }
 
-  .container_function #gen_but{
-    display: block;
+  .container_function #gen_but_wrong,
+  .container_function #gen_but_corr {
     padding: 4px;
-    margin: 8px 0;
-    width: 157px;
+    margin: 6px 0 30px 0;
+    width: 130px;
     font-size: large;
     border: 0;
   }
-  .container_function #gen_but:hover {
+  .container_function #gen_but_wrong:hover,
+  .container_function #gen_but_corr:hover {
     background-color: rgb(255, 196, 124);
     transition: 0.2s;
   }
 
   .zeichenketten input {
+    width: 77%;
     padding: 6px;
-    margin: 8px 0;
+    margin: 4px 0 40px 0;
     cursor: text;
     border: 4px solid rgba(144, 238, 144, 0);
   }
@@ -429,7 +431,8 @@ nav ul li ul li {
 
 
   .zeichenketten button {
-    padding: 8px;
+    position: relative;
+    padding: 10px;
     border: 0;
   }
   .zeichenketten button:hover {
@@ -437,15 +440,21 @@ nav ul li ul li {
     transition: 0.2s;
   }
 
+  #result_bool{
+    background-color: #051014c9;
+    border-radius: 5%;
+    
+    
+  }
+
   .wortFeld {
     background-color: rgb(255, 161, 47);
     font-size: 22px;
     letter-spacing: 3px;
-    height: 50px;
     color: rgba(72, 72, 72, 0.463);
-    padding: 10px;
+    padding: 8px;
     margin: 10px 0 0 0;
-    width: 100%;
+    display: block;
     overflow:auto;
   }
   
@@ -565,12 +574,12 @@ nav ul li ul li {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .container_control button {
-  padding: 10px 0;
-  margin: 10px 0;
+  padding: 5px 0;
+  margin: 3px 0;
   font-size: 18px;
   border: 0;
 }
