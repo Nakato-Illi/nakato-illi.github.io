@@ -90,8 +90,9 @@ function generateRandomRightWord() {
     originWord = null;
     for (let i = 0; i < length; i++) {
         let r = getRandomNumber(0,10);
+        let poss = getNextPossible(previous, kanten);
         // console.log('rand: ',r, length);
-        previous = kanten[getRandomNumber(0, kanten.length - 1)];
+        previous = r<5?poss.length>0?poss[getRandomNumber(0, poss.length - 1)]:kanten[getRandomNumber(0, kanten.length - 1)]:kanten[getRandomNumber(0, kanten.length - 1)];
         resultWord += previous.getKantenName();
     }
 
@@ -428,13 +429,14 @@ class Kante {
     svgRef;
     constructor(row) {
         this.row = row;
-        this.start = new String(row.childNodes[0].innerHTML);
+        this.start = row.childNodes[0].innerHTML;
         this.kante = row.childNodes[1].innerHTML;
-        this.end = new String(row.childNodes[2].innerHTML);
-        this.isStart() && (row.childNodes[0].innerHTML = startIndicator+' '+ this.start);
-        this.isEnd() && (row.childNodes[2].innerHTML = this.end+' '+endIndicator);
+        this.end = row.childNodes[2].innerHTML;
+       
         let from = this.start.substring(1);
         let to = this.end.substring(1);
+        this.isStart() && (row.childNodes[0].innerHTML = startIndicator+' '+ this.start);
+        this.isEnd() && (row.childNodes[2].innerHTML = this.end+' '+endIndicator);
         this.svgRef = {
             arrow: document.getElementById('arrow' + from + '-' + to),
             arrow2: document.getElementById('arrow_' + from + '-' + to),
