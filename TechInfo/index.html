@@ -79,9 +79,6 @@
             <div class="pro1">
                 <p class="proP">Projektaufgabe P1: DEA</p>
                 <p>
-                    Simulation des Reber Grammar (RG) als Dterministisch Endlichen Automaten
-                </p>
-                <p>
                     Abgabe: Montag, 10. Mai 2021, 80:00Uhr
                 </p>
                 <a href="#dea_aufgabe">Aufgabe</a>
@@ -90,8 +87,6 @@
 
             <div class="pro2">
                 <p class="proP">Projektaufgabe P2: Grammatik</p>
-                Erzeugung von zufälligen arithmetischen Ausdr&uuml;cken mithilfe einer Grammatik.
-                </p>
                 <p>
                     Abgabe: Montag, 31. Mai 2021, 80:00Uhr
                 </p>
@@ -102,9 +97,6 @@
             <div class="pro3">
                 <p class="proP">Projektaufgabe P3: Kellerautomat</p>
                 <p>
-                    Pr&uuml;fung eines Ausdrucks aus der Grammatik aus P2 durch einen Kellerautomaten.
-                </p>
-                <p>
                     Abgabe: Montag, 21. Juni 2021, 80:00Uhr
                 </p>
                 <a href="#ka_aufgabe">Aufgabenstellung</a>
@@ -113,9 +105,6 @@
 
             <div class="pro4">
                 <p class="proP">Projektaufgabe P4: TM</p>
-                <p>
-                    Simulieren einer Turing Maschine (TM) die die Embedded Reber Grammar (ERG) entscheidet.
-                </p>
                 <p>
                     Abgabe: Montag, 12. Juli 2021, 80:00Uhr
                 </p>
@@ -133,21 +122,66 @@
             <div class="dea_textcontainer">
                 <div class="dealeft">
                     <h3>Was ist ein DEA</h3>
-                    <p>Some Text </p>
+                    <p>Ein 5-Tupel E = (Q,Σ, δ, q0, F) heißt deterministischer endlicher Automat (DEA)
+                        oder kurz endlicher Automat, falls gilt:<br>
+                        Q ist eine endliche nicht-leere Menge, die Zustandsmenge<br>
+                        Σ ist ein Alphabet, das Eingabealphabet<br>
+                        q0 ∈ Q ist der Startzustand<br>
+                        F ⊆ Q ist die Menge der Endzust¨ande oder der akzeptierenden Zust¨ande<br>
+                        <br>
+                    </p>
+                    <p>Deas sind Automaten, f&uuml;r die zu einem Paar aus Eingabezeichen und Zustand
+                        genau ein Folgezustand definiert ist.
+                        Die &Uuml;berf&uuml;hrungsfunktion δ /
+                        δ : Q × Σ → Q beschreibt die Zustands&uuml;berf&uuml;hrungsfunktion<br>
+                    </p>
+                    <br>
                     <h3>Aufgabenstellung</h3>
-                    <p>Somet Text</p>
+                    <p>
+                        Simulation des Reber Grammar (RG) als Dterministisch Endlichen Automaten.
+                        Stellen Sie den DEA als Tabelle und als Graph da. Die Verarbeitung der
+                        Eingabe wird schrittweise angezeigt. Schließlich wird das Endzustand und
+                        das Ergebnis (erkannt oder nicht erkannt) des Automaten dargestellt.
+                    </p>
                 </div>
 
                 <div class="deacenter">
                     <h3>Technische Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                        Das Layout der Simulationsseite ist mit CSS3 und HTML5 entwickelt worden.<br>
+                        Der Graph wurde mit SVG in der Dea-HTML-Seite erstellt. Die Funktionalitäten der Knoten und
+                        Kanten sind durch (JavaScript)Js hinzugefügt worden. Bis auf die den Tabellenkopf wurde die
+                        Tabelle Zur
+                        parallelen Darstellung des Graphen im Js erstellt.
+                        Mit Js werden auf die Buttons, das SVG, die Inputfelder, das Prüffeld und den
+                        Geschwindigkeitsregler in der Dea-HTML-Seite zugegriffen.
+                    </p>
                 </div>
 
                 <div class="dearight">
                     <h3>Fachliche Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                    <h4> BUTTON - Wörter generieren:</h4>
+                    Vom SVG-Graphen ausgehend werden richtige Pfade erstellt. Start- und Endeknoten
+                    werden fest makirt. Mit einer For loop wird, durch die zuvor im SVG makierten Knoten und Kanten des
+                    Graphen iteriert. Die Funtion "getNextPossible(previous, kanten)" ist kern der Prüfung.
+                    Sie greift auf die zu verfügung stehenden Kanten zu und mit random() wird eine ausgewählt.
+                    Bei einem falschen Wort steht zwar die makierte Startkante, jeoch werden, mit einer definierten
+                    mindest und Maximallänge der Wörter,zufällig Buchtsaben mit der Funktion " 
+                    generateRandomWrongWord()" aus den Alphabet genommen. Sollte zufällig doch ein richtiges Wort generiert
+                    werden, so wird dies aufgefangen und die funktion wiederholt.
+                    </p>
+                    <p>
+                    <h4>Eingabezeichenkette Prüfen</h4>
+                    Auch hier wird die Funktion "getNextPossible()" verwendet. in der Funktion "isLetterCorrect" wird
+                    die Eingabe
+                    im HTML-Textfeld Buchtsaben nach Buchstabe abgearbeitet. Wenn ein Buchstabe (ausgehend vom
+                    Startknoten) eine nachvolgende
+                    Kante hat, wird diese zurückgegeben - zum erneuten prüfen - und gleichzeitig mit der Funktion
+                    "setColor"
+                    grün gefärbt. Sollte ein Buchstabe vorkommen der keine Nachfolgekante hat, so wird er nur eingefärbt
+                    und die Iteration wird unterbrochen.
+                    </p>
                 </div>
             </div>
 
@@ -160,22 +194,40 @@
 
             <div class="gr_textcontainer">
                 <div class="gr_left">
-                    <h3>Was ist ein DEA</h3>
-                    <p>Some Text </p>
+                    <h3>Was ist eine Grammatik</h3>
+                    <p>Ein 4-Tupel (V,Σ,R, S) heißt heißt (kontextfreie) Grammatik falls gilt:<br>
+                        V ist eine endliche, nichtleere Menge von Variablen bzw. Nichtterminalzeichen,<br>
+                        Σ ist ein Alphabet von Terminalszeichen, V ∩Σ = ∅,<br>
+                        R = {A → w | A ∈ V, w ∈ (V ∪ Σ)∗} ist eine endliche Menge von Regeln
+                        oder Produktionen,<br>
+                        S ∈ V ist die Startvariable.<br>
+                        <br>
+                        Charakteristisch f¨ur die kontextfreien Produktionen ist, dass die linke Seite aus
+                        genau einem Nichtterminalzeichen und die rechte Seite aus einem Wort ¨uber den
+                        Terminal- oder Nichtterminalzeichen der Grammatik besteht.
+                    </p>
                     <h3>Aufgabenstellung</h3>
-                    <p>Somet Text</p>
+                    <p>
+                        Erzeugung von zufälligen arithmetischen Ausdr&uuml;cken mithilfe einer Grammatik.
+                        Die Generierung der Ausdrücke mittels der Grammatik wird schrittweise angezeigt. 
+                        Dabei soll ersichtlich sein welche Regel angewandt wird.
+                    </p>
                 </div>
 
                 <div class="gr_center">
                     <h3>Technische Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                        Das Layout der Grammatikseite ist mit CSS3 und HTML5 entwickelt worden.<br>
+                        Das main-Layout ist mit Grid erstellt worden. Die Einzelnen Eelemente der Sektionen wurden 
+                        mit der Felxbox arrangiert.
+                        Die Funktionalitäten der Buttons, des Eingabefeld und der Überführungsregeln wurden mit 
+                        js erzeugt.
+                    </p>
                 </div>
 
                 <div class="gr_right">
                     <h3>Fachliche Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p></p>
                 </div>
             </div>
 
@@ -188,10 +240,12 @@
 
             <div class="ka_textcontainer">
                 <div class="ka_left">
-                    <h3>Was ist ein DEA</h3>
+                    <h3>Was ist ein Kellerautomat</h3>
                     <p>Some Text </p>
                     <h3>Aufgabenstellung</h3>
-                    <p>Somet Text</p>
+                    <p>
+                        Pr&uuml;fung eines Ausdrucks aus der Grammatik aus P2 durch einen Kellerautomaten.
+                    </p>
                 </div>
 
                 <div class="ka_center">
@@ -216,10 +270,12 @@
 
             <div class="tm_textcontainer">
                 <div class="tm_left">
-                    <h3>Was ist ein DEA</h3>
+                    <h3>Was ist eine Turning Maschine</h3>
                     <p>Some Text </p>
                     <h3>Aufgabenstellung</h3>
-                    <p>Somet Text</p>
+                    <p>
+                        Simulieren einer Turing Maschine (TM) die die Embedded Reber Grammar (ERG) entscheidet.
+                    </p>
                 </div>
 
                 <div class="tm_center">

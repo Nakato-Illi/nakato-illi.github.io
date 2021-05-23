@@ -195,7 +195,7 @@ nav ul li ul li a:hover{
     transition: all 300ms;
   }
   .pro1:hover {
-    padding: 40px;
+    border-radius: 30%;
   }
 
   .pro2{
@@ -215,7 +215,7 @@ nav ul li ul li a:hover{
     transition: all 300ms;
   }
   .pro2:hover {
-    padding: 33px;
+    border-radius: 30%;
   }
 
   .pro3{
@@ -234,7 +234,7 @@ nav ul li ul li a:hover{
     transition: all 300ms;
   }
   .pro3:hover {
-    padding: 40px;
+    border-radius: 30%;
   }
 
   .pro4{
@@ -254,7 +254,7 @@ nav ul li ul li a:hover{
     transition: all 300ms;
   }
   .pro4:hover {
-    padding: 45px;
+    border-radius: 30%;
   }
 
 
@@ -314,6 +314,10 @@ nav ul li ul li a:hover{
   .dea_textcontainer  {
     display: flex;
     justify-content: space-evenly;
+  }
+
+  .dea_textcontainer .dealeft {
+    padding:  0 20px;
   }
 
   /* --------------------   Grammatik-Section!   --------------------- */

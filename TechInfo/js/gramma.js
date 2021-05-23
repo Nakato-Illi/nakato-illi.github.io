@@ -1,55 +1,40 @@
-var hintWord = "Prüfungsfeld";
 var genCorrectButton = document.getElementById('gen_but_corr');
 var genWrongButton = document.getElementById('gen_but_wrong');
 var genExp = document.getElementById('word_input');
 var exp = document.getElementById('gen_exp');
-var inputOK = document.getElementById('isCorrekt');
 var start = document.getElementById('start');
 var stopp = document.getElementById('stop');
 var step = document.getElementById('step');
-var inputAlphabet = document.getElementById('eingabe');
-var tBody = document.getElementById('tBody');
 var result = document.getElementById('isExpCorrect');
-var inputWord = document.getElementById('word_input');
 var ausdrucke = ['AOA', '(A)', 'Z'];
 var operanden = ['+', '-', '/', '*'];
-var knoten = [];
+const falseExp = ['OO', 'ZZ', '()', ')(', 'A(', ')A', '(O', 'O)', 'Z(', ')Z'];
 var steps = [];
 var maxLength = 3;
-var minLength = 5;
+var max = 10;
 
 genExp.addEventListener('input', (evt) => {
+    let word = genExp.value;
+    word.match(/[^\d+\-/*()]/g) && (genExp.value = word.replace(/[^\d+\-/*()]/g, ''));
+    manageStates();
     result.style.backgroundColor = !genExp.value ? 'transparent' : isExprCorrect() ? 'lightgreen' : 'red';
 });
 
-// start.addEventListener('click', (evt) => {
-//     console.log('jhhcjugc,')
-//     checkWord(true);
-// });
-
 //Variablen für das Aussehen
-var activeColor = 'rgb(255, 161, 47)';
-var edgeColor = 'lightgrey';
-var nodeColor = 'white';
-var tableColor = 'lightgrey';
+var activeColor = 'blue';
 var faildColor = 'red';
 var successColor = 'lightgreen';
-var startIndicator = '->';
-var endIndicator = '*';
+
 
 //Variablen für die Überprüfung
-var wordToCheck;
-var originWord;
 var index = 0; //Index des Buchstaben in der Zeichenkette, die geprüft wird.
 var auto = true; //gibt an, ob die Überprüfung automatisch oder manuell ablaufen soll.
 var inAction = false;
 manageClickability(false); //gibt an, ob gerade überprüft wird.
 var playEndAnim = false;
 var prev;
-var activeNode;
 var maxSpeed = 2000;
 var speed = maxSpeed * 0.2;
-var isEdge = false;
 
 
 /**
@@ -59,11 +44,12 @@ var isEdge = false;
  * 
  */
 function generateRandomRightWord() {
-    index = 0;
+    count = 0;
     let r = getRandomNumber(0, ausdrucke.length - 1);
     let a = ausdrucke[r];
     // console.log(r, a);
-    let vorAusdruck = new Ausdruck(a).getAusdruck();
+    // let vorAusdruck = getAusdruck(a);
+    let vorAusdruck = getRichtigAusdruck(a);
 
     let resultWord = '';
     for (let i = 0; i < vorAusdruck.length; i++) {
@@ -74,7 +60,7 @@ function generateRandomRightWord() {
     genExp.dispatchEvent(new Event('input'));
     console.log(resultWord);
     // isExprCorrect();
-    // manageStates();
+    manageStates();
 
 }
 
@@ -99,11 +85,10 @@ function replace(a) {
  * 
  */
 function generateRandomWrongExpr() {
-    index = 0;
     let r = getRandomNumber(0, ausdrucke.length - 1);
     let a = ausdrucke[r];
     // console.log(r, a);
-    let vorAusdruck = new Ausdruck(a).getFalschAusdruck();
+    let vorAusdruck = getFalschAusdruck(a);
 
     let resultWord = '';
     for (let i = 0; i < vorAusdruck.length; i++) {
@@ -115,6 +100,7 @@ function generateRandomWrongExpr() {
         genExp.value = resultWord;
         genExp.dispatchEvent(new Event('input'));
         console.log(resultWord);
+        manageStates();
     }
 }
 
@@ -127,10 +113,10 @@ function reset() {
 
 const checkWord = (isauto) => {
     steps = [];
-    isExprCorrect2();
+    isExprCorrect();
     steps.reverse();
-    console.log(index, ' die liste: ', steps.map((el) => el.e+'|'+el.r));
-    if(!steps.length > 0) return;
+    console.log(index, ' die liste: ', steps.map((el) => el.e + '|' + el.r + '|' + el.i));
+    if (!steps.length > 0) return;
     if (!inAction) {
         inAction = true;
         manageClickability(true);
@@ -141,23 +127,7 @@ const checkWord = (isauto) => {
     isLetterCorrect();
 };
 
-/**
- * starts the checking of the word or 
- * enters the next step in the manuel word-checking.
- * @param isauto wether to continue the word-checking automatically or manually.
- */
-function checkWord2(isauto) {
-    isExprCorrect2();
-    
-    if (!inAction) {
-        inAction = true;
-        manageClickability(true);
-        reset();
-    }
-    auto = isauto;
-    manageStates();
-    isLetterCorrect();
-}
+
 
 /**
  * checks the word, one letter at a time.
@@ -167,29 +137,41 @@ function checkWord2(isauto) {
  */
 function isLetterCorrect() {
 
-
-   exp.innerHTML = steps[index].e;
-   const element = document.getElementById(steps[index].r);
-   prev && (prev.style.color = 'black');
-   element && (element.style.color = 'blue');
-   prev = element;
-   index++;
-//    if(index>steps.length-1){
-//        inAction = false;
-//        exp.innerHTML = steps[index].e.replaceAll('A','Z');
-//    }
-//    else{
-    setTimeout(() => {
-        if(index>steps.length-1){
-            inAction = false;
-            // exp.innerHTML = steps[steps.length-1].e.replaceAll('A','Z');
-            // document.getElementById('Z').style.color = 'blue';
-        }else 
-        if (auto) {
-            isLetterCorrect();
+    if (prev) {
+        prev.style.color = 'black';
+        prev.style.fontSize = '27px';
+    }
+    const indexe = steps[index].l;
+    if (indexe) {
+        changeLetterColor(steps[index].e, indexe, 'red');
+    } else {
+        const element = document.getElementById(steps[index].r);
+        if (element) {
+            element.style.color = 'blue';
+            element.style.fontSize = '35px';
+            let i = steps[index].i;
+            console.log('for color i', i, steps[index].e);
+            if (i >= 0) {
+                changeLetterColor(steps[index].e, [i, i + 1, i + 2], 'blue');
+            } else {
+                let r = steps[index].r;
+                let l = getIndicesOf(r, steps[index].e);
+                changeLetterColor(steps[index].e, l, 'blue');
+            }
         }
+        prev = element;
+    }
+
+    index++;
+    setTimeout(() => {
+        if (indexe || index > steps.length - 1) {
+            finishCheck(true);
+        } else
+            if (auto) {
+                isLetterCorrect();
+            }
     }, speed);
-//    }
+    //    }
 }
 
 /**
@@ -197,17 +179,15 @@ function isLetterCorrect() {
  * @param success indicates wether the word is correct or not.
  */
 function finishCheck(success) {
-    //console.log('finiche-----------------------',success);
+    console.log('finiche-----------------------', success);
     inAction = false;
+    auto = false;
     manageStates();
     manageClickability(false);
-    playEndAnim = true;
-    endAnimation(10, success);
     if (success) {
 
     } else {
 
-        changeLetterColor(faildColor);
     }
 }
 
@@ -226,105 +206,94 @@ function endAnimation(count, success) {
  * changes color of a single letter in the word.
  * @param color the new color for the letter.
  */
-function changeLetterColor(color) {
-    let text = genExp.textContent;
-    console.log('col: ', text);
+function changeLetterColor(word, ind, color) {
+    let text = word;
+    // console.log('col: ', text);
     let i = 0;
     let newText = '';
     newText = Array.prototype.map.call(text, function (letter) {
-        let res = letter.fontcolor(i == index ? color : 'white');
+        let res = letter.fontcolor(ind.includes(i) ? color : 'black');
         i++;
         return res;
     }).join('');
-    genExp.innerHTML = newText;
+    console.log('change color ', word, ind, newText);
+    exp.innerHTML = newText;
 }
 
-/**
- * checks wether a given expression is correct in regards to the grammer.
- * @param word the word to be checked.
- * @returns if word is correct or not.
- */
 function isExprCorrect(e) {
     let res = false;
-
     let exp = '' + (e || genExp.value);
 
     console.log('1 check exp: ', exp);
-    if ((exp.match(/[^\d+\-/*()]/g) || []).length > 0) {
-        console.log('check res: ', res);
-        return false;
-    }
 
-    exp = replace2(exp);
-    console.log('2 check exp: ', exp);
-    if (exp === 'A') res = true;
+    steps.push({ e: exp, r: 'Z2' });
+    exp = exp.replace(/\d/g, 'Z');
+
+    exp.match(/[+ \- / *]/g) && steps.push({ e: exp, r: 'O' });
+    exp = exp.replace(/[+ \- / *]/g, 'O');
+    const temp = exp;
+    steps.push({ e: exp, r: 'Z' });
+    // exp = replace2(exp);
+    // console.log('2 check exp stw: ', exp);
+    if (exp === 'Z') res = true;
+    exp = exp.replaceAll('Z', 'A');
+    // steps.push({e:exp.replaceAll('A','Z'), r:'Z'});
     let prev = exp;
-    while (isOrderCorrect(exp)) {
-        console.log('check exp: ', exp);
+    while (isOrderCorrect(exp).length === 0) {
+        // console.log('check exp stw: ', exp);
         if (exp.length < 4) {
             if (exp === 'AOA') {
+                steps.push({ e: exp, r: 'AOA', i: exp.search('AOA') });
                 res = true;
-            }
-            if (exp === '(A)') {
-                res = true;
-            }
+            } else
+                if (exp === '(A)') {
+                    steps.push({ e: exp, r: '(A)', i: exp.search('\\(A\\)') });
+                    res = true;
+                }
             break;
         }
-        exp.length > 3 && (exp = exp.replaceAll('(A)', 'A'));
-        exp.length > 3 && (exp = exp.replaceAll('AOA', 'A'));
+        if (exp.length > 3) {
+            if (exp.includes('(A)')) {
+                steps.push({ e: exp, r: '(A)', i: exp.search('\\(A\\)') });
+                exp = exp.replace('(A)', 'A');
+
+                continue;
+            } else if (exp.includes('AOA')) {
+                steps.push({ e: exp, r: 'AOA', i: exp.search('AOA') });
+                exp = exp.replace('AOA', 'A');
+
+                continue;
+            }
+        }
         if (prev === exp) break;
         prev = exp;
     }
-    console.log('check res: ', res);
+
+    if (!res) {
+        let indexe = [];
+        isOrderCorrect(temp).forEach((a) => indexe = [...indexe, ...getIndicesOf(a, temp)]);
+        indexe.forEach((ind) => indexe.push(ind + 1));
+        steps = [{ e: temp, l: indexe }];
+    }
+    console.log('check res stw: ', res, steps);
     return res;
 }
 
-function isExprCorrect2(e) {
-    let res = false;
-    let exp = '' + (e || genExp.value);
-
-    console.log('1 check exp: ', exp);
-    if ((exp.match(/[^\d+\-/*()]/g) || []).length > 0) {
-        console.log('check res: ', res);
-        return false;
+function getIndicesOf(searchStr, str, caseSensitive = false) {
+    var searchStrLen = searchStr.length;
+    if (searchStrLen == 0) {
+        return [];
     }
-
-    exp = replace2(exp);
-    console.log('2 check exp stw: ', exp);
-    if (exp === 'A') res = true;
-    steps.push({e:exp.replaceAll('A','Z'), r:'Z'});
-    let prev = exp;
-    while (isOrderCorrect(exp)) {
-        console.log('check exp stw: ', exp);
-        if (exp.length < 4) {
-            if (exp === 'AOA') {
-                steps.push({e:exp, r:'AOA'});
-                res = true;
-            }else
-            if (exp === '(A)') {
-                steps.push({e:exp, r:'(A)'});
-                res = true;
-            }
-            break;
-        }
-        if(exp.length > 3){
-            if(exp.includes('(A)')){
-                steps.push({e:exp, r:'(A)'});
-                exp = exp.replace('(A)', 'A');
-                
-                continue;
-            }else if(exp.includes('AOA')){
-                steps.push({e:exp, r:'AOA'});
-                exp = exp.replace('AOA', 'A');
-                
-                continue;
-            }
-        }
-        if (prev === exp) break;
-        prev = exp;
+    var startIndex = 0, index, indices = [];
+    if (!caseSensitive) {
+        str = str.toLowerCase();
+        searchStr = searchStr.toLowerCase();
     }
-    console.log('check res stw: ', res);
-    return steps;
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    return indices;
 }
 
 function replace2(a = '') {
@@ -332,73 +301,28 @@ function replace2(a = '') {
 }
 
 function isOrderCorrect(a) {
+    const list = [];
 
-    if (a.includes('OO')) {
-        return false;
-    }
-    if (a.includes('ZZ')) {
-        return false;
-    }
-    if (a.includes('()')) {
-        return false;
-    }
-    if (a.includes(')(')) {
-        return false;
-    }
-    if (a.includes('A(')) {
-        return false;
-    }
-    if (a.includes(')A')) {
-        return false;
-    }
-    if (a.includes('(O')) {
-        return false;
-    }
-    if (a.includes('O)')) {
-        return false;
-    }
-    if (a.length === 2) {
-        return false;
-    }
+    falseExp.forEach((e) => {
+        if (a.includes(e)) {
+            list.push(e);
+        }
+    });
 
-    return true;
+    return list;
 }
 
 function manageClickability(status) {
-    // editText.disabled = status;
-    // inputWord.disabled = status;
-    // genCorrectButton.disabled = status;
-    // genWrongButton.disabled = status;
-    // inputOK.disabled = status;
+    genCorrectButton.disabled = status;
+    genWrongButton.disabled = status;
 }
 
 function manageStates() {
-    // console.log('manageStates: ', genText.innerHTML);
-    // let s = genExp.innerHTML === hintWord;
-    // start.disabled = s || inAction ? true : false;
-    // step.disabled = s ? true : false;
-    // stopp.disabled = inAction && auto ? false : true;
-}
-
-function editWord() {
-    inputWord.value = originWord || genExp.innerHTML;
-    inputWord.focus();
-}
-
-/**
- * accepts the manually input word to be checked
- * and displays it. 
- */
-function inputReady() {
-    if (!inputWord.value) return;
-
-    if (inputWord.value) genExp.innerHTML = inputWord.value;
-    originWord = inputWord.value;
-    inputWord.value = '';
-
-    playEndAnim = false;
-    isWordCorrect();
-    manageStates();
+    console.log('manageStates: ', inAction);
+    const s = !genExp.value;
+    start.disabled = s ? true : false;
+    step.disabled = s ? true : false;
+    stopp.disabled = inAction && auto ? false : true;
 }
 
 /**
@@ -417,33 +341,13 @@ function setSpeed(value) {
 }
 
 /**
- * looks for all edges that can follow after the current one in the grammer.
- * @param current the edge in the grammer that is being checked.
- * @returns array of edges that can follow after the current.
- */
-function getNextPossible(current) {
-    return kanten.filter((k) => k.getStartPos() === current.getEndPos());
-}
-
-/**
  * initializes the arrays with the nodes and edges of the grammer
  * and fills the table.
  */
 function initProgram() {
 
+    manageStates();
 
-
-    // let alphabet = "";
-    // kanten.forEach((k) => {
-    //     tBody.appendChild(k.getRow());
-    //     let name = k.getKantenName();
-    //     alphabet.includes(name) || (alphabet += ", " + name);
-    // });
-    // inputAlphabet.innerHTML = alphabet.substring(2);
-    // initColors();
-    // manageStates();
-
-    //console.log('kanten: ',kanten);
 }
 
 /**
@@ -456,93 +360,70 @@ function getRandomNumber(start, length) {
     return start + Math.round(Math.random() * length);
 }
 
-class Ausdruck {
-    name;
-    type;
-    nextPssible;
-    anzahl;
-    svgRef;
-    constructor(type) {
-        this.setAusdruck(type);
-        this.svgRef = {
-            node: document.getElementById('node' + this.number),
-        }
+count = 0;
+function getNext(type) {
+    let res;
+    switch (type) {
+        case 'AOA':
+            res = { next: ['AOA', '(A)', 'Z'], anzahl: 2 }
+            break;
+        case '(A)':
+            res = { next: ['AOA', 'Z'], anzahl: 1 }
+            break;
+        default:
+            res = { next: [], anzahl: 0 }
+            break;
     }
-
-    setAusdruck(type) {
-        switch (type) {
-            case 'AOA':
-                this.name = type;
-                this.nextPssible = ['AOA', '(A)', 'Z'];
-                this.anzahl = 2;
-                break;
-            case '(A)':
-                this.name = type;
-                this.nextPssible = ['AOA', 'Z'];
-                this.anzahl = 1;
-                break;
-            case 'Z':
-                this.name = type;
-                this.nextPssible = [];
-                this.anzahl = 0;
-                break;
-            default:
-                break;
-        }
-    }
-
-    getAusdruck() {
-        let res = this.name;
-        // console.log('pre ', res);
-        for (let i = 0; i < this.anzahl; i++) {
-            let r = getRandomNumber(0, this.nextPssible.length - 1);
-            let n = index > maxLength ? 'Z' : new Ausdruck(this.nextPssible[r]).getAusdruck();
-            // console.log('res ', res, ' n ',n);
-            res = res.replace('A', n);
-            // console.log('2 res ', res, ' n ',n);
-            index++;
-        }
-        // console.log('post ', res);
-        return res;
-    }
-
-    getFalschAusdruck() {
-        let res = this.name;
-        let list = [...ausdrucke, 'O'];
-        // console.log('pre ', res);
-        for (let i = 0; i < maxLength; i++) {
-            let r = getRandomNumber(0, list.length - 1);
-            res += list[r];
-        }
-        res = res.replace(/[A]/g, 'Z');
-        // console.log('post ', res);
-        return res;
-    }
-
-    getName() {
-        return this.name;
-    }
-
-    getNumber() {
-        return Number.parseInt(this.number);
-    }
-
-    setColor(color) {
-        this.svgRef.node.style.fill = color;
-    }
-
-    reset() {
-        this.setColor(nodeColor);
-    }
-
-    isStart() {
-        return this.number === '0';
-    }
-
-    isEnd() {
-        return this.number === '7';
-    }
+    return res;
 }
+
+function getAusdruck(ex) {
+    let res = ex;
+    const nex  = getNext(ex);
+    // console.log('pre ', res);
+    for (let i = 0; i < nex.anzahl; i++) {
+        let r = getRandomNumber(0, nex.next.length - 1);
+        let n = count > 5 ? 'Z' : getAusdruck(nex.next[r]);
+        // console.log('res ', res, ' n ',n);
+        res = res.replace('A', n);
+        console.log('2 res ', res, ' n ',n, count);
+        count++;
+    }
+    // console.log('post ', res, count);
+    return res;
+}
+
+function getRichtigAusdruck(ex) {
+    let res = ex;
+    let list = ['AOA','Z'];
+    console.log('pre ', res);
+    for (let i = 0; i < max; i++) {
+        
+        if(res.search('\\(A\\)')>=0){
+            let r = getRandomNumber(0, list.length - 1);
+            res = res.replace('(A)','('+list[r]+')');
+        }else
+        {let r = getRandomNumber(0, ausdrucke.length - 1);
+            res = res.replace('A',ausdrucke[r]);}
+    }
+    res = res.replace(/[A]/g, 'Z');
+    // console.log('post ', res);
+    return res;
+}
+
+function getFalschAusdruck(ex) {
+    let res = ex;
+    let list = [...ausdrucke, 'O'];
+    // console.log('pre ', res);
+    for (let i = 0; i < maxLength; i++) {
+        let r = getRandomNumber(0, list.length - 1);
+        res += list[r];
+    }
+    res = res.replace(/[A]/g, 'Z');
+    // console.log('post ', res);
+    return res;
+}
+
 
 initProgram();
 

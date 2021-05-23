@@ -213,6 +213,7 @@ nav ul li ul {
     margin-top: 10px;
     margin-right: 5px;
     border-radius: 5px;
+    color: rgb(0, 0, 0);
  }
 .container_control button:hover{
     background-color: rgba(0, 132, 255, 0.933);
