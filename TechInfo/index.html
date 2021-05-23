@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,117 +8,240 @@
     <title>Projekte Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <nav>
-        <a href="" class="logo">Tec/info</a>
-        
-        <ul class="nav_conatiner">
+        <p href="" class="logo">Tec/info</p>
+
+        <ul class="menu">
+
             <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a>Dea</a>
+            <li><a href="#pro1-4">Projektübersicht</a></li>
+            <li><a href="#">Dea</a>
                 <ul class="drop_dea">
                     <li><a href="#dea_aufgabe">Aufgabe</a></li>
                     <li><a href="Dea-Simulator.html">Simulator</a></li>
                 </ul>
-            <li><a href="#">Grammatik</a></li>
-            <li><a href="#">Kellerautomat</a></li>
-            <li><a href="#">TM</a></li>
+            </li>
+            <li>
+                <a href="#">Grammatik</a>
+                <ul class="drop_dea">
+                    <li><a href="#grammatik_aufgabe">Aufgabe</a></li>
+                    <li><a href="Grammatik.html">Simulator</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Kellerautomat</a>
+                <ul class="drop_dea">
+                    <li><a href="#ka_aufgabe">Aufgabe</a></li>
+                    <li><a href="Grammatik.html">Simulator</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">TM</a>
+                <ul class="drop_dea">
+                    <li><a href="#tm_aufgabe">Aufgabe</a></li>
+                    <li><a href="Grammatik.html">Simulator</a></li>
+                </ul>
+            </li>
+
         </ul>
-        
     </nav>
 
-    <header class="banner">
-        <h1 class="hero_text">
-            TI-Projektaufgaben
-            <span>Nakato Musisi</span>
-        </h1>
+    <header>
+
+        <div class="hero_left">
+
+            <h1>Technische Informatik</h1>
+            <p>Projektaufgaben</p>
+            <h2>Nakato Musisi</h2>
+            <p>Beuth Hochschule für Technik Berlin<sub>2021</sub></sub></p>
+
+        </div>
+
+        <div class="hero_right">
+            <p>
+                Funktion dieser Website ist es die Projekte des Moduls Technische Informatik der Beuth Hochschule für
+                Technik Berlin zu präsentieren.
+                Dies dient dazu, neben den Kursunterlagen, das gelernte praktisch anzuwenden und zu sehen wie es in der
+                praxis funktioniert.
+                Die Projekte werden unter der Leitung von Prof. Dr. Felix Gers der Beuth Hochschule bearbeitet.
+            </p>
+
+        </div>
     </header>
 
-    <main class="main_container">
-       
-        <article id="about" class="intro_container">
-           
-                <p class="about-text">
-                    <span class="about-h2">About</span>
-                    Funktion dieser Website ist es die Projekte des Moduls 
-                    Technische Informatik der 
-                    Beuth Hochschule für Technik Berlin zu präsentieren. 
-                    Dies dient dazu, neben den Kurs-Unterlagen, das gelernte praktisch anzuwenden und zu sehen 
-                    wie es in der praxis funktioniert. 
-                    Insgesat handelt es sich um 4 aufeinander aufbauenden Projekten zu den Themen: deterministisch endliche Automaten DEA,
-                    Grammatik, Kellerautomat und der Turning Maschine TM.
-                    <span>Die Projekte werden unter der Leitung von Prof. Dr. Felix Gers der Beuth Hochschule bearbeitet.</span>
-                    <span>Die Projekte werden bearbeitet von Nakato Musisi.</span>
-                    <span>Sommer Semester 2021</span>
-                </p>    
-                <div class="about_sec2">
-                    <img src="css/pic/ich.png" alt="Bild von mir?" height="200px" >
-                </div>
-        </article>
+    <main>
 
-        
+        <div class="pro1-4" id="pro1-4">
 
-        <article class="about_container">
-
-
-            <div class="about_sec3">
-        
+            <div class="pro1">
+                <p class="proP">Projektaufgabe P1: DEA</p>
                 <p>
-                    <span class="about-p1">Projektaufgabe I</span>
-                    DEA/NEA: Simulation und visualisierung eines 
-                    Nicht-Deterministischen Endlichen Automaten. 
-                    <span class="about-p1">Abgabe: Montag der 10. Mai 2021 um 08:00Uhr</span>
-                    <a href="#dea_aufgabe">Aufgabenbeschreibung</a>
-                    <a href="Dea-Simulator.html">Zum Simulator</a>
+                    Simulation des Reber Grammar (RG) als Dterministisch Endlichen Automaten
                 </p>
-            </div>
-
-            <div class="about_sec4">
-              
-            </div>
-
-            <div class="about_sec5">
-                
-            </div>
-
-            <div class="about_sec6">
-                
-            </div>
-
-        </article>
-
-        <article id="dea_aufgabe" class="dea_sec">
-            <h2 class="dea-h2">DEA</h2>
-            <div class="dea-textbox">
-                <img src="css/pic/Rgrammar.png" alt="Reber Grammar pic" width="300px">
-                <p class="dea-text">
-                    Bei dieser Aufgabe soll ein <strong>deterministisch endlicher Automat</strong> erzeugt werden.
-                    Der Automat soll prüfen ob ein gebenes Wort in der zu unetruschenden Sprache existiert.
-                    Untersucht wird der <strong>Reber Grammer (RG)</strong>. 
-                    Er wird als Tabelle wie auch als Graph visualisiert.
-                    Der RG besteht aus den Buchstaben <em><strong>B / T / S / P / X / V / E, </strong></em>
-                    wobei B den Start der Buchstabenfolge repräsentiert und E das Ende.
-                </p> 
-            </div>
-            
-            <div class="dea-unten">
-                <p class="dea-text">
-                    <span>Aufgabenstellung</span>
-                    1. Der Simulator soll in der Lage sein zufällige Zeichenketten zu generieren und dabei 
-                    zwischen korrekten und falschen Zeichenketten zu unterschieden.
-                    <br> 2. Es soll möglich sein eine korrekte Zeichenkette zu modifizieren, indem eine korrekte Kante durch 
-                    eine nichtexistente falsche Kante ersetzt wird. 
-                    <br> 3. Eingaben sollen  schrittweise oder automatisch animiert verarbeitet werden können. Dabei ist die Animationsgeschwindigkeit einstellbar.
+                <p>
+                    Abgabe: Montag, 10. Mai 2021, 80:00Uhr
                 </p>
+                <a href="#dea_aufgabe">Aufgabe</a>
+                <a href="Dea-Simulator.html">Simulator</a>
             </div>
-                
-             
-        </article>
 
+            <div class="pro2">
+                <p class="proP">Projektaufgabe P2: Grammatik</p>
+                Erzeugung von zufälligen arithmetischen Ausdr&uuml;cken mithilfe einer Grammatik.
+                </p>
+                <p>
+                    Abgabe: Montag, 31. Mai 2021, 80:00Uhr
+                </p>
+                <a href="#grammatik_aufgabe">Aufgabenstellung</a>
+                <a href="Grammatik.html">Simulator</a>
+            </div>
+
+            <div class="pro3">
+                <p class="proP">Projektaufgabe P3: Kellerautomat</p>
+                <p>
+                    Pr&uuml;fung eines Ausdrucks aus der Grammatik aus P2 durch einen Kellerautomaten.
+                </p>
+                <p>
+                    Abgabe: Montag, 21. Juni 2021, 80:00Uhr
+                </p>
+                <a href="#ka_aufgabe">Aufgabenstellung</a>
+                <a href="Dea-Simulator.html">Simulator</a>
+            </div>
+
+            <div class="pro4">
+                <p class="proP">Projektaufgabe P4: TM</p>
+                <p>
+                    Simulieren einer Turing Maschine (TM) die die Embedded Reber Grammar (ERG) entscheidet.
+                </p>
+                <p>
+                    Abgabe: Montag, 12. Juli 2021, 80:00Uhr
+                </p>
+                <a href="#tm_aufgabe">Aufgabenstellung</a>
+                <a href="Dea-Simulator.html">Simulator</a>
+            </div>
+
+        </div>
+
+        <div id="dea_aufgabe"></div>
+
+        <div class="deaContainer">
+            <h2>DEA - deterministisch endlicher Automat</h2>
+
+            <div class="dea_textcontainer">
+                <div class="dealeft">
+                    <h3>Was ist ein DEA</h3>
+                    <p>Some Text </p>
+                    <h3>Aufgabenstellung</h3>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="deacenter">
+                    <h3>Technische Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="dearight">
+                    <h3>Fachliche Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="grammatik_aufgabe"></div>
+
+        <div class="grContainer">
+            <h2>Grammatik</h2>
+
+            <div class="gr_textcontainer">
+                <div class="gr_left">
+                    <h3>Was ist ein DEA</h3>
+                    <p>Some Text </p>
+                    <h3>Aufgabenstellung</h3>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="gr_center">
+                    <h3>Technische Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="gr_right">
+                    <h3>Fachliche Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="ka_aufgabe"></div>
+
+        <div class="ka_Container">
+            <h2>Kellerautomat</h2>
+
+            <div class="ka_textcontainer">
+                <div class="ka_left">
+                    <h3>Was ist ein DEA</h3>
+                    <p>Some Text </p>
+                    <h3>Aufgabenstellung</h3>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="ka_center">
+                    <h3>Technische Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="ka_right">
+                    <h3>Fachliche Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tm_aufgabe"></div>
+
+        <div class="tm_Container">
+            <h2>TM - Turning Maschine</h2>
+
+            <div class="tm_textcontainer">
+                <div class="tm_left">
+                    <h3>Was ist ein DEA</h3>
+                    <p>Some Text </p>
+                    <h3>Aufgabenstellung</h3>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="tm_center">
+                    <h3>Technische Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+
+                <div class="tm_right">
+                    <h3>Fachliche Umsetzung</h3>
+                    <p>Some Text </p>
+                    <p>Somet Text</p>
+                </div>
+            </div>
+
+        </div>
 
     </main>
-    
-    
+
+
+
+
 </body>
+
 </html>

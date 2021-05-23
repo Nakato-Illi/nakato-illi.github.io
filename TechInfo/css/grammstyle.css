@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    scroll-behavior: smooth;
+    font-family: 'Slabo 27px', serif;
+}
+
+body{
+    background-color: rgb(64, 64, 64);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0px 100px;
+    z-index: 999;
+    background-color: rgba(122, 122, 122, 1);
+}
+
+nav .logo {
+    text-decoration: none;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+    color:  rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px  rgba(255, 140, 0, 0.809);
+}
+
+nav ul {
+    background: rgb(122, 122, 122);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  
+nav li {
+    color: #fff;
+    background: rgb(122, 122, 122);
+    display: block;
+    float: left;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.3s;
+  }
+
+  nav li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+  }
+  
+nav li:hover {
+    background: rgba(255, 140, 0, 0.809);
+    cursor: pointer;
+  }
+  
+nav ul li ul {
+    background: rgba(255, 140, 0, 0.809);
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+  }
+
+  /*---------------------------Grammatik Layout ---------------------------*/
+
+
+.textbox{
+    grid-area: textbox;
+    padding: 10px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    line-height: 30px;
+    color: rgb(108, 108, 108);
+}
+.textbox p {
+    margin: 3px 0 0 0;
+}
+
+.textbox strong {
+    font-size: 1.3em;
+    color: rgb(255, 255, 255);
+}
+
+.textbox .g  {
+    color: rgb(255, 255, 255);
+    border-bottom: rgba(52, 157, 255, 0.933) 2px solid;
+    padding: 5px;
+}
+
+.regelbox{
+    grid-area: regelbox;
+    background-color: rgba(255, 255, 255, 0.933);
+    border: rgba(52, 157, 255, 0.933) solid 5px;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 27px;
+    letter-spacing: 1px;
+    line-height: 40px;
+
+    display: flex;
+}
+.kleinR {
+    font-size: 18px;
+    padding: 0;
+    margin-right: 10px;
+}
+
+
+.eingabebox{
+    grid-area: eingabe;
+
+    margin-left: 30px;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    line-height: 30px;
+    border: rgba(52, 157, 255, 0.933) 2px solid;
+    background-color: rgb(52, 52, 52);
+    color: #fff;
+    padding: 115px 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.buttons{
+    display: flex;
+}
+#gen_but_wrong,
+#gen_but_corr {
+    margin: 0 0 18px 18px ;
+    padding: 5px;
+    font-size: 1em;
+    background-color: rgb(255, 255, 255);
+}
+#gen_but_wrong:hover,
+#gen_but_corr:hover {
+    background-color: rgba(52, 157, 255, 0.933);
+}
+
+.eingabebox form {
+    display: flex;
+}
+.eingabebox form input{
+    margin-left: 20px;
+    padding: 5px;
+    width: 340px;
+    height: 32px;
+    font-size: 20px;
+    border: rgba(0, 132, 255, 0) solid 4px;
+}
+.eingabebox form input:hover {
+    border: rgba(0, 132, 255, 0.933) solid 4px;
+}
+
+
+#isExpCorrect {
+    width: 337px;
+    height: 8px;
+    margin-left: 176px;
+}
+
+.eingabefeld{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.animationsfeld {
+    margin-top: 40px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.animationsfeld span {
+    background-color: rgba(255, 255, 255, 0.912);
+    width: 80%;
+    height: 60px;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.912);
+    font-size: 30px;
+    text-align: center;
+    padding-top: 10px;
+    overflow: auto;
+}
+
+.container_control {
+    display: flex;   
+}
+.container_control button{
+    height: 40px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+ }
+.container_control button:hover{
+    background-color: rgba(0, 132, 255, 0.933);
+ }
+
+.slidecontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.slidecontainer span{
+    font-size: 12px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    width: 110px;
+    height: auto;
+    padding: 0px 10px;
+    overflow: hidden;
+}
+.slidecontainer input{
+    display: inline;
+    width: 110px;
+}
+
+  .bodycontainer {
+      margin: 100px;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      grid-template-rows: 300px 200px;
+      grid-template-areas: 
+      "textbox eingabe"
+      "regelbox eingabe";
+
+  }
+
+
+  /*---------------------------Grammatik Textbox links oben-----------------------*/
+
+  @media only screen and (max-width: 1200px) {
+    
+
+    .bodycontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+    }
+
+    .textbox{
+        max-width: 400px;
+        margin-bottom: 20px;
+    }
+    
+    .regelbox{
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
+
+    .eingabebox{
+        margin-left: 10px;
+        font-size: 1em;
+        letter-spacing: 1px;
+        color: #fff;
+        padding: 30px 10px;
+    
+    }
+
+    
+
+  }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammatik</title>
+    <link rel="stylesheet" href="css/grammstyle.css">
+</head>
+
+<body>
+    <nav class="deaSim-nav">
+        <a class="logo">Tec/info</a>
+        <h2 class="rg_h2">kontextfreie Grammatik</h2>
+        <ul class="nav_conatiner">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#grammatik_aufgabe">Technik & Fachlich</a></li>
+        </ul>
+
+    </nav>
+
+    <main>
+
+        <div class="bodycontainer">
+
+            <div class="textbox">
+                <p>kontextfreie Grammatik G = (V, &sum;, R, S)</p>
+
+                <p class="g">G = ({A,O,Z}, { +, -, /, *,{, } 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, R, S)</p>
+
+                <p> <strong>A</strong> Ausdruck </p>
+                <p> <strong>O</strong> Operanden = +, -, /, *</p>
+                <p> <strong>Z</strong> Zahlen = 0,1,2,3,4,5,6,7,8,9</p>
+                <p> <strong>S</strong> Start = Ausdruck </p>
+                <p> <strong>R</strong> Produktionsregel</p>
+
+            </div>
+
+            <div class="regelbox">
+                <span class="kleinR">R:</span>
+                <div>
+                    <p>A &rarr; <span id="AOA">AOA</span> | <span id="(A)">(A)</span> | <span id="Z">Z</span></p>
+                    <p>O &rarr; +| - | / | *</p>
+                    <p>Z &rarr; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</p>
+                </div>
+            </div>
+
+            <div class="eingabebox">
+
+                <div class="eingabefeld">
+                    <div class="buttons">
+                        <p>Ausdruck generieren:</p>
+                        <div class="gen_but_zufall">
+
+                            <button id="gen_but_corr" onclick="generateRandomRightWord()">Korrekter Audruck</button>
+                            <button id="gen_but_wrong" onclick="generateRandomWrongExpr()">Falscher Ausdruck</button>
+
+                        </div>
+                    </div>
+
+                    <form onsubmit="return false" autocomplete="off">
+                        <label for="fname">Ausdruck eingeben:</label>
+                        <input autocomplete="off" type="text|submit" id="word_input" name="fname"
+                            oninput="value = value.toUpperCase()"></input>
+
+                    </form>
+                    <span id="isExpCorrect"></span>
+
+                </div>
+
+                <div class="animationsfeld">
+                    <div class="container_control">
+
+                        <button id="start" onclick="checkWord(true)">Start</button>
+                        <button id="stop" onclick="pause()">Stop</button>
+                        <button id="step" onclick="checkWord(false)">Schrittweise</button>
+                        <button onClick="history.go(0);">Zurücksetzen</button>
+
+                        <div class="slidecontainer">
+                            <span>Geschwindigkeit</span>
+                            <input type="range" min="1" max="100" value="80" class="slider" id="myRange"
+                                oninput="setSpeed(value)">
+                        </div>
+
+                    </div>
+                    <span class="expFeld" type="text" id="gen_exp"></span>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </main>
+    <script src="js/gramma.js"></script>
+</body>
+
+</html>
