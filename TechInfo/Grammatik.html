@@ -27,18 +27,17 @@
             <div class="textbox">
                 <p>kontextfreie Grammatik G = (V, &sum;, R, S)</p>
 
-                <p class="g">G = ({A,O,Z}, { +, -, /, *,{, } 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, R, S)</p>
+                <p class="g">G = ({A,O,Z}, { +, -, /, *,(, ), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, R, S)</p>
 
                 <p> <strong>A</strong> Ausdruck </p>
                 <p> <strong>O</strong> Operanden = +, -, /, *</p>
                 <p> <strong>Z</strong> Zahlen = 0,1,2,3,4,5,6,7,8,9</p>
                 <p> <strong>S</strong> Start = Ausdruck </p>
-                <p> <strong>R</strong> Produktionsregel</p>
+                <p> <strong>R</strong> Produktionsregel :</p>
 
             </div>
 
             <div class="regelbox">
-                <span class="kleinR">R:</span>
                 <div>
                     <p>A &rarr; <span id="AOA">AOA</span> | <span id="(A)">(A)</span> | <span id="Z">Z</span></p>
                     <p><span id="O">O</span> &rarr; +| - | / | *</p>
@@ -79,13 +78,12 @@
 
                         <div class="slidecontainer">
                             <span>Geschwindigkeit</span>
-                            <input type="range" min="1" max="100" value="80" class="slider" id="myRange"
+                            <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
                                 oninput="setSpeed(value)">
                         </div>
 
                     </div>
                     <span class="expFeld" type="text" id="gen_exp"></span>
-
                 </div>
 
 

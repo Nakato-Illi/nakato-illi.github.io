@@ -229,17 +229,18 @@
                         <strong> Falscher Ausdruck:</strong> erzeugt durch die Funktion "getFalschAusdruck(ex)". 
                         Der falsche Ausdruck wird durch eine Lsite erzeugt, die AOA, (A), Z und O enthält 
                         und mit der Funktion "getRandomNumber()" solange Zeichen generiert, bis die 
-                        Maximallänge des zu generierenden Ausdruckes noch nicht erreicht wurde. 
+                        Maximallänge des zu generierenden Ausdruckes erreicht wurde. 
                         Die Listenelemente werden einfach aneinander gereiht.
                         Am Ende werden alle As durch Zs ersetzt.<br>
+                        <br>
                         <strong>Richtiger Ausdruck:</strong> erzeugt durch die Funktion "getRichtigAusdruck(ex)". Diesmal greifen
                         wir auf eine Liste zu, die nur AOA und Z erhält. (A) wird extra abgefragt, damit man keine 
                         Ausdrücke mit Klammern in Klammern erzeugt. Nun verwenden wir eine For-Loop, die durch 
                         "max"-maximale Iterationsdurchläufe begrenzt ist. Die Funktion sucht beim existierenden 
                         Expression nach dem ersten A und ersetzt das erste A durch einen Korrekten Ausdruck in der Liste.
                         Am Ende weden alle As durch Zs ersetzt.
-                        In der function "generateRandomRightWord()" werden dann alle Zs und 0s im richtig generierten 
-                        Ausdruck durch Zahlen und Operanden ersetzt. 
+                        In der function "generateRandomRightWord()" werden dann alle Zs und 0s, im richtig generierten 
+                        Ausdruck, durch Zahlen und Operanden ersetzt. 
                     </p>
                 </div>
 
@@ -252,15 +253,15 @@
                         Os ersetzt "exp = exp.replace(/[+ \- / *]/g, 'O');", danach werden Zs durch As ersetzt und das Prüfen 
                         kann los gehen. Mit der Funktion "isOrderCorrect" wird der zu prüfende Ausdruck mit einer Liste 
                         verglichen, in der alle falschen Anordungsmöglichkeiten drin sind. Z.b. (), Z(, OO oder ZZ etc. Sollte ein 
-                        falscher Ausdruck enthalten sein, so wird sein Index geseichert um den Ausdruck rot einzufärben. 
+                        falscher Ausdruck enthalten sein, so wird sein Index gepseichert um den Ausdruck rot einzufärben. 
                         Falls keine falschen Ausdrücke vorliegen, so werden zwei IFs geprüft. Ist der Ausdruck kleiner als 3 Zeichen lang,
                         so wird der Ausdruck als Startpunkt makiert und zurückgegeben. 
-                        Ist der Ausdruck größer als 3 so wird die Expression Schritt für Schritt auf (A) oder AOA untersucht 
-                        und jeweils durch ein A ersetzt. Alle Zwischenschritte bis zum Finden des Startpunkts werden gespeichert.
+                        Ist der Ausdruck größer als 3 so wird er Schritt für Schritt auf (A) oder AOA untersucht 
+                        welche jeweils durch ein A ersetzt werde. Alle Zwischenschritte bis zum Finden des Startpunkts werden gespeichert.
                     </p>
                     <p>
                         <h4>Animation</h4>
-                        Die Idee der Animation ist es, die Expression, die durch die Prüfung "isExpCorrect" enstandenen Ausdrücke und
+                        Die Idee der Animation ist es, die durch die Funktion "isExpCorrect" enstandenen Ausdrücke und
                         steps verkehrtrum abzuspielen.
                     </p>
                 </div>

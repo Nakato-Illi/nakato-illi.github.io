@@ -335,16 +335,16 @@ nav ul li ul li a:hover{
   }
   .dea_textcontainer .dea_center {
     padding: 10px 20px;
-    margin-top: 10px;
+    margin: 10px;
     background-color: rgb(171, 171, 171);
-    height: 300px;
   }
 
   .dea_textcontainer .dea_right {
     padding: 10px 20px;
-    background-color: rgb(171, 171, 171);
+    background-color: rgb(196, 196, 196);
     width: 3808px;
     margin: 10px;
+    overflow: auto;
   }
 
   /* --------------------   Grammatik-Section!   --------------------- */
@@ -356,6 +356,7 @@ nav ul li ul li a:hover{
   .grContainer {
     height: 90vh;
     color: #fff;
+    overflow: hidden;
   }
 
   .grContainer h2 {
@@ -376,7 +377,7 @@ nav ul li ul li a:hover{
 
   .gr_textcontainer h4,
   .gr_textcontainer h3 {
-    color: rgb(68, 68, 68);
+    color: rgb(49, 49, 49);
     padding-bottom: 5px;
     padding-top: 10px;
   }
@@ -389,16 +390,16 @@ nav ul li ul li a:hover{
   }
   .gr_textcontainer .gr_center {
     padding: 10px 20px;
-    margin-top: 10px;
+    margin: 10px;
     width: 3908px;
-    height: 500px;
+    height: auto;
     background-color: rgb(171, 171, 171);
     overflow: hidden;
   }
 
   .gr_textcontainer .gr_right {
     padding: 10px 20px;
-    background-color: rgb(171, 171, 171);
+    background-color: rgb(196, 196, 196);
     width: 3808px;
     margin: 10px;
   }
