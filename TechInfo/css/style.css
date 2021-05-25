@@ -300,9 +300,9 @@ nav ul li ul li a:hover{
     width: 100px;
   }
   .deaContainer {
-
-    background-color: rgb(124, 124, 124);
     height: 90vh;
+    overflow: hidden;
+    color: #fff;
   }
 
   .deaContainer h2 {
@@ -312,12 +312,39 @@ nav ul li ul li a:hover{
   }
 
   .dea_textcontainer  {
+    color: black;
     display: flex;
-    justify-content: space-evenly;
+    margin-top: 10px;
+    font-size: 17px;
+    letter-spacing: 0.2px;
+    line-height: 20px;
+  }
+
+  .dea_textcontainer h4,
+  .dea_textcontainer h3 {
+    color: rgb(68, 68, 68);
+    padding-bottom: 5px;
+    padding-top: 10px;
   }
 
   .dea_textcontainer .dealeft {
-    padding:  0 20px;
+    padding:  10px 20px;
+    background-color: rgb(196, 196, 196);
+    width: 3808px;
+    margin: 10px;
+  }
+  .dea_textcontainer .dea_center {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: rgb(171, 171, 171);
+    height: 300px;
+  }
+
+  .dea_textcontainer .dea_right {
+    padding: 10px 20px;
+    background-color: rgb(171, 171, 171);
+    width: 3808px;
+    margin: 10px;
   }
 
   /* --------------------   Grammatik-Section!   --------------------- */
@@ -327,9 +354,8 @@ nav ul li ul li a:hover{
     width: 100px;
   }
   .grContainer {
-
-    background-color: rgb(124, 124, 124);
     height: 90vh;
+    color: #fff;
   }
 
   .grContainer h2 {
@@ -339,8 +365,42 @@ nav ul li ul li a:hover{
   }
 
   .gr_textcontainer  {
+    color: black;
     display: flex;
-    justify-content: space-evenly;
+    margin-top: 10px;
+    font-size: 17px;
+    letter-spacing: 0.2px;
+    line-height: 20px;
+    overflow: hidden;
+  }
+
+  .gr_textcontainer h4,
+  .gr_textcontainer h3 {
+    color: rgb(68, 68, 68);
+    padding-bottom: 5px;
+    padding-top: 10px;
+  }
+
+  .gr_textcontainer .gr_left {
+    padding:  10px 20px;
+    background-color: rgb(196, 196, 196);
+    width: 3908px;
+    margin: 10px;
+  }
+  .gr_textcontainer .gr_center {
+    padding: 10px 20px;
+    margin-top: 10px;
+    width: 3908px;
+    height: 500px;
+    background-color: rgb(171, 171, 171);
+    overflow: hidden;
+  }
+
+  .gr_textcontainer .gr_right {
+    padding: 10px 20px;
+    background-color: rgb(171, 171, 171);
+    width: 3808px;
+    margin: 10px;
   }
 
     /* --------------------   Kellerautomat-Section!   --------------------- */
