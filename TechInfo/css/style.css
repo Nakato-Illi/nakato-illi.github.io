@@ -300,9 +300,10 @@ nav ul li ul li a:hover{
     width: 100px;
   }
   .deaContainer {
-    height: 90vh;
-    overflow: hidden;
     color: #fff;
+    border: rgb(255, 149, 62) solid 3px;
+    padding-bottom: 40px;
+    
   }
 
   .deaContainer h2 {
@@ -314,10 +315,11 @@ nav ul li ul li a:hover{
   .dea_textcontainer  {
     color: black;
     display: flex;
+    flex-direction: column;
     margin-top: 10px;
     font-size: 17px;
     letter-spacing: 0.2px;
-    line-height: 20px;
+    line-height: 23px;
   }
 
   .dea_textcontainer h4,
@@ -329,34 +331,31 @@ nav ul li ul li a:hover{
 
   .dea_textcontainer .dealeft {
     padding:  10px 20px;
-    background-color: rgb(196, 196, 196);
-    width: 3808px;
-    margin: 10px;
+    background-color: rgb(255, 255, 255);
+    margin: 0 200px;
   }
   .dea_textcontainer .dea_center {
     padding: 10px 20px;
-    margin: 10px;
-    background-color: rgb(171, 171, 171);
+    background-color: rgb(240, 240, 240);
+    margin: 0 200px;
   }
 
   .dea_textcontainer .dea_right {
     padding: 10px 20px;
-    background-color: rgb(196, 196, 196);
-    width: 3808px;
-    margin: 10px;
-    overflow: auto;
+    background-color: rgb(240, 240, 240);
+    margin: 0 200px;
   }
 
   /* --------------------   Grammatik-Section!   --------------------- */
 
   #grammatik_aufgabe{
-    height: 60px;
+    height: 50px;
     width: 100px;
   }
   .grContainer {
-    height: 90vh;
     color: #fff;
-    overflow: hidden;
+    border: rgba(0, 132, 255, 0.933) solid 3px;
+    padding-bottom: 40px;
   }
 
   .grContainer h2 {
@@ -368,11 +367,11 @@ nav ul li ul li a:hover{
   .gr_textcontainer  {
     color: black;
     display: flex;
+    flex-direction: column;
     margin-top: 10px;
     font-size: 17px;
     letter-spacing: 0.2px;
-    line-height: 20px;
-    overflow: hidden;
+    line-height: 23px;
   }
 
   .gr_textcontainer h4,
@@ -384,24 +383,20 @@ nav ul li ul li a:hover{
 
   .gr_textcontainer .gr_left {
     padding:  10px 20px;
-    background-color: rgb(196, 196, 196);
-    width: 3908px;
-    margin: 10px;
+    background-color: rgb(255, 255, 255);
+    margin: 0 200px;
   }
   .gr_textcontainer .gr_center {
     padding: 10px 20px;
-    margin: 10px;
-    width: 3908px;
-    height: auto;
-    background-color: rgb(171, 171, 171);
+    background-color: rgb(240, 240, 240);
     overflow: hidden;
+    margin: 0 200px;
   }
 
   .gr_textcontainer .gr_right {
     padding: 10px 20px;
-    background-color: rgb(196, 196, 196);
-    width: 3808px;
-    margin: 10px;
+    background-color: rgb(240, 240, 240);
+    margin: 0 200px;
   }
 
     /* --------------------   Kellerautomat-Section!   --------------------- */
@@ -413,7 +408,7 @@ nav ul li ul li a:hover{
     .ka_Container {
   
       background-color: rgb(124, 124, 124);
-      height: 90vh;
+      margin: 0 200px;
     }
   
     .ka_Container h2 {
@@ -436,7 +431,7 @@ nav ul li ul li a:hover{
     .tm_Container {
   
       background-color: rgb(124, 124, 124);
-      height: 90vh;
+      margin: 0 200px;
     }
   
     .tm_Container h2 {
