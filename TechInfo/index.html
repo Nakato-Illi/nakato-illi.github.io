@@ -167,8 +167,9 @@
                     Graphen iteriert. Die Funtion "getNextPossible(previous, kanten)" ist kern der Prüfung.
                     Sie greift auf die zu verfügung stehenden Kanten zu und mit random() wird eine ausgewählt.
                     Bei einem falschen Wort steht zwar die makierte Startkante, jeoch werden, mit einer definierten
-                    mindest und Maximallänge der Wörter,zufällig Buchtsaben mit der Funktion " 
-                    generateRandomWrongWord()" aus den Alphabet genommen. Sollte zufällig doch ein richtiges Wort generiert
+                    mindest und Maximallänge der Wörter,zufällig Buchtsaben mit der Funktion "
+                    generateRandomWrongWord()" aus den Alphabet genommen. Sollte zufällig doch ein richtiges Wort
+                    generiert
                     werden, so wird dies aufgefangen und die funktion wiederholt.
                     </p>
                     <p>
@@ -209,60 +210,68 @@
                     <h3>Aufgabenstellung</h3>
                     <p>
                         Erzeugung von zufälligen arithmetischen Ausdr&uuml;cken mithilfe einer Grammatik.
-                        Die Generierung der Ausdrücke mittels der Grammatik wird schrittweise angezeigt. 
+                        Die Generierung der Ausdrücke mittels der Grammatik wird schrittweise angezeigt.
                         Dabei soll ersichtlich sein welche Regel angewandt wird.
                     </p>
-                    <h3>Technische Umsetzung</h3>
-                    <p>
-                        Das Layout der Grammatikseite ist mit CSS3 und HTML5 entwickelt worden.<br>
-                        Das main-Layout ist mit Grid erstellt worden. Die Einzelnen Eelemente der Sektionen wurden 
-                        mit der Felxbox arrangiert.
-                        Die Funktionalitäten der Buttons, des Eingabefeld und der Überführungsregeln wurden mit 
-                        js erzeugt.
-                    </p>
+
                 </div>
 
                 <div class="gr_center">
+                    <h3>Technische Umsetzung</h3>
+                    <p>
+                        Das Layout der Grammatikseite ist mit CSS3 und HTML5 entwickelt worden.<br>
+                        Das main-Layout ist mit Grid erstellt worden. Die Einzelnen Eelemente der Sektionen wurden
+                        mit der Felxbox arrangiert.
+                        Die Funktionalitäten der Buttons, des Eingabefeld und der Überführungsregeln wurden mit
+                        js erzeugt.
+                    </p>
                     <h3>Fachliche Umsetzung</h3>
                     <p>
-                        <h4> BUTTON - Ausdrücke generieren:</h4>
-                        <strong> Falscher Ausdruck:</strong> erzeugt durch die Funktion "getFalschAusdruck(ex)". 
-                        Der falsche Ausdruck wird durch eine Lsite erzeugt, die AOA, (A), Z und O enthält 
-                        und mit der Funktion "getRandomNumber()" solange Zeichen generiert, bis die 
-                        Maximallänge des zu generierenden Ausdruckes erreicht wurde. 
-                        Die Listenelemente werden einfach aneinander gereiht.
-                        Am Ende werden alle As durch Zs ersetzt.<br>
-                        <br>
-                        <strong>Richtiger Ausdruck:</strong> erzeugt durch die Funktion "getRichtigAusdruck(ex)". Diesmal greifen
-                        wir auf eine Liste zu, die nur AOA und Z erhält. (A) wird extra abgefragt, damit man keine 
-                        Ausdrücke mit Klammern in Klammern erzeugt. Nun verwenden wir eine For-Loop, die durch 
-                        "max"-maximale Iterationsdurchläufe begrenzt ist. Die Funktion sucht beim existierenden 
-                        Expression nach dem ersten A und ersetzt das erste A durch einen Korrekten Ausdruck in der Liste.
-                        Am Ende weden alle As durch Zs ersetzt.
-                        In der function "generateRandomRightWord()" werden dann alle Zs und 0s, im richtig generierten 
-                        Ausdruck, durch Zahlen und Operanden ersetzt. 
+                    <h4> BUTTON - Ausdrücke generieren:</h4>
+                    <strong> Falscher Ausdruck:</strong> wird durch die Funktion "getFalschAusdruck(ex)" erzeugt.
+                    Der falsche Ausdruck wird durch eine Liste erzeugt, die AOA, (A), Z und O enthält
+                    und mit der Funktion "getRandomNumber()" zufällige Zeichenketten generiert.
+                    Die Listenelemente werden dazu einfach aneinander gereiht.
+                    Am Ende werden alle As durch Zs ersetzt. In der Funktion "generateRandomWrongExpr()" wird abgefangen 
+                    ob zufällig ein richtiges Wort generiert worden ist. Zuden werden die Os und Zs ersetzt.
+                    <br>
+                    <br>
+                    <strong>Richtiger Ausdruck:</strong> wird durch die Funktion "getRichtigAusdruck(ex)" erzeugt. Diesmal
+                    greifen wir auf eine Liste zu, die nur AOA und Z erhält. (A) wird extra abgefragt, damit man keine
+                    Ausdrücke mit Klammern in Klammern erzeugt. Nun verwenden wir eine For-Loop, die durch
+                    "max"-maximale Iterationsdurchläufe begrenzt ist. Die Funktion sucht beim existierenden
+                    Expression nach dem ersten A und ersetzt das erste A durch einen Korrekten Ausdruck in der Liste.
+                    Am Ende weden alle As durch Zs ersetzt.
+                    In der function "generateRandomRightWord()" werden dann alle Zs und 0s, im richtig generierten
+                    Ausdruck, durch Zahlen und Operanden ersetzt.
                     </p>
                 </div>
 
                 <div class="gr_right">
                     <p>
-                        <h4>Eingabe</h4>
-                        Die Funktion "isExpCorrect(e)" arbeitet ähnlich wie auch die Buttons. Der Unterschied ist, dass der
-                        zu untersuchende Ausdruck durch die Variable "gen.Exp" aus dem Inputfeld der HTMLdatei genommen wird.
-                        Zuerst werden alle Zahlen durch Zs ersetzt "exp = exp.replace(/\d/g, 'Z');", danach werden [+,-,*,/] durch 
-                        Os ersetzt "exp = exp.replace(/[+ \- / *]/g, 'O');", danach werden Zs durch As ersetzt und das Prüfen 
-                        kann los gehen. Mit der Funktion "isOrderCorrect" wird der zu prüfende Ausdruck mit einer Liste 
-                        verglichen, in der alle falschen Anordungsmöglichkeiten drin sind. Z.b. (), Z(, OO oder ZZ etc. Sollte ein 
-                        falscher Ausdruck enthalten sein, so wird sein Index gepseichert um den Ausdruck rot einzufärben. 
-                        Falls keine falschen Ausdrücke vorliegen, so werden zwei IFs geprüft. Ist der Ausdruck kleiner als 3 Zeichen lang,
-                        so wird der Ausdruck als Startpunkt makiert und zurückgegeben. 
-                        Ist der Ausdruck größer als 3 so wird er Schritt für Schritt auf (A) oder AOA untersucht 
-                        welche jeweils durch ein A ersetzt werde. Alle Zwischenschritte bis zum Finden des Startpunkts werden gespeichert.
+                    <h4>Eingabe</h4>
+                    Die Funktion "isExpCorrect(e)" arbeitet ähnlich wie auch die Buttons. Der Unterschied ist, dass der
+                    zu untersuchende Ausdruck durch die Variable "gen.Exp" aus dem Inputfeld der HTMLdatei genommen
+                    wird.
+                    Zuerst werden alle Zahlen durch Zs ersetzt "exp = exp.replace(/\d/g, 'Z');", danach werden [+,-,*,/]
+                    durch
+                    Os ersetzt "exp = exp.replace(/[+ \- / *]/g, 'O');", danach werden Zs durch As ersetzt und das
+                    Prüfen
+                    kann los gehen. Mit der Funktion "isOrderCorrect" wird der zu prüfende Ausdruck mit einer Liste
+                    verglichen, in der alle falschen Anordungsmöglichkeiten drin sind. Z.b. (), Z(, OO oder ZZ etc.
+                    Sollte ein
+                    falscher Ausdruck enthalten sein, so wird sein Index gepseichert um den Ausdruck rot einzufärben.
+                    Falls keine falschen Ausdrücke vorliegen, so werden zwei IFs geprüft. Ist der Ausdruck kleiner als 3
+                    Zeichen lang,
+                    so wird der Ausdruck als Startpunkt makiert und zurückgegeben.
+                    Ist der Ausdruck größer als 3 so wird er Schritt für Schritt auf (A) oder AOA untersucht
+                    welche jeweils durch ein A ersetzt werde. Alle Zwischenschritte bis zum Finden des Startpunkts
+                    werden gespeichert.
                     </p>
                     <p>
-                        <h4>Animation</h4>
-                        Die Idee der Animation ist es, die durch die Funktion "isExpCorrect" enstandenen Ausdrücke und
-                        steps verkehrtrum abzuspielen.
+                    <h4>Animation</h4>
+                    Die Idee der Animation ist es, die durch die Funktion "isExpCorrect" enstandenen Ausdrücke und
+                    steps verkehrtrum abzuspielen.
                     </p>
                 </div>
             </div>

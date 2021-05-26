@@ -78,12 +78,7 @@ function replace(a) {
     }
 }
 
-/**
- * generates a random word using the inputAlphabet with a random length 
- * between @var minLength and @var maxLength
- * 
- * 
- */
+
 function generateRandomWrongExpr() {
     let r = getRandomNumber(0, ausdrucke.length - 1);
     let a = ausdrucke[r];
@@ -323,6 +318,7 @@ function manageStates() {
     start.disabled = s ? true : false;
     step.disabled = s ? true : false;
     stopp.disabled = inAction && auto ? false : true;
+    neu_laden.disabled = s ? true : false;
 }
 
 /**

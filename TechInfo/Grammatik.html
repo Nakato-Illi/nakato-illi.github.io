@@ -74,10 +74,10 @@
                         <button id="start" onclick="checkWord(true)">Start</button>
                         <button id="stop" onclick="pause()">Stop</button>
                         <button id="step" onclick="checkWord(false)">Schrittweise</button>
-                        <button onClick="history.go(0);">Zurücksetzen</button>
+                        <button id="neu_laden" onClick="history.go(0);">Zurücksetzen</button>
 
                         <div class="slidecontainer">
-                            <span>Geschwindigkeit</span>
+                            <span id="geschwind">Geschwindigkeit</span>
                             <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
                                 oninput="setSpeed(value)">
                         </div>
