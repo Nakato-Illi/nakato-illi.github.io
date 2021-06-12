@@ -14,6 +14,7 @@
 body{
     background: rgb(41, 41, 41);
     color: #fff;
+    margin: auto 150px;
 }
 
 /* --------------------   Navigationsection!   --------------------- */
@@ -108,13 +109,13 @@ nav ul li ul li a:hover{
     padding: 20px;
     margin-right: 40px;
     min-width: 400px;
-    background-color: rgb(35, 35, 35);
-    color: rgb(175, 175, 175);
+    background-color: rgba(255, 140, 0, 0.809);
   }
 
   .hero_right p {
     padding: 20px;
     font-size: 20px;
+    color: #fff;
   }
   
   header {
@@ -140,7 +141,7 @@ nav ul li ul li a:hover{
   header p {
     font-size: 22px;
     margin: 0 30px;
-    color: rgb(124, 124, 124);
+    color: rgba(255, 140, 0, 0.809);
   }
 
   header h2  {
@@ -174,7 +175,6 @@ nav ul li ul li a:hover{
   /* --------------------   Mainsection!   --------------------- */
 
   main{
-    margin: auto 20px;
     color: rgb(2, 2, 2);
   }
 
@@ -332,25 +332,25 @@ nav ul li ul li a:hover{
   .dea_textcontainer .dealeft {
     padding:  10px 20px;
     background-color: rgb(255, 255, 255);
-    margin: 0 200px;
+    margin: 0 100px;
   }
   .dea_textcontainer .dea_center {
     padding: 10px 20px;
     background-color: rgb(240, 240, 240);
-    margin: 0 200px;
+    margin: 0 100px;
   }
 
   .dea_textcontainer .dea_right {
     padding: 10px 20px;
     background-color: rgb(240, 240, 240);
-    margin: 0 200px;
+    margin: 0 100px;
   }
 
   /* --------------------   Grammatik-Section!   --------------------- */
 
   #grammatik_aufgabe{
     height: 50px;
-    width: 100px;
+    width: 10px;
   }
   .grContainer {
     color: #fff;
@@ -384,19 +384,19 @@ nav ul li ul li a:hover{
   .gr_textcontainer .gr_left {
     padding:  10px 20px;
     background-color: rgb(255, 255, 255);
-    margin: 0 200px;
+    margin: 0 100px;
   }
   .gr_textcontainer .gr_center {
     padding: 10px 20px;
     background-color: rgb(240, 240, 240);
     overflow: hidden;
-    margin: 0 200px;
+    margin: 0 100px;
   }
 
   .gr_textcontainer .gr_right {
     padding: 10px 20px;
     background-color: rgb(240, 240, 240);
-    margin: 0 200px;
+    margin: 0 100px;
   }
 
     /* --------------------   Kellerautomat-Section!   --------------------- */

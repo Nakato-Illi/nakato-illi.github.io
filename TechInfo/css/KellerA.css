@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    scroll-behavior: smooth;
+    font-family: 'Slabo 27px', serif;
+}
+
+body{
+    background: rgb(41, 41, 41);
+}
+/* --------------------   Navigationsection!   --------------------- */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0px 100px;
+    z-index: 999;
+    background-color: rgba(122, 122, 122, 1);
+}
+
+nav .logo {
+    text-decoration: none;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+    color:  rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px  rgba(255, 140, 0, 0.809);
+}
+
+
+nav ul {
+    background: rgb(122, 122, 122);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  
+nav li {
+    color: #fff;
+    background: rgb(122, 122, 122);
+    display: block;
+    float: left;
+    padding: 1rem;
+    text-decoration: none;
+    transition-duration: 0.3s;
+  }
+    
+nav li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+  }
+  
+nav li:hover {
+    background: rgba(255, 140, 0, 0.809);
+    cursor: pointer;
+  }
+  
+
+/* --------------------   Main-section   --------------------- */
+main {
+    display: flex;
+    justify-content: center;
+}
+
+/* --------------------   Text-links  --------------------- */
+
+.textbox {
+    color: #fff;
+    margin: 70px 20px 0px 20px;
+    padding: 15px;
+    border-radius: 5px;
+    height: fit-content;
+    width: 400px;
+}
+.textbox p{
+    line-height: 28px;
+    font-size: 19px;
+}
+
+
+/* --------------------   Tabelle-section   --------------------- */
+
+.tabellenbox {
+    background-color: #fff;
+    margin: 2px 0px 0px 20px;
+    padding: 15px;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+
+table{
+    width: 370px;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+table thead tr th {
+    padding: 5px 5px;
+    background-color: rgb(255, 128, 187);
+    color: #f1f1f1;
+    font-size: 24px;
+    font-weight: lighter;
+  }
+
+table tbody tr td{
+    text-align: center;
+    padding: 7px 0px;
+    font-size: 18px;
+
+  }
+
+/* --------------------   Eingabe/Wort/Simulation-section   --------------------- */
+
+.kaSim {
+    margin: 70px 0px 0px 0px;
+    padding: 5px;
+    width: 60%;
+}
+
+.simBox {
+    display: flex;
+}
+
+
+/* --------------------   EingabeWort-section   --------------------- */
+
+
+
+.eingabe {
+    display: flex;
+    justify-content: start;
+    color: #fff;
+}
+
+.eingabe button {
+    padding: 8px;
+    font-size: 17px;
+    margin: 0px  20px 3px 0px;
+    cursor: pointer;
+}
+
+.eingabe form input {
+    width: 300px;
+    height: 35px;
+    font-size: 27px;
+    padding-left: 5px;
+    margin-top: 2px;
+}
+
+/* --------------------   EingabeWort-section   --------------------- */
+
+.container_control {
+    margin: 10px auto;
+}
+
+.container_control button {
+    padding: 5px;
+    margin: 10px 0px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.container_control div {
+    display: inline;
+    color: #f1f1f1;
+}
+
+/* --------------------   SVG-section   --------------------- */
+
+svg {
+    width: 900px;
+    height: 450px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 50px;
+  }
+
+   svg .knoten-text{
+     fill: rgb(0, 0, 0);
+     font-weight: bold;
+     font-size: 4px;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   }
+
+   svg .kanten-text{
+    fill: rgb(73, 73, 73);
+    font-size: 5px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  svg circle {
+      fill: rgb(255, 128, 187);
+      stroke-width: 1px;
+  }
+  svg .arrow-circle {
+    fill: none;
+    stroke: rgb(73, 73, 73);
+    stroke-width: 0.5px;
+  }
+
+  svg .knoten-body {
+    stroke-width: 0.5px;
+  }
+
+  svg .kanten-body {
+    /* stroke: rgb(181, 11, 11); */
+    stroke-width: 0.5px;
+  }
+
+
+  
+/* --------------------   KELLER-section   --------------------- */
+
+
+  .simBox .keller {
+    width: 70px;
+    height: 400px;
+    
+    align-self: flex-end;
+    padding: 7px;
+    margin: 20px;
+    border-left: 4px solid rgb(255, 128, 187);
+    border-bottom: 4px solid rgb(255, 128, 187);
+    border-right: 4px solid rgb(255, 128, 187);
+    background-color: #fff;
+    display: flex;
+    
+}
+
+.simBox .keller p {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 30px;
+    padding: 3px;
+    display: flex;
+    align-self: flex-end;
+    transform: rotate(180deg);
+}
