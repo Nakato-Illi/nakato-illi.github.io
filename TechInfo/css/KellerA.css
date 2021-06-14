@@ -79,7 +79,7 @@ main {
 /* --------------------   Text-links  --------------------- */
 
 .textbox {
-    color: #fff;
+    color: rgb(172, 172, 172);
     margin: 70px 20px 0px 20px;
     padding: 15px;
     border-radius: 5px;
@@ -90,13 +90,17 @@ main {
     line-height: 28px;
     font-size: 19px;
 }
+.textbox strong {
+  color: #fff;
+  font-weight: lighter;
+}
 
 
 /* --------------------   Tabelle-section   --------------------- */
 
 .tabellenbox {
     background-color: #fff;
-    margin: 2px 0px 0px 20px;
+    margin: 2px 20px 0px 20px;
     padding: 15px;
     border-radius: 5px;
     width: fit-content;
@@ -132,6 +136,8 @@ table tbody tr td{
     margin: 70px 0px 0px 0px;
     padding: 5px;
     width: 60%;
+    background-color: rgb(48, 48, 48);
+    border-radius: 5px;
 }
 
 .simBox {
@@ -145,7 +151,8 @@ table tbody tr td{
 
 .eingabe {
     display: flex;
-    justify-content: start;
+    justify-content: center;
+    margin: 10px;
     color: #fff;
 }
 
@@ -167,19 +174,23 @@ table tbody tr td{
 /* --------------------   EingabeWort-section   --------------------- */
 
 .container_control {
-    margin: 10px auto;
+    display: flex;
+    justify-content: start;
+    margin-left: 110px;
 }
 
 .container_control button {
     padding: 5px;
-    margin: 10px 0px;
+    margin: 10px 3px;
     font-size: 17px;
     cursor: pointer;
 }
 
 .container_control div {
-    display: inline;
+  display: flex;
+  flex-direction: column;
     color: #f1f1f1;
+    margin-top: 12px;
 }
 
 /* --------------------   SVG-section   --------------------- */
@@ -188,7 +199,9 @@ svg {
     width: 900px;
     height: 450px;
     background-color: rgb(255, 255, 255);
-    margin-top: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-top: 30px;
   }
 
    svg .knoten-text{
@@ -210,7 +223,7 @@ svg {
   }
   svg .arrow-circle {
     fill: none;
-    stroke: rgb(73, 73, 73);
+    stroke: rgb(194, 194, 194);
     stroke-width: 0.5px;
   }
 
@@ -230,24 +243,24 @@ svg {
 
   .simBox .keller {
     width: 70px;
-    height: 400px;
-    
+    height: 440px;
     align-self: flex-end;
+    
     padding: 7px;
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     border-left: 4px solid rgb(255, 128, 187);
     border-bottom: 4px solid rgb(255, 128, 187);
     border-right: 4px solid rgb(255, 128, 187);
     background-color: #fff;
     display: flex;
+    justify-content: center;
     
 }
 
 .simBox .keller p {
     writing-mode: vertical-lr;
     text-orientation: upright;
-    font-size: 30px;
-    padding: 3px;
+    font-size: 23px;
     display: flex;
     align-self: flex-end;
     transform: rotate(180deg);

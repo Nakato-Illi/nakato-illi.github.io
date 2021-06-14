@@ -17,7 +17,7 @@ genExp.addEventListener('input', (evt) => {
     let word = genExp.value;
     word.match(/[^\d+\-/*()]/g) && (genExp.value = word.replace(/[^\d+\-/*()]/g, ''));
     manageStates();
-    result.style.backgroundColor = !genExp.value ? 'transparent' : isExprCorrect() ? 'lightgreen' : 'red';
+    // result.style.backgroundColor = !genExp.value ? 'transparent' : isExprCorrect() ? 'lightgreen' : 'red';
 });
 
 //Variablen für das Aussehen
@@ -61,6 +61,9 @@ function generateRandomRightWord() {
     console.log(resultWord);
     // isExprCorrect();
     manageStates();
+    isExprCorrect();
+    // resetk();
+    // check();
 
 }
 
@@ -214,56 +217,480 @@ function changeLetterColor(word, ind, color) {
     console.log('change color ', word, ind, newText);
     exp.innerHTML = newText;
 }
-
-let replaced = {s:0, r:''};
+let stepss = [];
+let replaced = { s: -1, r: '' };
 let keller = [];
-function check(wtc) {
-    let steps = [];
-    last = 0;
-    let word;
-    let w;
+// let word = '(Z)OZO(ZO(ZOZ))OZ';
+// let word = 'ZO((Z)O(Z))';
+let word = '(ZOZO(ZO(ZOZ))OZ)';
+let w = null;
+let firstPush = { w: '', r: '', ex: '' };
+let lastPop = [];
 
-    if (keller.length === 0) {
-        keller.push('$');
-    } else {
-        if (keller.length === 1) {
-            if (w.length === 0) {
-                // success
-            } else {
-                if(w.length === word.length){
-                    keller.push('Z');
-                    steps.push({w: w, k:[...keller]});
-                }
-            }
+let stepMap = new Map();
+
+function resetk(){
+    stepss = [];
+replaced = { s: -1, r: '' };
+keller = [];
+w = null;
+firstPush = { w: '', r: '', ex: '' };
+lastPop = [];
+
+stepMap = new Map();
+}
+
+function check() {
+    if (lastPop.length === 0) {
+        word = genExp.value;
+        w = replace3(word.slice());
+
+        lastPop.push({ w: w, r: '', ex: 'Z' });
+    }
+    // w === null && (w = word);
+
+    let lastp2 = firstPush.ex;
+    let lastp = lastPop[lastPop.length - 1];
+    console.log('check word ', word, w, keller, lastp, lastp2, firstPush);
+    // let lastp2 = lastPop[lastPop.length-2];
+
+    setTimeout(() => {
+        if (keller.length === 0) {
+            keller.push('$');
+            check();
         } else {
-            if (keller[keller.length - 1] === w[0]){
-                keller.pop();
-                w = w.substring(1);
+            if (firstPush.r === '') {
+                firstPush = { w: w.slice(), r: 'Z', ex: 'Z' };
+                keller.push('Z');
+                check();
             } else {
-                let last = keller.pop();
-                if(last === 'Z'){
-                    steps.push({w: w, k:[...keller]});
-                    if(replaced.s === 0){
-                        replaced.s = 1;
-                        replaced.r = 'ZOZ';
-                        keller.push('Z','O','Z');
-                    } if(replaced.s === 1){
-                        replaced.s = 2;
-                        replaced.r = '(Z)';
-                        keller.push(')','Z','(');
+
+                let f = w[0];
+                // console.log('1 check ', word, w, keller, st);
+                if (keller[keller.length - 1] === f) {
+                    if (keller.length > 1 && keller[keller.length - 1] === 'Z' && w.length > 1 && keller[keller.length - 2] !== w[1]) {
+                        console.log('---------------------- ', w, keller);
+
+                        if (keller.length === 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O' && w.length > 2 && (w[2] === 'Z' || w[2] === '(')) {
+                            let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                            keller = [];
+                            for (let i = 0; i < k.length; i++) {
+                                keller.push(k[i]);
+                            }
+                        } else if (keller.length === 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O') {
+                            keller = ['$', 'Z', 'O', 'Z'];
+                            w = firstPush.w;
+                            let la = { w: w.slice(), ex: lastp.ex }
+                            lastPop.push(la);
+                        } else if (keller.length > 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O') {
+                            let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                            keller = [];
+                            for (let i = 0; i < k.length; i++) {
+                                keller.push(k[i]);
+                            }
+                        } else if (keller.length === 2 && keller[keller.length - 1] === 'Z' && w[1] === 'O') {
+                            let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                            keller = [];
+                            for (let i = 0; i < k.length; i++) {
+                                keller.push(k[i]);
+                            }
+                        }
+
+                        // if (keller.length === 3) {
+                        //     w = firstPush.w;
+                        //     let la = { w: w.slice(), ex: lastp.ex }
+                        //     lastPop.push(la);
+                        //     let k = keller.join('').replace(new RegExp('Z\\)' + '$'), 'ZOZ');
+                        //     keller = [];
+                        //     for (let i = 0; i < k.length; i++) {
+                        //         keller.push(k[i]);
+                        //     }
+                        // } else if (keller.length === 2) {
+                        //     keller = ['$', 'Z', 'O', 'Z'];
+                        // }
+
+
+
+                        // keller = ['$', 'Z', 'O', 'Z'];
+                        // w = lastPop[lastPop.length-3].w;
+
+                        check();
                     } else {
-                        // end
+                        keller.pop();
+                        w = w.substring(1);
+                        let k = [...keller];
+                        k.reverse();
+                        let la = { w: w.slice(), ex: k.join('') }
+                        lastPop.push(la);
+                        check();
+                    }
+
+                } else {
+                    // console.log('2 check ', word, w, keller, st);
+                    if (lastp.ex) {
+                        if (lastp.ex[0] === 'Z') {
+
+                            if (f === '(') {
+                                // if (firstPush.r === '(Z)') {
+                                //     w = lastp.w;
+                                //     firstPush = { w: w, r: 'ZOZ' }
+
+                                //     let k = keller.join('').replace('Z', 'ZOZ');
+                                //     keller = [];
+                                //     for (let i = 0; i < k.length; i++) {
+                                //         keller.push(k[i]);
+                                //       }
+                                // } 
+                                // // else if (firstPush.r === 'ZOZ') {
+                                // //     console.log('whatever 1');
+                                // //     return;
+                                // // }
+                                //  else {
+                                w = lastp.w;
+                                firstPush = { w: w, r: '(Z)', ex: lastp.ex }
+                                let ke = [...keller];
+                                // if(ke && ke.length> 0 && ke[0] === '$')
+                                let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
+                                keller = [];
+                                for (let i = 0; i < k.length; i++) {
+                                    keller.push(k[i]);
+                                    //   }
+                                }
+                                check();
+                            }
+                        } else if (lastp.ex[0] === '$') {
+                            if (w.length === 0) {
+                                console.log('end success');
+                            } else {
+                                w = firstPush.w;
+                                f = w[0];
+                                if (f === '(') {
+                                    if (firstPush.r === 'Z') {
+
+                                        w = firstPush.w;
+                                        firstPush = { w: w, r: '(Z)', ex: lastp.ex }
+                                        keller = ['$', ')', 'Z', '('];
+                                        let k = [...keller];
+                                        k.reverse();
+                                        firstPush = { w: w, r: '(Z)', ex: k.join('') }
+                                        let la = { w: w.slice(), ex: k.join('') }
+                                        lastPop.push(la);
+
+                                        // let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
+                                        // keller = [];
+                                        // for (let i = 0; i < k.length; i++) {
+                                        //     keller.push(k[i]);
+                                        // }
+
+                                    } else if (firstPush.r === '(Z)') {
+                                        w = firstPush.w;
+
+                                        keller = ['$', 'Z', 'O', 'Z'];
+                                        let k = [...keller];
+                                        k.reverse();
+                                        firstPush = { w: w, r: 'ZOZ', ex: k.join('') }
+                                        let la = { w: w.slice(), ex: k.join('') }
+                                        lastPop.push(la);
+                                        // let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                        // keller = [];
+                                        // for (let i = 0; i < k.length; i++) {
+                                        //     keller.push(k[i]);
+                                        // }
+                                    } else {
+                                        // w = firstPush.w;
+                                        // firstPush = { w: w, r: '(Z)', ex: lastp.ex }
+                                        // keller = ['$', ')', 'Z', '('];
+
+                                        console.log('whatever5', lastp, firstPush);
+                                        // check();
+                                        return;
+                                    }
+                                } else {
+                                    if (firstPush.r === 'Z') {
+                                        w = firstPush.w;
+                                        firstPush = { w: w, r: 'ZOZ', ex: lastp.ex }
+                                        keller = ['$', 'Z', 'O', 'Z'];
+                                    } else {
+                                        console.log('whatever6');
+                                        return;
+                                    }
+                                }
+                                check();
+                            }
+                        } else {
+
+                            if (lastp2) {
+                                let k = lastp2;
+                                keller = [];
+                                for (let i = 0; i < k.length; i++) {
+                                    keller.push(k[i]);
+                                }
+                                keller.reverse();
+                            }
+                            console.log('keller 1', keller);
+                            if (keller[keller.length - 1] === 'Z') {
+                                w = firstPush.w;
+                                let ke = [...keller];
+                                ke.reverse();
+                                console.log('ke 1', ke.join(''));
+                                firstPush = { w: w, r: 'ZOZ', ex: ke.join('') }
+                                let la = { w: w.slice(), ex: ke.join('') }
+                                lastPop.push(la);
+                                let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                keller = [];
+                                for (let i = 0; i < k.length; i++) {
+                                    keller.push(k[i]);
+                                }
+                                check();
+                            }
+
+                            console.log('whaterver 3', lastp2);
+                        }
+                    } else {
+                        console.log('whaterver 4');
                     }
                 }
+
+
+            }
+        }
+
+
+    }, 500);
+}
+
+
+// function check() {
+//     w || (w = word);
+//     console.log('check word ', word, w, keller, stepMap);
+
+//     setTimeout(() => {
+//         if (keller.length === 0) {
+//             keller.push('$');
+//             check();
+//         } else {
+//             if (stepMap.size === 0) {
+//                 firstPush = {w: w.slice(), r:'Z'};
+//                 stepMap.set(1, [{ r: 'Z', w: w.slice(), k: [...keller], s: 0 }]);
+//                 keller.push('Z');
+//                 check();
+//             } else {
+//                 // let l = Array.from(stepMap.keys());
+//                 let l = stepMap.get(stepMap.size);
+//                 let st = l[l.length - 1];
+//                 if (keller.length === 1) {
+//                     if (w.length === 0) {
+//                         console.log('end success');
+//                     } else {
+
+//                         w = st.w;
+//                         if (st.s === 0) {
+//                             stepMap.set(l.length, [{ r: 'ZOZ', w: w.slice(), k: [...keller], s: 1 }]);
+//                             keller.push('Z','O','Z');
+//                             check();
+//                         } else if (st.s === 1) {
+//                             stepMap.set(l.length, [{ r: '(Z)', w: w.slice(), k: [...keller], s: 2 }]);
+//                             keller.push(')' + 'Z' + '(');
+//                             check();
+//                         } else {
+//                             console.log('end fail');
+//                         }
+//                     }
+//                 } else {
+//                     let f = w[0];
+//                     // console.log('1 check ', word, w, keller, st);
+//                     if (keller[keller.length - 1] === f) {
+
+//                         if (st.r === 'Z' && st.s === 0) {
+//                             keller.pop();
+//                             w = w.substring(1);
+//                             check();
+//                         }else 
+//                         if (st.r === 'ZOZ' && st.s === 1) {
+//                             keller.pop();
+//                             w = w.substring(1);
+//                             check();
+//                         } else if (st.r === '(Z)' && st.s === 2) {
+//                             keller.pop();
+//                             w = w.substring(1);
+//                             check();
+//                         }else  {
+//                             if (f === '(') {
+//                                 if (st.s === 0) {
+//                                     keller.pop();
+//                                     w = w.substring(1);
+//                                     check();
+//                                 } else if (st.s === 1) {
+
+//                                     stepMap.set(l.length, [{ r: 'ZOZ', w: w.slice(), k: [...keller], s: 2 }]);
+//                                     keller.pop();
+//                                     keller.push('Z','O','Z');
+//                                     check();
+//                                 } else if (st.s === 2) {
+//                                     stepMap.set(l.length, [{ r: '(Z)', w: w.slice(), k: [...keller], s: 3 }]);
+//                                     keller.push(')' + 'Z' + '(');
+//                                     check();
+//                                 } else {
+//                                     console.log('end fail');
+//                                 }
+//                             } else {
+
+//                             }
+//                         }
+
+
+
+//                     } else {
+//                         // console.log('2 check ', word, w, keller, st);
+//                         if (f === '(') {
+//                              if (st.s === 1) {
+
+//                                 stepMap.set(l.length, [{ r: '(Z)', w: w.slice(), k: [...keller], s: 2 }]);
+//                                 keller.pop();
+//                                 keller.push(')', 'Z' , '(');
+//                                 check();
+//                             } else if (st.s === 2) {
+//                                 stepMap.set(l.length, [{ r: 'ZOZ', w: w.slice(), k: [...keller], s: 3 }]);
+//                                 keller.pop();
+//                                 keller.push('Z','O','Z');
+//                                 check();
+
+//                             } else {
+//                                 console.log('end fail');
+//                             }
+//                         } else {
+
+//                         }
+//                     }
+
+//                 }
+//             }
+//         }
+
+
+//     }, 1000);
+// }
+
+// check();
+
+
+function check2() {
+    w || (w = word);
+    console.log('check word ', word, w, keller, replaced, stepss);
+
+    setTimeout(() => {
+
+        last = 0;
+
+
+        if (keller.length === 0) {
+            keller.push('$');
+            check();
+        } else {
+            if (keller.length === 1) {
+                if (w.length === 0) {
+                    // success
+                    console.log('=========================success');
+                } else {
+                    if (w.length === word.length) {
+                        if (replaced.s === -1) {
+                            keller.push('Z');
+                            stepss.push({ w: w, k: [...keller] });
+                        } else if (replaced.s === 0) {
+                            stepss.push({ w: w, k: [...keller] });
+                            replaced.s = 1;
+                            replaced.r = 'ZOZ';
+                            keller.push('Z', 'O', 'Z');
+
+                        } else if (replaced.s === 1) {
+                            stepss.push({ w: w, k: [...keller] });
+                            replaced.s = 2;
+                            replaced.r = '(Z)';
+                            keller.push(')', 'Z', '(');
+                        }
+                        check();
+                    } else {
+                        // if(replaced.s === -1){
+                        //     w = stepss[stepss.length-1].w;
+                        // keller = stepss[stepss.length-1].k;
+                        // replaced.s = 0;
+                        // } else
+                        w = stepss[stepss.length - 1].w;
+                        console.log('=========================1', replaced.s === -1);
+                        if (replaced.s === 0 || replaced.s === -1) {
+                            console.log('=========================2');
+                            stepss.push({ w: w, k: [...keller] });
+                            replaced.s = 1;
+                            replaced.r = 'ZOZ';
+                            keller.push('Z', 'O', 'Z');
+
+                        } else if (replaced.s === 1) {
+                            console.log('=========================3');
+                            stepss.push({ w: w, k: [...keller] });
+                            replaced.s = 2;
+                            replaced.r = '(Z)';
+                            keller.push(')', 'Z', '(');
+                        }
+
+                        check();
+                    }
+                }
+            } else {
+                if (keller[keller.length - 1] === w[0]) {
+                    if (replaced.s === -1) {
+                        keller.pop();
+                        w = w.substring(1);
+                        check();
+                    } else {
+                        let last = keller.pop();
+                        if (last === 'Z') {
+                            stepss.push({ w: w, k: [...keller] });
+                            if (replaced.s === 0 && replaced === -1) {
+                                replaced.s = 1;
+                                replaced.r = 'ZOZ';
+                                keller.push('Z', 'O', 'Z');
+                            } else if (replaced.s === 1) {
+                                replaced.s = 2;
+                                replaced.r = '(Z)';
+                                keller.push(')', 'Z', '(');
+                            } else {
+                                // end
+                                console.log('================faild');
+                                return;
+                            }
+                            check();
+                        }
+                    }
+
+                } else {
+                    let last = keller.pop();
+                    if (last === 'Z') {
+                        stepss.push({ w: w, k: [...keller] });
+                        if (replaced.s >= 0) {
+                            replaced.s = 1;
+                            replaced.r = 'ZOZ';
+                            keller.push('Z', 'O', 'Z');
+                        } if (replaced.s === 1) {
+                            replaced.s = 2;
+                            replaced.r = '(Z)';
+                            keller.push(')', 'Z', '(');
+                        } else {
+                            // end
+                            console.log('================faild');
+                            return;
+                        }
+                        check();
+                    }
+                }
+
             }
 
         }
-
-    }
-
+    }, 1000);
 
 
 }
+
 
 function isExprCorrect(e) {
     let res = false;
@@ -285,7 +712,8 @@ function isExprCorrect(e) {
     // steps.push({e:exp.replaceAll('A','Z'), r:'Z'});
     let prev = exp;
     while (isOrderCorrect(exp).length === 0) {
-        // console.log('check exp stw: ', exp);
+        console.log('check exp stw: ', exp);
+        
         if (exp.length < 4) {
             if (exp === 'AOA') {
                 steps.push({ e: exp, r: 'AOA', i: exp.search('AOA') });
@@ -343,6 +771,10 @@ function getIndicesOf(searchStr, str, caseSensitive = false) {
 
 function replace2(a = '') {
     return a.replace(/\d/g, 'A').replace(/[+ \- / *]/g, 'O');
+}
+
+function replace3(a = '') {
+    return a.replace(/\d/g, 'Z').replace(/[+ \- / *]/g, 'O');
 }
 
 function isOrderCorrect(a) {
@@ -603,6 +1035,6 @@ class Knoten {
     }
 }
 
-initProgram();
+// initProgram();
 
-
+// check();
