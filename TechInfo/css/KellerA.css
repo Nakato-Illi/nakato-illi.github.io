@@ -136,7 +136,7 @@ table tbody tr td{
     margin: 70px 0px 0px 0px;
     padding: 5px;
     width: 60%;
-    background-color: rgb(48, 48, 48);
+    background-color: rgb(54, 54, 54);
     border-radius: 5px;
 }
 
@@ -264,4 +264,11 @@ svg {
     display: flex;
     align-self: flex-end;
     transform: rotate(180deg);
+}
+
+.kellerSchrift {
+  color: rgb(0, 0, 0);
+  display: inline;
+  position: absolute;
+  margin-left: 20px;
 }
