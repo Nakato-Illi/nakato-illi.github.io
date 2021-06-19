@@ -403,12 +403,12 @@ nav ul li ul li a:hover{
 
     #ka_aufgabe{
       height: 60px;
-      width: 100px;
+      width: 10px;
     }
     .ka_Container {
-  
-      background-color: rgb(124, 124, 124);
-      margin: 0 200px;
+      color: #fff;
+      border: rgb(255, 128, 187) solid 3px;
+      padding-bottom: 40px;
     }
   
     .ka_Container h2 {
@@ -418,8 +418,38 @@ nav ul li ul li a:hover{
     }
   
     .ka_textcontainer  {
+      color: black;
       display: flex;
-      justify-content: space-evenly;
+      flex-direction: column;
+      margin-top: 10px;
+      font-size: 17px;
+      letter-spacing: 0.2px;
+      line-height: 23px;
+    }
+
+    .ka_textcontainer h4,
+    .ka_textcontainer h3 {
+      color: rgb(49, 49, 49);
+      padding-bottom: 5px;
+      padding-top: 10px;
+    }
+
+    .ka_textcontainer .ka_left {
+      padding:  10px 20px;
+      background-color: rgb(255, 255, 255);
+      margin: 0 100px;
+    }
+    .ka_textcontainer .ka_center {
+      padding: 10px 20px;
+      background-color: rgb(240, 240, 240);
+      overflow: hidden;
+      margin: 0 100px;
+    }
+
+    .ka_textcontainer .ka_right {
+      padding: 10px 20px;
+      background-color: rgb(240, 240, 240);
+      margin: 0 100px;
     }
 
     /* --------------------   Truning Maschine-Section!   --------------------- */
@@ -441,7 +471,12 @@ nav ul li ul li a:hover{
     }
   
     .tm_textcontainer  {
+      color: black;
       display: flex;
-      justify-content: space-evenly;
+      flex-direction: column;
+      margin-top: 10px;
+      font-size: 17px;
+      letter-spacing: 0.2px;
+      line-height: 23px;
     }
   

@@ -151,8 +151,8 @@ table tbody tr td{
 
 .eingabe {
     display: flex;
-    justify-content: center;
-    margin: 10px;
+    justify-content: flex-end;
+    margin: 10px 10px 0px 10px;
     color: #fff;
 }
 
@@ -171,12 +171,36 @@ table tbody tr td{
     margin-top: 2px;
 }
 
+#isExpCorrect {
+  width: 10px;
+  height: 33.5px;
+  background-color: #f1f1f1;
+  margin-left: 2px;
+  margin-top: 3px;
+}
+
+.feld {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#feldeingabe {
+  margin-right: 22px;
+  width: 299px;
+  height: 35px;
+  font-size: 25px;
+  padding: 3px;
+  
+}
+
 /* --------------------   EingabeWort-section   --------------------- */
 
 .container_control {
     display: flex;
     justify-content: start;
     margin-left: 110px;
+    justify-self: center;
+    justify-items: center;
 }
 
 .container_control button {
@@ -243,18 +267,16 @@ svg {
 
   .simBox .keller {
     width: 70px;
-    height: 440px;
-    align-self: flex-end;
+    height: 480px;
     
     padding: 7px;
-    margin: 20px 20px 0px 20px;
+    margin: 5px 20px 0px 20px;
     border-left: 4px solid rgb(255, 128, 187);
     border-bottom: 4px solid rgb(255, 128, 187);
     border-right: 4px solid rgb(255, 128, 187);
     background-color: #fff;
     display: flex;
-    justify-content: center;
-    
+    overflow: auto;
 }
 
 .simBox .keller p {
@@ -264,10 +286,10 @@ svg {
     display: flex;
     align-self: flex-end;
     transform: rotate(180deg);
+    color: rgb(255, 128, 187);
 }
 
 .kellerSchrift {
-  color: rgb(0, 0, 0);
   display: inline;
   position: absolute;
   margin-left: 20px;

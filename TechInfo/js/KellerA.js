@@ -1,3 +1,4 @@
+var $ = function (id) { return document.getElementById(id); };
 var genCorrectButton = document.getElementById('gen_but_corr');
 var genWrongButton = document.getElementById('gen_but_wrong');
 var genExp = document.getElementById('word_input');
@@ -5,7 +6,11 @@ var exp = document.getElementById('gen_exp');
 var start = document.getElementById('start');
 var stopp = document.getElementById('stop');
 var step = document.getElementById('step');
+var kell = document.getElementById('keller');
+var feld = document.getElementById('feldeingabe');
 var result = document.getElementById('isExpCorrect');
+var knoten = [];
+var kanten = [];
 var ausdrucke = ['AOA', '(A)', 'Z'];
 var operanden = ['+', '-', '/', '*'];
 const falseExp = ['OO', 'ZZ', '()', ')(', 'A(', ')A', '(O', 'O)', 'Z(', ')Z'];
@@ -17,11 +22,15 @@ genExp.addEventListener('input', (evt) => {
     let word = genExp.value;
     word.match(/[^\d+\-/*()]/g) && (genExp.value = word.replace(/[^\d+\-/*()]/g, ''));
     manageStates();
-    // result.style.backgroundColor = !genExp.value ? 'transparent' : isExprCorrect() ? 'lightgreen' : 'red';
+    result.style.backgroundColor = !genExp.value ? 'transparent' : isExprCorrect() ? 'lightgreen' : 'red';
 });
 
 //Variablen für das Aussehen
+var nodeColor = 'rgb(255, 128, 187)';
+var edgeColor = 'rgb(211, 211, 211)';
 var activeColor = 'blue';
+var tableColor = 'white';
+var tactiveColor = 'lightblue';
 var faildColor = 'red';
 var successColor = 'lightgreen';
 
@@ -33,15 +42,13 @@ var inAction = false;
 manageClickability(false); //gibt an, ob gerade überprüft wird.
 var playEndAnim = false;
 var prev;
+var activeNode;
 var maxSpeed = 2000;
 var speed = maxSpeed * 0.2;
 
 let stepss = [];
 let replaced = { s: -1, r: '' };
 let keller = [];
-// let word = '(Z)OZO(ZO(ZOZ))OZ';
-// let word = 'ZO((Z)O(Z))';
-// let word = '(ZOZO(ZO(ZOZ))OZ)';
 let word;
 let w = null;
 let firstPush = { w: '', r: '', ex: '' };
@@ -54,6 +61,16 @@ function resetk() {
     // word = null;
     keller = [];
     stepu = [];
+    starto = true;
+    prev = null;
+    endo = false;
+    activeNode = null;
+    let sutep = null;
+    back = false;
+    con = false;
+    suc = false;
+    // kanten.forEach((ka) => ka.setInactive());
+    // knoten.forEach((kn) => kn.setColor(nodeColor));
 }
 
 
@@ -67,6 +84,7 @@ function generateRandomRightWord() {
     count = 0;
     let r = getRandomNumber(0, ausdrucke.length - 1);
     let a = ausdrucke[r];
+    playEndAnim = false;
     // console.log(r, a);
     // let vorAusdruck = getAusdruck(a);
     let vorAusdruck = getRichtigAusdruck(a);
@@ -105,6 +123,7 @@ function replace(a) {
 function generateRandomWrongExpr() {
     let r = getRandomNumber(0, ausdrucke.length - 1);
     let a = ausdrucke[r];
+    playEndAnim = false;
     // console.log(r, a);
     let vorAusdruck = getFalschAusdruck(a);
 
@@ -130,80 +149,27 @@ function reset() {
 }
 
 const checkWord = (isauto) => {
-    steps = [];
-    stepss = [];
 
-    // isExprCorrect();
-    // word = '(ZOZO(ZO(ZOZ))OZ)';
-
-    // let stepsss = [{r:'ZOZ',i:7, c:8}, {r:'(Z)',i:1, c:7}, {r:'(Z)',i:6, c:6}, {r:'ZOZ',i:4, c:5}, {r:'(Z)',i:3, c:4},{r:'ZOZ',i:1, c:3}, {r:'ZOZ',i:1, c:2}, {r:'(Z)',i:0, c:1}];
-    let cor = isExprCorrect();
-    let stepsss = [...stepss];
-    stepsss.sort((a, b) => b.i - a.i);
-    console.log(stepsss);
-    stepss.sort((a, b) => b.i - a.i);
-    console.log(cor, stepss);
-    word = null;
-    // return;
-    // console.log(' die liste: ', steps.map((el) => el.e + '|' + el.r + '|' + el.i));
-    if (!stepss.length > 0 && cor) return;
     if (!inAction) {
         inAction = true;
         manageClickability(true);
         resetk();
+        steps = [];
+        stepss = [];
+        playEndAnim = false;
+        let cor = isExprCorrect();
+        if (!stepss.length > 0 && cor) return;
+        stepss.sort((a, b) => b.i - a.i);
+        console.log(cor, stepss);
+        word = null;
     }
+    let cor = iscorrect();
+
     auto = isauto;
     manageStates();
     if (cor) check();
     else test();
 };
-
-// checkWord(true);
-
-/**
- * checks the word, one letter at a time.
- * if @var isEdge is true it checks the letter with index @var index
- * and also changes its the color
- * else it changes the color of the current node
- */
-function isLetterCorrect2() {
-
-    if (prev) {
-        prev.style.color = 'black';
-        prev.style.fontSize = '27px';
-    }
-    const indexe = steps[index].l;
-    if (indexe) {
-        changeLetterColor(steps[index].e, indexe, 'red');
-    } else {
-        const element = document.getElementById(steps[index].r);
-        if (element) {
-            element.style.color = 'blue';
-            element.style.fontSize = '35px';
-            let i = steps[index].i;
-            console.log('for color i', i, steps[index].e);
-            if (i >= 0) {
-                changeLetterColor(steps[index].e, [i, i + 1, i + 2], 'blue');
-            } else {
-                let r = steps[index].r;
-                let l = getIndicesOf(r, steps[index].e);
-                changeLetterColor(steps[index].e, l, 'blue');
-            }
-        }
-        prev = element;
-    }
-
-    index++;
-    setTimeout(() => {
-        if (indexe || index > steps.length - 1) {
-            finishCheck(true);
-        } else
-            if (auto) {
-                isLetterCorrect();
-            }
-    }, speed);
-    //    }
-}
 
 
 /**
@@ -216,6 +182,8 @@ function finishCheck(success) {
     auto = false;
     manageStates();
     manageClickability(false);
+    playEndAnim = true;
+    endAnimation(10, success);
     if (success) {
 
     } else {
@@ -240,360 +208,99 @@ function endAnimation(count, success) {
  */
 function changeLetterColor(word, ind, color) {
     let text = word;
-    // console.log('col: ', text);
+    console.log('col: ', text);
     let i = 0;
     let newText = '';
     newText = Array.prototype.map.call(text, function (letter) {
-        let res = letter.fontcolor(ind.includes(i) ? color : 'black');
+        let res = letter.fontcolor(ind.includes(i) ? color : 'white');
         i++;
         return res;
     }).join('');
-    console.log('change color ', word, ind, newText);
-    exp.innerHTML = newText;
+    
+    feld.innerHTML = newText;
+    console.log('change color ', word, ind, feld.innerText, feld.innerHTML, newText);
+
 }
+let starto = true;
+let endo = false;
+let trow = null;
+let svg1 = null;
+let svg2 = null;
 
 function check() {
-    console.log('check word ', word, w, keller, stepss);
+    console.log('check word ', word, w, [...keller], [...stepss]);
+    knoten.forEach((e) => e.setColor(nodeColor));
     // let lastp2 = lastPop[lastPop.length-2];
+    trow && (trow.style.backgroundColor = tableColor);
+    svg1 && (svg1.style.fill = 'black');
+    svg2 && (svg2.style.fill = 'black');
 
     let con = false;
     let suc = false;
-    if (keller.length === 0) {
-        word || (word = genExp.value);
-        w = replace3(word.slice());
-        keller.push('$');
-
+    let edge;
+    if (starto) {
+        isEdge = false;
+        starto = false;
+        trow = $('t_start');
+        trow.style.backgroundColor = tactiveColor;
+        let node = knoten.find((n) => n.isStart());
+        console.log('start knoten ', node, knoten);
+        node.setColor(activeColor);
         con = true;
-        // check();
-    } else if (keller.length === 1) {
-        if (w.length === 0) {
-            console.log('end success');
-            suc = true;
-            // finishCheck();
-        } else {
-            keller.push('Z');
-            // check();
-            con = true;
-        }
-    } else {
-        const f = w[0];
-        const ke = keller[keller.length - 1];
-        const f2 = w[1];
-        const ke2 = keller[keller.length - 2];
-        if (ke === f) {
-            if (ke === 'Z') {
-                con = true;
-                if (((keller.join('').match(/Z/g) || []).length < 2 && (w.match(/Z/g) || []).length > 1) || f2 && f2 !== ke2) {
-                    const s = stepss.pop();
-                    if (s.r) {
-                        let k = s.r.split('').reverse().join('').replace(/[A]/g, 'Z');
-                        keller.pop();
-                        for (let i = 0; i < k.length; i++) {
-                            keller.push(k[i]);
-                        }
-                    } else con = false;
-
-                } else {
-                    w = w.slice(1);
-                    keller.pop();
-                }
-
-            } else {
-                w = w.slice(1);
-                keller.pop();
-                con = true;
-            }
-
-            // check();
-
-        } else {
-            if (ke === 'Z') {
-                const s = stepss.pop();
-                if (s.r) {
-                    let k = s.r.split('').reverse().join('').replace(/[A]/g, 'Z');
-                    keller.pop();
-                    for (let i = 0; i < k.length; i++) {
-                        keller.push(k[i]);
-                    }
-                    con = true;
-                }
-
-
-            }
-        }
-    }
-    setTimeout(() => {
-
-        if (!con) finishCheck(suc);
-        else if (auto) {
-            check();
-        }
-    }, speed);
-}
-let sutepu = 0;
-let back = false;
-
-
-let st = { wpre: '', wpost: '', pop: '', push: '', st: 0 };
-let stepu = [];
-function test() {
-    console.log('test word ', word, w, back, stepu[stepu.length - 1]?.st, keller, stepu);
-    let con = false;
-    let suc = false;
-    if (stepu.length === 0) {
-        word = genExp.value;
-        w = replace3(word.slice());
-
+    } else if (endo) {
+        console.log('end success');
+        suc = true;
+        let node = knoten.find((n) => n.isEnd());
+        console.log('end knoten ', node, knoten);
+        node.setColor(activeColor);
         keller = [];
-        keller.push('$', 'Z');
-        stepu.push({ wpre: w, wpost: w, pop: '', push: 'Z', k: [...keller], st: 0 });
-        con = true;
-    } else {
-        if (keller.length === 1) {
+    } else
+
+        if (keller.length === 0) {
+            edge = kanten.find((kante) => kante.isStart());
+            trow = $('t_start');
+            trow.style.backgroundColor = tactiveColor;
+
+            word || (word = genExp.value);
+            w = replace3(word.slice());
+            keller.push('$');
+
+            con = true;
+            // check();
+        } else if (keller.length === 1) {
+
+
             if (w.length === 0) {
-                console.log('end success');
-                suc = true;
-            } else {
-                console.log('end fail');
-            }
-        } else {
-            const f = w[0];
-            const ke = keller[keller.length - 1];
-            const f2 = w[1];
-            const ke2 = keller[keller.length - 2];
-            if (ke === f) {
-                if (ke === 'Z') {
-                    if (((keller.join('').match(/Z/g) || []).length < 2 && (w.match(/Z/g) || []).length > 1)) {//|| f2 && f2 !== ke2
-                        if (f !== '(') {
-                            if (back) {
-                                back = false;
-                                const b = stepu.pop();
-                                console.log('back 1 ', b);
-                                if (b.st < 2) {
-                                    stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
-                                    let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                    keller = [];
-                                    for (let i = 0; i < k.length; i++) {
-                                        keller.push(k[i]);
-                                    }
-                                    con = true;
-                                } else {
-                                    const ba = stepu[stepu.length - 1];
-                                    if (ba) {
-                                        w = ba.wpre;
-                                        keller = ba.k;
-                                        back = true;
-                                        con = true;
-                                    }
-                                }
-                            } else {
-                                const b = stepu[stepu.length - 1];
-                                stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
-                                let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                keller = [];
-                                for (let i = 0; i < k.length; i++) {
-                                    keller.push(k[i]);
-                                }
-                                con = true;
-                            }
 
-                        } else {
-                            if (back) {
-
-                                back = false;
-                                const b = stepu.pop();
-                                console.log('back 2 ', b);
-                                if (b.st < 2) {
-                                    stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
-                                    let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                    keller = [];
-                                    for (let i = 0; i < k.length; i++) {
-                                        keller.push(k[i]);
-                                    }
-                                    con = true;
-                                } else {
-                                    const ba = stepu[stepu.length - 1];
-                                    if (ba) {
-                                        w = ba.wpre;
-                                        keller = ba.k;
-                                        back = true;
-                                        con = true;
-                                    }
-                                }
-
-                            } else {
-                                stepu.push({ wpre: w, wpost: w, pop: '', push: '(Z)', k: [...keller], st: 1 });
-                                let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
-                                keller = [];
-                                for (let i = 0; i < k.length; i++) {
-                                    keller.push(k[i]);
-                                }
-                            }
-
-                        }
-                    } else {
-                        w = w.slice(1);
-                        keller.pop();
-                        con = true;
-                    }
-
+                if (!isEdge) {
+                    con = true;
                 } else {
-                    w = w.slice(1);
-                    keller.pop();
+                    trow = $('t_end');
+                    trow.style.backgroundColor = tactiveColor;
+                    edge = kanten.find((kante) => kante.isEnd());
+                    con = true;
+                    endo = true;
+                }
+            } else {
+                if (!isEdge) {
+                    let node = knoten.find((n) => n.getNumber() === 1);
+                    node.setColor(activeColor);
+                    con = true;
+                } else {
+                    edge = kanten.find((kante) => kante.getStartPos() === '1');
+                    keller.push('Z');
+                    trow = $('t_push_Z');
+                    trow.style.backgroundColor = tactiveColor;
                     con = true;
                 }
-
-            } else {
-                if (ke === 'Z') {
-                    if (f !== '(') {
-                        stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
-                        let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                        keller = [];
-                        for (let i = 0; i < k.length; i++) {
-                            keller.push(k[i]);
-                        }
-                    } else {
-                        if (back) {
-                            back = false;
-                            stepu.pop();
-                            const b = stepu.pop();
-                            console.log('back 3 ', b);
-                            if (b.st < 2) {
-                                stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
-                                let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                keller = [];
-                                for (let i = 0; i < k.length; i++) {
-                                    keller.push(k[i]);
-                                } 
-                                con = true;
-                            } else {
-                                const ba = stepu[stepu.length - 1];
-                                if (ba) {
-                                    w = ba.wpre;
-                                    keller = ba.k;
-                                    back = true;
-                                    con = true;
-                                }
-
-                            }
-                        } else {
-                            stepu.push({ wpre: w, wpost: w, pop: '', push: '(Z)', k: [...keller], st: 1 });
-                            let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
-                            keller = [];
-                            for (let i = 0; i < k.length; i++) {
-                                keller.push(k[i]);
-                            }
-                            con = true;
-                        }
-
-                    }
-                } else {
-                    const ba = stepu[stepu.length - 1];
-                    if (ba) {
-                        w = ba.wpre;
-                        keller = ba.k;
-                        back = true;
-                        con = true;
-                    }
-                }
             }
-        }
-    }
-    setTimeout(() => {
-
-        if (!con) finishCheck(suc);
-        else if (auto) {
-            test();
-        }
-    }, speed);
-}
-
-function check2() {
-    if (lastPop.length === 0) {
-        word = genExp.value;
-        w = replace3(word.slice());
-
-        lastPop.push({ w: w, r: '', ex: 'Z' });
-    }
-    // w === null && (w = word);
-
-    let lastp2 = firstPush.ex;
-    let lastp = lastPop[lastPop.length - 1];
-    console.log('check2 word ', word, w, keller, lastp, lastp2, firstPush);
-    // let lastp2 = lastPop[lastPop.length-2];
-
-    setTimeout(() => {
-        if (keller.length === 0) {
-            keller.push('$');
-            check2();
         } else {
-            if (firstPush.r === '') {
-                firstPush = { w: w.slice(), r: 'Z', ex: 'Z' };
-                keller.push('Z');
-                check2();
+            if (!isEdge) {
+                let node = knoten.find((n) => n.getNumber() === 2);
+                node.setColor(activeColor);
+                con = true;
             } else {
 
-                // let f = w[0];
-                // console.log('1 check ', word, w, keller, st);
-                // if (keller[keller.length - 1] === f) {
-                // if (keller.length > 1 && keller[keller.length - 1] === 'Z' && w.length > 1 && keller[keller.length - 2] !== w[1]) {
-                //     console.log('---------------------- ', w, keller);
-
-                //     if (keller.length === 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O' && w.length > 2 && (w[2] === 'Z' || w[2] === '(')) {
-                //         let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                //         keller = [];
-                //         for (let i = 0; i < k.length; i++) {
-                //             keller.push(k[i]);
-                //         }
-                //     } else if (keller.length === 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O') {
-                //         keller = ['$', 'Z', 'O', 'Z'];
-                //         w = firstPush.w;
-                //         let la = { w: w.slice(), ex: lastp.ex }
-                //         lastPop.push(la);
-                //     } else if (keller.length > 3 && keller[keller.length - 1] === 'Z' && keller[keller.length - 2] === ')' && w[1] === 'O') {
-                //         let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                //         keller = [];
-                //         for (let i = 0; i < k.length; i++) {
-                //             keller.push(k[i]);
-                //         }
-                //     } else if (keller.length === 2 && keller[keller.length - 1] === 'Z' && w[1] === 'O') {
-                //         let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                //         keller = [];
-                //         for (let i = 0; i < k.length; i++) {
-                //             keller.push(k[i]);
-                //         }
-                //     }
-
-                //     // if (keller.length === 3) {
-                //     //     w = firstPush.w;
-                //     //     let la = { w: w.slice(), ex: lastp.ex }
-                //     //     lastPop.push(la);
-                //     //     let k = keller.join('').replace(new RegExp('Z\\)' + '$'), 'ZOZ');
-                //     //     keller = [];
-                //     //     for (let i = 0; i < k.length; i++) {
-                //     //         keller.push(k[i]);
-                //     //     }
-                //     // } else if (keller.length === 2) {
-                //     //     keller = ['$', 'Z', 'O', 'Z'];
-                //     // }
-
-
-
-                //     // keller = ['$', 'Z', 'O', 'Z'];
-                //     // w = lastPop[lastPop.length-3].w;
-
-                //     check2();
-                // } else {
-                // keller.pop();
-                // w = w.substring(1);
-                // let k = [...keller];
-                // k.reverse();
-                // let la = { w: w.slice(), ex: k.join('') }
-                // lastPop.push(la);
-                // check2();
-                // }
-
-                // } 
                 const f = w[0];
                 const ke = keller[keller.length - 1];
                 const f2 = w[1];
@@ -602,170 +309,604 @@ function check2() {
                     if (ke === 'Z') {
                         con = true;
                         if (((keller.join('').match(/Z/g) || []).length < 2 && (w.match(/Z/g) || []).length > 1) || f2 && f2 !== ke2) {
-                            let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                            keller = [];
-                            for (let i = 0; i < k.length; i++) {
-                                keller.push(k[i]);
-                            }
-                            w = firstPush.w;
-                            let la = { w: w.slice(), ex: lastp.ex }
-                            lastPop.push(la);
-                            check2();
+                            const s = stepss.pop();
+                            if (s.r) {
+                                let k = s.r.split('').reverse().join('').replace(/[A]/g, 'Z');
+                                keller.pop();
+                                for (let i = 0; i < k.length; i++) {
+                                    keller.push(k[i]);
+                                }
+                                trow = $('t_push_' + s.r);
+                                trow || console.log('da row push 1: ', s.r);
+                                trow && (trow.style.backgroundColor = tactiveColor);
+                                svg1 = $('push');
+                                svg2 = $('push_' + s.r);
+                                console.log('svgs: ', svg1, svg2);
+                                svg1 && (svg1.style.fill = activeColor);
+                                svg2 && (svg2.style.fill = activeColor);
+                                edge = kanten.find((kante) => kante.num === '1');
+                            } else con = false;
+
                         } else {
+                            w = w.slice(1);
                             keller.pop();
-                            w = w.substring(1);
-                            let k = [...keller];
-                            k.reverse();
-                            let la = { w: w.slice(), ex: k.join('') }
-                            lastPop.push(la);
-                            check2();
+                            edge = kanten.find((kante) => kante.num === '2');
+                            trow = $('t_pop_Z');
+                            trow.style.backgroundColor = tactiveColor;
+                            svg1 = $('pop');
+                            svg2 = $('pop_Z');
+                            console.log('svgs: ', svg1?.innerHTML, svg2);
+                            svg1 && (svg1.style.fill = activeColor);
+                            svg2 && (svg2.style.fill = activeColor);
                         }
 
                     } else {
+                        w = w.slice(1);
                         keller.pop();
-                        w = w.substring(1);
-                        let k = [...keller];
-                        k.reverse();
-                        let la = { w: w.slice(), ex: k.join('') }
-                        lastPop.push(la);
-                        check2();
+                        con = true;
+                        edge = kanten.find((kante) => kante.num === '2');
+                        trow = $('t_pop_' + ke);
+                        trow || console.log('da row pop 1: ', s.r);
+                        trow && (trow.style.backgroundColor = tactiveColor);
+                        svg1 = $('pop');
+                        svg2 = $('pop_' + ke);
+                        console.log('svgs: ', svg1, svg2);
+                        svg1 && (svg1.style.fill = activeColor);
+                        svg2 && (svg2.style.fill = activeColor);
                     }
 
                     // check();
 
                 } else {
-                    // console.log('2 check ', word, w, keller, st);
-                    if (lastp.ex) {
-                        if (lastp.ex[0] === 'Z') {
+                    if (ke === 'Z') {
+                        const s = stepss.pop();
+                        console.log('1 stepwise stepss', s, stepss, keller);
+                        if (s.r) {
+                            let k = s.r.split('').reverse().join('').replace(/[A]/g, 'Z');
+                            keller.pop();
+                            for (let i = 0; i < k.length; i++) {
+                                keller.push(k[i]);
+                            }
+                            trow = $('t_push_' + s.r);
+                            trow || console.log('da row push 2: ', s.r);
+                            trow && (trow.style.backgroundColor = tactiveColor);
+                            svg1 = $('push');
+                            svg2 = $('push_' + s.r);
+                            console.log('svgs: ', svg1.innerHTML, svg2);
+                            svg1 && (svg1.style.fill = activeColor);
+                            svg2 && (svg2.style.fill = activeColor);
+                            edge = kanten.find((kante) => kante.num === '1');
+                            con = true;
+                        }
 
-                            if (f === '(') {
-                                // if (firstPush.r === '(Z)') {
-                                //     w = lastp.w;
-                                //     firstPush = { w: w, r: 'ZOZ' }
+                        console.log('2 stepwise stepss', s, stepss, keller, con);
+                    }
+                }
+            }
 
-                                //     let k = keller.join('').replace('Z', 'ZOZ');
-                                //     keller = [];
-                                //     for (let i = 0; i < k.length; i++) {
-                                //         keller.push(k[i]);
-                                //       }
-                                // } 
-                                // // else if (firstPush.r === 'ZOZ') {
-                                // //     console.log('whatever 1');
-                                // //     return;
-                                // // }
-                                //  else {
-                                w = lastp.w;
-                                firstPush = { w: w, r: '(Z)', ex: lastp.ex }
-                                let ke = [...keller];
-                                // if(ke && ke.length> 0 && ke[0] === '$')
+        }
+
+    kell.innerHTML = keller.join('').replace(/[\\(]/g, 'k').replace(/[\\)]/g, '(').replace(/[k]/g, ')');
+    feld.style.color = 'white';
+    feld.innerHTML = w;
+    if (!isEdge) {
+        if (prev) prev.setInactive();
+    }
+    if (edge && isEdge) {
+        edge.setActive();
+        prev = edge;
+    }
+    isEdge = !isEdge;
+    if (con) {
+        setTimeout(() => {
+            if (auto) check();
+        }, speed);
+
+    } else {
+        // let end = prev && prev.isEnd();
+        finishCheck(suc);
+        console.log('finiche-----------------------', suc);
+    }
+}
+
+let sutep = null;
+let back = false;
+let con = false;
+let suc = false;
+
+const goBack = () => {
+    sutep = stepu.pop();
+    if (sutep && sutep.st < 2) {
+        w = sutep.wpre;
+        keller = sutep.k;
+        back = true;
+        con = true;
+    }
+}
+
+const pop = () => {
+    w = w.slice(1);
+    keller.pop();
+    con = true;
+}
+
+const push = (a, st, p = true) => {
+    p && stepu.push({ wpre: w, wpost: w, pop: '', push: a, k: [...keller], st: st });
+    let k = keller.join('').replace(new RegExp('Z' + '$'), a);
+    keller = [];
+    for (let i = 0; i < k.length; i++) {
+        keller.push(k[i]);
+    }
+    con = true;
+}
+
+const handlePush = () => {
+    const f = w[0];
+    const f2 = w[1];
+    let res = false;
+    if (f !== '(') {
+        if (back) {
+            back = false;
+            goBack();
+        } else {
+            push('ZOZ', 2, f2 && f2 === ')' ? false : true);
+            res = true;
+        }
+    } else {
+        if (back) {
+
+            back = false;
+            push('ZOZ', 2);
+            res = true;
+        } else {
+            push(')Z(', 1);
+            res = true;
+        }
+
+    }
+    return res;
+}
+
+const handleSpecialPop = () => {
+    let res = false;
+    if (((keller.join('').match(/Z/g) || []).length < 2 && (w.match(/Z/g) || []).length > 1)) {//|| f2 && f2 !== ke2
+        handlePush();
+        res = true;
+    } else {
+        con = true;
+    }
+    // console.log('handleSpecialPop: ', res, con);
+    return res;
+}
+
+let st = { wpre: '', wpost: '', pop: '', push: '', st: 0 };
+let stepu = [];
+let hist = [];
+
+const h = (s) => {
+    if (hist.length >= 2) {
+        hist = [hist[hist.length - 1]];
+    }
+    hist.push(s);
+}
+
+let startu = true;
+const test2 = () => {
+    con = false;
+    console.log('test word ', word, w, back, stepu[stepu.length - 1]?.st, [...keller], stepu);
+
+
+    if (startu) {
+        startu = false;
+        word = genExp.value;
+        w = replace3(word.slice());
+
+        keller = [];
+        keller.push('$', 'Z');
+        stepu.push({ wpre: w, wpost: w, pop: '', push: 'Z', k: [...keller], st: 0 });
+        con = true;
+    } else if (stepu.length === 0) {
+        console.log('end fail 1');
+    } else {
+        if (keller.length === 1) {
+            if (w.length === 0) {
+                console.log('end success');
+                suc = true;
+            } else {
+                console.log('end fail 2');
+            }
+        } else {
+            const f = w[0];
+            const ke = keller[keller.length - 1];
+            if (ke === f) {
+                if (ke === 'Z') {
+                    handleSpecialPop() || pop();
+                } else
+                    pop();
+            } else {
+                if (ke === 'Z') {
+                    handlePush();// || goBack();
+                } else goBack();
+            }
+
+        }
+    }
+    if (con) {
+        setTimeout(() => {
+            if (auto) test2();
+        }, speed);
+
+    } else {
+        finishCheck(suc);
+        console.log('finiche-----------------------', suc);
+    }
+
+}
+
+function test() {
+    back && (isEdge = true);
+    
+    kanten.forEach((e) => e.setInactive());
+    knoten.forEach((e) => e.setColor(nodeColor));
+    h({ k: [...keller], w: w });
+    console.log('test word ', word, w, back, stepu[stepu.length - 1]?.st, [...keller], [...stepu]);
+    trow && (trow.style.backgroundColor = tableColor);
+    svg1 && (svg1.style.fill = 'black');
+    svg2 && (svg2.style.fill = 'black');
+
+    let con = false;
+    let suc = false;
+    let edge;
+    let col = false;
+
+    if(w && w[0] && w[1] && isOrderCorrect(w[0]+w[1]).length > 0){
+        col = true;
+        // stepu = [];
+        // con = true;
+    }else
+    if (starto) {
+        isEdge = false;
+        starto = false;
+        trow = $('t_start');
+        trow.style.backgroundColor = tactiveColor;
+        let node = knoten.find((n) => n.isStart());
+        console.log('start knoten ', node, knoten);
+        node.setColor(activeColor);
+        con = true;
+    } else if (endo) {
+        console.log('end success');
+        suc = true;
+        let node = knoten.find((n) => n.isEnd());
+        console.log('end knoten ', node, knoten);
+        node.setColor(activeColor);
+        keller = [];
+    } else
+        if (keller.length === 0) {
+            edge = kanten.find((kante) => kante.isStart());
+            trow = $('t_start');
+            trow.style.backgroundColor = tactiveColor;
+            word = genExp.value;
+            w = replace3(word.slice());
+
+            keller = [];
+            keller.push('$');
+
+            con = true;
+        } else {
+            if (keller.length === 1) {
+                if (w.length === 0) {
+
+                    if (!isEdge) {
+                        con = true;
+                    } else {
+                        trow = $('t_end');
+                        trow.style.backgroundColor = tactiveColor;
+                        edge = kanten.find((kante) => kante.isEnd());
+                        con = true;
+                        endo = true;
+                    }
+
+                    // finishCheck();
+                } else {
+                    if (!isEdge) {
+                        let node = knoten.find((n) => n.getNumber() === 1);
+                        node.setColor(activeColor);
+                        con = true;
+                    } else {
+                        stepu.push({ wpre: w, wpost: w, pop: '', push: 'Z', k: [...keller], st: 0 });
+                        // h(stepu[stepu.length - 1]);
+                        edge = kanten.find((kante) => kante.getStartPos() === '1');
+                        keller.push('Z');
+                        trow = $('t_push_Z');
+                        trow.style.backgroundColor = tactiveColor;
+                        // check();
+                        con = true;
+                    }
+
+
+                }
+            } else {
+                const f = w[0];
+                const ke = keller[keller.length - 1];
+                const f2 = w[1];
+                const ke2 = keller[keller.length - 2];
+                if (ke === f) {
+                    if (ke === 'Z') {
+                        if (((keller.join('').match(/Z/g) || []).length < 2 && (w.match(/Z/g) || []).length > 1)) { //|| f2 && f2 !== ke2){
+                            if (f !== '(') {
+                                if (back) {
+                                    back = false;
+                                    // stepu.pop();
+                                    const b = stepu.pop();
+                                    console.log('back 1 ', b);
+                                    if (b && b.st < 2) {
+                                        stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
+                                        // h(stepu[stepu.length - 1]);
+                                        let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                        keller = [];
+                                        for (let i = 0; i < k.length; i++) {
+                                            keller.push(k[i]);
+                                        }
+                                        trow = $('t_push_ZOZ');
+                                        trow || console.log('da row push 1: ', 'ZOZ');
+                                        trow && (trow.style.backgroundColor = tactiveColor);
+                                        svg1 = $('push');
+                                        svg2 = $('push_ZOZ');
+                                        // console.log('svgs: ', svg1.innerHTML, svg2);
+                                        svg1 && (svg1.style.fill = activeColor);
+                                        svg2 && (svg2.style.fill = activeColor);
+                                        edge = kanten.find((kante) => kante.num === '1');
+                                        con = true;
+                                    } else {
+                                        const ba = stepu[stepu.length - 1];
+                                        if (ba) {
+                                            w = ba.wpre;
+                                            keller = ba.k;
+                                            back = true;
+                                            con = true;
+                                            knoten.forEach((kn) => kn.setColor(nodeColor));
+                                        }
+                                    }
+                                } else {
+                                    const b = stepu[stepu.length - 1];
+                                    stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
+                                    // h(stepu[stepu.length - 1]);
+                                    let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                    keller = [];
+                                    for (let i = 0; i < k.length; i++) {
+                                        keller.push(k[i]);
+                                    }
+                                    trow = $('t_push_ZOZ');
+                                    trow || console.log('da row push 2: ', 'ZOZ');
+                                    trow && (trow.style.backgroundColor = tactiveColor);
+                                    svg1 = $('push');
+                                    svg2 = $('push_ZOZ');
+                                    // console.log('svgs: ', svg1.innerHTML, svg2);
+                                    svg1 && (svg1.style.fill = activeColor);
+                                    svg2 && (svg2.style.fill = activeColor);
+                                    edge = kanten.find((kante) => kante.num === '1');
+                                    con = true;
+                                }
+
+                            } else {
+                                if (back) {
+
+                                    back = false;
+                                    // stepu.pop();
+                                    const b = stepu.pop();
+                                    console.log('back 2 ', b);
+                                    if (b.st < 2) {
+                                        stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
+                                        // h(stepu[stepu.length - 1]);
+                                        let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                        keller = [];
+                                        for (let i = 0; i < k.length; i++) {
+                                            keller.push(k[i]);
+                                        }
+                                        trow = $('t_push_ZOZ');
+                                        trow || console.log('da row push 3: ', 'ZOZ');
+                                        trow && (trow.style.backgroundColor = tactiveColor);
+                                        svg1 = $('push');
+                                        svg2 = $('push_ZOZ');
+                                        // console.log('svgs: ', svg1.innerHTML, svg2);
+                                        svg1 && (svg1.style.fill = activeColor);
+                                        svg2 && (svg2.style.fill = activeColor);
+                                        edge = kanten.find((kante) => kante.num === '1');
+                                        con = true;
+                                    } else {
+                                        const ba = stepu[stepu.length - 1];
+                                        if (ba) {
+                                            w = ba.wpre;
+                                            keller = ba.k;
+                                            back = true;
+                                            con = true;
+                                            knoten.forEach((kn) => kn.setColor(nodeColor));
+                                        }
+                                    }
+
+                                } else {
+                                    stepu.push({ wpre: w, wpost: w, pop: '', push: '(Z)', k: [...keller], st: 1 });
+                                    // h(stepu[stepu.length - 1]);
+                                    let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
+                                    keller = [];
+                                    for (let i = 0; i < k.length; i++) {
+                                        keller.push(k[i]);
+                                    }
+                                    trow = $('t_push_(Z)');
+                                    trow || console.log('da row push 1: ', '(Z)');
+                                    trow && (trow.style.backgroundColor = tactiveColor);
+                                    svg1 = $('push');
+                                    svg2 = $('push_(Z)');
+                                    // console.log('svgs: ', svg1.innerHTML, svg2);
+                                    svg1 && (svg1.style.fill = activeColor);
+                                    svg2 && (svg2.style.fill = activeColor);
+                                    edge = kanten.find((kante) => kante.num === '1');
+                                }
+
+                            }
+                        } else if (f2 && f2 !== ke2){
+                            const ba = stepu[stepu.length - 1];
+                            if (ba) {
+                                w = ba.wpre;
+                                keller = ba.k;
+                                back = true;
+                                con = true;
+                                knoten.forEach((kn) => kn.setColor(nodeColor));
+                            }
+                        }else{
+                            w = w.slice(1);
+                            keller.pop();
+                            con = true;
+                            edge = kanten.find((kante) => kante.num === '2');
+                            trow = $('t_pop_Z');
+                            trow.style.backgroundColor = tactiveColor;
+                            svg1 = $('pop');
+                            svg2 = $('pop_Z');
+                            // console.log('svgs: ', svg1.innerHTML, svg2);
+                            svg1 && (svg1.style.fill = activeColor);
+                            svg2 && (svg2.style.fill = activeColor);
+                        }
+
+                    } else {
+                        w = w.slice(1);
+                        keller.pop();
+                        con = true;
+                        edge = kanten.find((kante) => kante.num === '2');
+                        trow = $('t_pop_Z');
+                        trow.style.backgroundColor = tactiveColor;
+                        svg1 = $('pop');
+                        svg2 = $('pop_Z');
+                        // console.log('svgs: ', svg1.innerHTML, svg2);
+                        svg1 && (svg1.style.fill = activeColor);
+                        svg2 && (svg2.style.fill = activeColor);
+                    }
+
+                } else {
+                    if (ke === 'Z') {
+                        if (f !== '(') {
+                            stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
+                            // h(stepu[stepu.length - 1]);
+                            let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                            keller = [];
+                            for (let i = 0; i < k.length; i++) {
+                                keller.push(k[i]);
+                            }
+                            trow = $('t_push_ZOZ');
+                            trow || console.log('da row push 1: ', 'ZOZ');
+                            trow && (trow.style.backgroundColor = tactiveColor);
+                            svg1 = $('push');
+                            svg2 = $('push_ZOZ');
+                            // console.log('svgs: ', svg1.innerHTML, svg2);
+                            svg1 && (svg1.style.fill = activeColor);
+                            svg2 && (svg2.style.fill = activeColor);
+                            edge = kanten.find((kante) => kante.num === '1');
+                        } else {
+                            if (back) {
+                                back = false;
+                                stepu.length > 1 && stepu.pop();
+                                const b = stepu.pop();
+                                console.log('back 3 ', b);
+                                if (b && b.st < 2) {
+                                    stepu.push({ wpre: w, wpost: w, pop: '', push: 'ZOZ', k: [...keller], st: 2 });
+                                    // h(stepu[stepu.length - 1]);
+                                    let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
+                                    keller = [];
+                                    for (let i = 0; i < k.length; i++) {
+                                        keller.push(k[i]);
+                                    }
+                                    trow = $('t_push_ZOZ');
+                                    trow || console.log('da row push 1: ', 'ZOZ');
+                                    trow && (trow.style.backgroundColor = tactiveColor);
+                                    svg1 = $('push');
+                                    svg2 = $('push_ZOZ');
+                                    // console.log('svgs: ', svg1.innerHTML, svg2);
+                                    svg1 && (svg1.style.fill = activeColor);
+                                    svg2 && (svg2.style.fill = activeColor);
+                                    edge = kanten.find((kante) => kante.num === '1');
+                                    con = true;
+                                } else {
+                                    const ba = stepu[stepu.length - 1];
+                                    if (ba) {
+                                        w = ba.wpre;
+                                        keller = ba.k;
+                                        back = true;
+                                        con = true;
+                                        knoten.forEach((kn) => kn.setColor(nodeColor));
+                                    }
+
+                                }
+                            } else {
+                                stepu.push({ wpre: w, wpost: w, pop: '', push: '(Z)', k: [...keller], st: 1 });
+                                // h(stepu[stepu.length - 1]);
                                 let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
                                 keller = [];
                                 for (let i = 0; i < k.length; i++) {
                                     keller.push(k[i]);
-                                    //   }
                                 }
-                                check2();
-                            }
-                        } else if (lastp.ex[0] === '$') {
-                            if (w.length === 0) {
-                                console.log('end success');
-                            } else {
-                                w = firstPush.w;
-                                f = w[0];
-                                if (f === '(') {
-                                    if (firstPush.r === 'Z') {
-
-                                        w = firstPush.w;
-                                        firstPush = { w: w, r: '(Z)', ex: lastp.ex }
-                                        keller = ['$', ')', 'Z', '('];
-                                        let k = [...keller];
-                                        k.reverse();
-                                        firstPush = { w: w, r: '(Z)', ex: k.join('') }
-                                        let la = { w: w.slice(), ex: k.join('') }
-                                        lastPop.push(la);
-
-                                        // let k = keller.join('').replace(new RegExp('Z' + '$'), ')Z(');
-                                        // keller = [];
-                                        // for (let i = 0; i < k.length; i++) {
-                                        //     keller.push(k[i]);
-                                        // }
-
-                                    } else if (firstPush.r === '(Z)') {
-                                        w = firstPush.w;
-
-                                        keller = ['$', 'Z', 'O', 'Z'];
-                                        let k = [...keller];
-                                        k.reverse();
-                                        firstPush = { w: w, r: 'ZOZ', ex: k.join('') }
-                                        let la = { w: w.slice(), ex: k.join('') }
-                                        lastPop.push(la);
-                                        // let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                        // keller = [];
-                                        // for (let i = 0; i < k.length; i++) {
-                                        //     keller.push(k[i]);
-                                        // }
-                                    } else {
-                                        // w = firstPush.w;
-                                        // firstPush = { w: w, r: '(Z)', ex: lastp.ex }
-                                        // keller = ['$', ')', 'Z', '('];
-
-                                        console.log('whatever5', lastp, firstPush);
-                                        // check();
-                                        return;
-                                    }
-                                } else {
-                                    if (firstPush.r === 'Z') {
-                                        w = firstPush.w;
-                                        firstPush = { w: w, r: 'ZOZ', ex: lastp.ex }
-                                        keller = ['$', 'Z', 'O', 'Z'];
-                                    } else {
-                                        console.log('whatever6');
-                                        return;
-                                    }
-                                }
-                                check2();
-                            }
-                        } else {
-
-                            if (lastp2) {
-                                let k = lastp2;
-                                keller = [];
-                                for (let i = 0; i < k.length; i++) {
-                                    keller.push(k[i]);
-                                }
-                                keller.reverse();
-                            }
-                            console.log('keller 1', keller);
-                            if (keller[keller.length - 1] === 'Z') {
-                                w = firstPush.w;
-                                let ke = [...keller];
-                                ke.reverse();
-                                console.log('ke 1', ke.join(''));
-                                firstPush = { w: w, r: 'ZOZ', ex: ke.join('') }
-                                let la = { w: w.slice(), ex: ke.join('') }
-                                lastPop.push(la);
-                                let k = keller.join('').replace(new RegExp('Z' + '$'), 'ZOZ');
-                                keller = [];
-                                for (let i = 0; i < k.length; i++) {
-                                    keller.push(k[i]);
-                                }
-                                check2();
+                                trow = $('t_push_(Z)');
+                                trow || console.log('da row push 1: ', '(Z)');
+                                trow && (trow.style.backgroundColor = tactiveColor);
+                                svg1 = $('push');
+                                svg2 = $('push_(Z)');
+                                // console.log('svgs: ', svg1.innerHTML, svg2);
+                                svg1 && (svg1.style.fill = activeColor);
+                                svg2 && (svg2.style.fill = activeColor);
+                                edge = kanten.find((kante) => kante.num === '1');
+                                con = true;
                             }
 
-                            console.log('whaterver 3', lastp2);
                         }
                     } else {
-                        console.log('whaterver 4');
+                        const ba = stepu[stepu.length - 1];
+                        if (ba) {
+                            w = ba.wpre;
+                            keller = ba.k;
+                            back = true;
+                            con = true;
+                            knoten.forEach((kn) => kn.setColor(nodeColor));
+                        }
                     }
                 }
-
-
             }
         }
+    kell.innerHTML = keller.join('').replace(/[\\(]/g, 'k').replace(/[\\)]/g, '(').replace(/[k]/g, ')');
+    feld.style.color = 'white';
+    feld.innerHTML = w;
+    
+    if (!isEdge) {
+        if (prev) prev.setInactive();
+    }
+    if (edge && isEdge) {
+        edge.setActive();
+        prev = edge;
+    }
+    isEdge = !isEdge;
+    if (con) {
+        setTimeout(() => {
+            if (auto) test();
+        }, speed);
 
-
-    }, 500);
+    } else {
+        if (!suc) {
+            if(col){
+                changeLetterColor(w, [0,1], 'red');
+            } else {
+                let indexe = steps.length > 0 ? steps[0].l :[];
+                indexe && changeLetterColor(w, indexe, 'red');
+                if(keller.length > 1){
+                    knoten.forEach((k) => k.setColor(nodeColor));
+                    activeNode = knoten.find((k) => k.getNumber() === 2);
+                }
+            }
+            // kell.innerHTML = hist[0].k.join('').replace(/[\\(]/g, 'k').replace(/[\\)]/g, '(').replace(/[k]/g, ')');
+            // feld.innerHTML =  hist[0].w;
+        }
+        // let end = prev && prev.isEnd();
+        finishCheck(suc);
+        console.log('finiche-----------------------', suc, hist);
+    }
 }
+
 
 function isExprCorrect(e) {
     let res = false;
@@ -829,6 +970,43 @@ function isExprCorrect(e) {
     }
     console.log('check res stw: ', res, steps);
     res && stepss.length === 0 && stepss.push({ r: 'Z', i: 0 });
+    return res;
+}
+
+function iscorrect(e) {
+    let res = false;
+    let exp = '' + (e || genExp.value);
+    exp = exp.replace(/\d/g, 'Z');
+
+    exp.match(/[+ \- / *]/g) && steps.push({ e: exp, r: 'O' });
+    exp = exp.replace(/[+ \- / *]/g, 'O');
+    if (exp === 'Z') res = true;
+    exp = exp.replaceAll('Z', 'A');
+    let prev = exp;
+    while (isOrderCorrect(exp).length === 0) {
+        if (exp.length < 4) {
+            if (exp === 'AOA') {
+                res = true;
+            } else
+                if (exp === '(A)') {
+                    res = true;
+                }
+            break;
+        }
+        if (exp.length > 3) {
+            if (exp.includes('(A)')) {
+                exp = exp.replace('(A)', 'A');
+                continue;
+            } else if (exp.includes('AOA')) {
+                exp = exp.replace('AOA', 'A');
+                continue;
+            }
+        }
+        if (prev === exp) break;
+        prev = exp;
+    }
+
+    console.log('check 2 res: ', res);
     return res;
 }
 
@@ -898,15 +1076,6 @@ function setSpeed(value) {
     speed = Math.abs(maxSpeed * (value / 100) - maxSpeed);
 }
 
-/**
- * initializes the arrays with the nodes and edges of the grammer
- * and fills the table.
- */
-function initProgram() {
-
-    manageStates();
-
-}
 
 /**
  * calculates a random int within a given interval
@@ -994,11 +1163,11 @@ function initProgram() {
     kanten.push(new Kante("2", "2", '1'));
     kanten.push(new Kante("2", "2", '2'));
     kanten.push(new Kante("2", "3"));
-    for (let i = 0; i <= 7; i++) {
+    for (let i = 0; i <= 3; i++) {
         knoten.push(new Knoten(i + ''));
     }
 
-    initColors();
+    // initColors();
     manageStates();
 
     //console.log('kanten: ',kanten);
@@ -1010,9 +1179,11 @@ class Kante {
     start;
     end;
     svgRef;
+    num;
     constructor(start, end, num = '') {
         this.start = start;
         this.end = end;
+        this.num = num;
 
         let from = this.start;
         let to = this.end;
@@ -1020,14 +1191,14 @@ class Kante {
             arrow: document.getElementById('arrow' + from + '-' + to),
             arrow2: document.getElementById(num + 'arrow_' + from + '-' + to),
             letter: document.getElementById('letter' + from + '-' + to),
-            arrowHead: (from - to) === 0 ? document.getElementById(num + 'arrowhead' + from + '-' + to) : null,
+            arrowHead: (from - to) === 0 ? document.getElementById(num + 'arrowhead_' + from + '-' + to) : null,
         }
     }
 
     setActive() {
         this.setColor(activeColor);
-        let text = genText.textContent;
-        console.log('col: ', text);
+        // let text = genText.textContent;
+        // console.log('col: ', text);
         let n = knoten.find((node) => node.getName() === this.start);
         if (n) {
             n.setColor(nodeColor);
@@ -1044,7 +1215,7 @@ class Kante {
     }
 
     setColor(color) {
-        this.svgRef.arrow.style.stroke = color;
+        this.svgRef.arrow && (this.svgRef.arrow.style.stroke = color);
         this.svgRef.arrow2 && (this.svgRef.arrow2.style.stroke = color);
         this.svgRef.arrowHead && (this.svgRef.arrowHead.style.stroke = color);
     }
@@ -1084,7 +1255,7 @@ class Knoten {
     svgRef;
     constructor(name) {
         this.name = name;
-        this.number = this.name.substring(1);
+        this.number = this.name;
         this.svgRef = {
             node: document.getElementById('node' + this.number),
         }
@@ -1115,6 +1286,6 @@ class Knoten {
     }
 }
 
-// initProgram();
+initProgram();
 
 // check();

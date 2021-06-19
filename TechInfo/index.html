@@ -286,17 +286,36 @@
             <div class="ka_textcontainer">
                 <div class="ka_left">
                     <h3>Was ist ein Kellerautomat</h3>
-                    <p>Some Text </p>
+                    <p>Ein Kellerautomat (KA) ist ein 6-Tupel (Q,Σ, Γ, δ, q0, F) mit:</p>
+                    <p><strong>Q</strong> ist eine nichtleere, endlich Zustandsmenge, 
+                        <strong>&sum;</strong> ist das Eingabealphabet,
+                        Γ ist das Kelleralphabet,
+                        δ : Q ×&sum;<sub>&epsilon;</sub>× Γ<sub>&epsilon;</sub>→P(Q × Γ<sub>&epsilon;</sub>) ist die ¨Uberf¨uhrungsfunktion,
+                        <strong>qo</strong> ∈ Q ist der Startzustand, und
+                        <strong>F ⊆ Q</strong> ist die Menge von End- bzw. akzeptierenden Zust¨anden.
+                    </p>
+                    <br>
+                    <p>Ein Kellerautomat arbeitet nun wie ein endlicher Automat, nur dass bei seinen
+                        ¨Uberf¨uhrungen der Keller zu ber¨ucksichtigen ist.</p>
+                        <br>
                     <h3>Aufgabenstellung</h3>
                     <p>
-                        Pr&uuml;fung eines Ausdrucks aus der Grammatik aus P2 durch einen Kellerautomaten.
+                        Erzeugen Sie mit Hilfe der Grammatik aus Aufgabe P2 einen zufälligen arithmetische Ausdruck.
+                        Die Grammar in P2 hat die Vorgaben: <br>
+                        einstelligen natürlichen Zahlen mit den Operanden "+,-,*,/" und beliebig geschachtelten 
+                        runden Klammeren, z.B.: 2*(3*(4+7)-9) oder 9+2 oder 
+                        (3) oder nur 7 sind gültig, ungültig sind 12 oder () oder (+3) oder -1.
                     </p>
                 </div>
 
                 <div class="ka_center">
                     <h3>Technische Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                        Das Layout der Kellerautomaten-Seite ist mit CSS und HTML5 entwickelt worden.<br>
+                        Die Einzelnen Eelemente wurden mit der Felxbox arrangiert.
+                        Die Funktionalitäten der Buttons, des Eingabefeld und der Überführungsregeln wurden mit
+                        js erzeugt.
+                    </p>
                 </div>
 
                 <div class="ka_right">

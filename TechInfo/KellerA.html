@@ -54,55 +54,55 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id='t_start'>
                             <td>qStart</td>
                             <td>&epsilon;</td>
                             <td>&epsilon;</td>
                             <td>{(q1, $)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_push_Z'>
                             <td>q1</td>
                             <td>&epsilon;</td>
                             <td>&epsilon;</td>
                             <td>{(qLoop, Z)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_pop_('>
                             <td>qLoop</td>
                             <td>(</td>
                             <td>(</td>
                             <td>{(qLoop, &epsilon;)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_pop_)'>
                             <td>qLoop</td>
                             <td>)</td>
                             <td>)</td>
                             <td>{(qLoop, &epsilon;)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_pop_O'>
                             <td>qLoop</td>
                             <td>O</td>
                             <td>O</td>
                             <td>{(qLoop, &epsilon;)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_pop_Z'>
                             <td>qLoop</td>
                             <td>Z</td>
                             <td>Z</td>
                             <td>{(qLoop, &epsilon;)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_push_ZOZ'>
                             <td>qLoop</td>
                             <td>&epsilon;</td>
                             <td>Z</td>
                             <td>{(qLoop, ZOZ)}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_push_(Z)'>
                             <td>qLoop</td>
                             <td>&epsilon;</td>
                             <td>Z</td>
                             <td>{(qLoop, (Z))}</td>
                         </tr>
-                        <tr>
+                        <tr id='t_end'>
                             <td>qLoop</td>
                             <td>&epsilon;</td>
                             <td>$</td>
@@ -127,6 +127,13 @@
                             oninput="value = value.toUpperCase()"></input>
 
                     </form>
+                    <span id="isExpCorrect"></span>
+                </div>
+
+                <div class="feld">
+                    <span type="text" id="feldeingabe">
+                        
+                    </span>
                 </div>
 
                 <div class="container_control">
@@ -148,23 +155,24 @@
             <div class="simBox">
                 
                 <div class="keller">
-                    <p></p>
+                    <p id="keller"></p>
                 </div>
                 <!-- Graphen mit ansprechbaren Parts in SVG  -->
-                <svg viewBox="0 10 130 80">
+                <svg viewBox="0 8 130 80">
 
                     <!-- Arrow gebogen für die Kanten die im Selben Zusatnd Enden  -->
                     <path id="1arrow_2-2" class="arrow-circle" d="M60 30.16 A6 7, 0, 1 1, 70 35"></path>
                     <path id="2arrow_2-2" class="arrow-circle" d="M60 43 A6 7, 0, 1 0, 68 50"></path>
 
-                    <path id="1arrowhead_2-2" class="arrow-circle" d="M70 49 L65 51 L67 47 Z" />
-                    <path id="2arrowhead_2-2" class="arrow-circle" d="M58 31 L62 33 L64 29 Z" />
+                    <path id="1arrowhead_2-2" class="arrow-circle" d="M58 31 L62 33 L64 29 Z" />
+                    <path id="2arrowhead_2-2" class="arrow-circle" d="M70 49 L65 51 L67 47 Z" />
+                    
 
                     <!-- KNOTEN  -->
-                    <circle id="node0" class="knoten-body" cx="20" cy="40" r="7" />
-                    <circle id="node1" class="knoten-body" cx="65" cy="40" r="7" />
-                    <circle id="node2" class="knoten-body" cx="110" cy="40" r="7" />
-                    <circle id="node3" class="knoten-body" cx="20" cy="80" r="7" />
+                    <circle id="node0" class="knoten-body" cx="20" cy="80" r="7" />
+                    <circle id="node1" class="knoten-body" cx="20" cy="40" r="7" />
+                    <circle id="node2" class="knoten-body" cx="65" cy="40" r="7" />
+                    <circle id="node3" class="knoten-body" cx="110" cy="40" r="7" />
 
 
 
@@ -174,22 +182,24 @@
                         refY="2" orient="auto" markerUnits="strokeWidth">
                         <path d="M0,0 L0,4 L3,2 z" />
                     </marker>
-                    <line id="arrow_0-1" class="kanten-body" stroke="rgb(211, 211, 211)" x1="27" y1="40" x2="56.5"
-                        y2="40" marker-end="url(#arrow0-1)" />
+                    <line id="arrow_0-1" class="kanten-body" stroke="rgb(211, 211, 211)" x1="20" y1="73" x2="20"
+                        y2="48.5" marker-end="url(#arrow0-1)" />
 
                     <marker id="arrow1-2" stroke="rgb(211, 211, 211)" markerWidth="10" markerHeight="10" refX="0"
                         refY="2" orient="auto" markerUnits="strokeWidth">
                         <path d="M0,0 L0,4 L3,2 z" />
                     </marker>
-                    <line id="arrow_1-2" class="kanten-body" stroke="rgb(211, 211, 211)" x1="72" y1="40" x2="101.5"
+                    <line id="arrow_1-2" class="kanten-body" stroke="rgb(211, 211, 211)" x1="27" y1="40" x2="56.5"
                         y2="40" marker-end="url(#arrow1-2)" />
 
                     <marker id="arrow2-3" stroke="rgb(211, 211, 211)" markerWidth="10" markerHeight="10" refX="0"
                         refY="2" orient="auto" markerUnits="strokeWidth">
                         <path d="M0,0 L0,4 L3,2 z" />
                     </marker>
-                    <line id="arrow_2-3" class="kanten-body" stroke="rgb(211, 211, 211)" x1="20" y1="73" x2="20"
-                        y2="48.5" marker-end="url(#arrow2-3)" />
+                    <line id="arrow_2-3" class="kanten-body" stroke="rgb(211, 211, 211)" x1="72" y1="40" x2="101.5"
+                        y2="40" marker-end="url(#arrow2-3)" />
+
+                    
 
 
                     <!-- KNOTEN-BEZEICHNUNG  -->
@@ -205,17 +215,17 @@
 
                     <!-- pop und weg -->
 
-                    <text id="pop" class="kanten-text" x="65" y="60"> (, ( &rarr; &epsilon; </text>
-                    <text id="pop" class="kanten-text" x="65" y="65"> ), ) &rarr; &epsilon; </text>
-                    <text id="pop" class="kanten-text" x="65" y="70"> Z, Z &rarr; &epsilon; </text>
-                    <text id="pop" class="kanten-text" x="65" y="75"> O, O &rarr; &epsilon; </text>
+                    <text id="pop_(" class="kanten-text" x="65" y="60"> (, ( &rarr; &epsilon; </text>
+                    <text id="pop_)" class="kanten-text" x="65" y="65"> ), ) &rarr; &epsilon; </text>
+                    <text id="pop_Z" class="kanten-text" x="65" y="70"> Z, Z &rarr; &epsilon; </text>
+                    <text id="pop_O" class="kanten-text" x="65" y="75"> O, O &rarr; &epsilon; </text>
                     <text id="pop" class="kanten-text" x="93" y="68"> POP </text>
-                    <text id="pop" class="kanten-text" x="84" y="71" style="font-size: 20px; "> &#125;</text>
+                    <text class="kanten-text" x="84" y="71" style="font-size: 20px; "> &#125;</text>
 
                     <!--  push und hin -->
-                    <text id="push" class="kanten-text" x="45" y="20"> &epsilon;, Z &rarr; ZOZ </text>
-                    <text id="push" class="kanten-text" x="45" y="15"> &epsilon;, Z &rarr; (Z) </text>
-                    <text class="kanten-text" x="25" y="18"> PUSH </text>
+                    <text id="push_ZOZ" class="kanten-text" x="45" y="20"> &epsilon;, Z &rarr; ZOZ </text>
+                    <text id="push_(Z)" class="kanten-text" x="45" y="15"> &epsilon;, Z &rarr; (Z) </text>
+                    <text id="push" class="kanten-text" x="25" y="18"> PUSH </text>
                     <text class="kanten-text" x="39" y="18" style="font-size: 10px; "> &#123; </text>
 
                 </svg>
