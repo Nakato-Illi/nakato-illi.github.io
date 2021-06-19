@@ -895,12 +895,13 @@ function test() {
                 indexe && changeLetterColor(w, indexe, 'red');
                 if(keller.length > 1){
                     knoten.forEach((k) => k.setColor(nodeColor));
-                    activeNode = knoten.find((k) => k.getNumber() === 2);
+                    
                 }
             }
             // kell.innerHTML = hist[0].k.join('').replace(/[\\(]/g, 'k').replace(/[\\)]/g, '(').replace(/[k]/g, ')');
             // feld.innerHTML =  hist[0].w;
         }
+        activeNode = knoten.find((k) => k.getNumber() === 2) || knoten[2];
         // let end = prev && prev.isEnd();
         finishCheck(suc);
         console.log('finiche-----------------------', suc, hist);
