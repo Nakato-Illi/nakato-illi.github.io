@@ -267,7 +267,7 @@ svg {
 
   .simBox .keller {
     width: 70px;
-    height: 480px;
+    height: 450px;
     
     padding: 7px;
     margin: 5px 20px 0px 20px;
@@ -294,3 +294,42 @@ svg {
   position: absolute;
   margin-left: 20px;
 }
+
+/* --------------------   Info dropdown  --------------------- */
+  
+  /* Style The Dropdown Button */
+  .dropbtn {
+    background-color: #80808066;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    font-size: 16px;
+    min-width: 30px;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    top: 2px;
+    left: 20px;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    left: 5px;
+    top: 35px;
+    background-color: #0086bf;
+    padding: 0 13px;
+    z-index: 1;
+    margin-left: 0px;
+    width: max-content;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  .dropdown:hover .dropdown-content {
+    display: inline;
+  }

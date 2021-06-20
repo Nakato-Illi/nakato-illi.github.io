@@ -28,7 +28,8 @@
             <div class="textbox">
                 <p>Kellerautomat K = (Q, &sum;, &Gamma;, &delta;, qo, F)</p>
 
-                <p class="g">K = <strong>({qStart, q1, qLoop, qEnd}, { Z, (, ), O}, { Z, (, ), O, $}, qStart, {qEnd})</strong></p>
+                <p class="g">K = <strong>({qStart, q1, qLoop, qEnd}, { Z, (, ), O}, { Z, (, ), O, $}, qStart,
+                        {qEnd})</strong></p>
 
                 <!--p> <strong>Q</strong> Zustandsmenge</p>
                 <p> <strong>&sum;</strong> Eingabealphabet</p>
@@ -117,45 +118,70 @@
         <div class="kaSim">
 
 
-                <div class="eingabe">
-                    <button id="gen_but_corr" onclick="generateRandomRightWord()">Richtiger Audruck</button>
-                    <button id="gen_but_wrong" onclick="generateRandomWrongExpr()">Falscher Ausdruck</button>
+            <div class="eingabe">
+                <button id="gen_but_corr" onclick="generateRandomRightWord()">Richtiger Audruck</button>
 
-                    <form onsubmit="return false" autocomplete="off">
-                        <label for="fname">Eingabe:</label>
-                        <input autocomplete="off" type="text|submit" id="word_input" name="fname"
-                            oninput="value = value.toUpperCase()"></input>
-
-                    </form>
-                    <span id="isExpCorrect"></span>
-                </div>
-
-                <div class="feld">
-                    <span type="text" id="feldeingabe">
-                        
+                <span class="dropdown">
+                    <button class="dropbtn">?</button>
+                    <span class="dropdown-content">
+                        <span>Falscher Ausdruck:<br>
+                            Sollte der falsche Ausdruck ganz vorne stehen<br>
+                            so bricht der Keller sofort ab.<br>
+                            Sonst versucht er alle Möglichkeiten von ZOZ und (Z)durch.<br>
+                            Kommt er nicht weiter so springt er zurück <br>
+                            und testes die jeweils andere Regel.<br>
+                            somit kommt es auch in der Animation zu "Rücksprüngen".
+                        </span>
                     </span>
+                </span>
+
+                <button id="gen_but_wrong" onclick="generateRandomWrongExpr()">Falscher Ausdruck</button>
+
+                <form onsubmit="return false" autocomplete="off">
+                    <label for="fname">Eingabe:</label>
+                    <input autocomplete="off" type="text|submit" id="word_input" name="fname"
+                        oninput="value = value.toUpperCase()"></input>
+
+                </form>
+                <span id="isExpCorrect"></span>
+            </div>
+
+            <div class="feld">
+                <span type="text" id="feldeingabe">
+
+                </span>
+            </div>
+
+            <div class="container_control">
+
+                <button id="start" onclick="checkWord(true)">Start</button>
+                <button id="stop" onclick="pause()">Stop</button>
+                <button id="step" onclick="checkWord(false)">Schrittweise</button>
+                <button id="neu_laden" onClick="history.go(0);">Zurücksetzen</button>
+
+                <div class="slidecontainer">
+                    <span id="geschwind">Geschwindigkeit</span>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
+                        oninput="setSpeed(value)">
                 </div>
 
-                <div class="container_control">
-
-                    <button id="start" onclick="checkWord(true)">Start</button>
-                    <button id="stop" onclick="pause()">Stop</button>
-                    <button id="step" onclick="checkWord(false)">Schrittweise</button>
-                    <button id="neu_laden" onClick="history.go(0);">Zurücksetzen</button>
-
-                    <div class="slidecontainer">
-                        <span id="geschwind">Geschwindigkeit</span>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
-                            oninput="setSpeed(value)">
-                    </div>
-
-                </div>
+            </div>
 
 
             <div class="simBox">
-                
-                <div class="keller">
-                    <p id="keller"></p>
+
+                <div class="drehdich">
+                    <span class="dropdown">
+                        <button class="dropbtn">?</button>
+                        <span class="dropdown-content">
+                            <span>Das <br>
+                                ist<br> der<br>
+                                Keller</span>
+                        </span>
+                    </span>
+                    <div class="keller">
+                        <p id="keller"></p>
+                    </div>
                 </div>
                 <!-- Graphen mit ansprechbaren Parts in SVG  -->
                 <svg viewBox="0 8 130 80">
@@ -166,7 +192,7 @@
 
                     <path id="1arrowhead_2-2" class="arrow-circle" d="M58 31 L62 33 L64 29 Z" />
                     <path id="2arrowhead_2-2" class="arrow-circle" d="M70 49 L65 51 L67 47 Z" />
-                    
+
 
                     <!-- KNOTEN  -->
                     <circle id="node0" class="knoten-body" cx="20" cy="80" r="7" />
@@ -199,7 +225,7 @@
                     <line id="arrow_2-3" class="kanten-body" stroke="rgb(211, 211, 211)" x1="72" y1="40" x2="101.5"
                         y2="40" marker-end="url(#arrow2-3)" />
 
-                    
+
 
 
                     <!-- KNOTEN-BEZEICHNUNG  -->
