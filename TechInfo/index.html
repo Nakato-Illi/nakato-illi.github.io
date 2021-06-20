@@ -232,11 +232,12 @@
                     Der falsche Ausdruck wird durch eine Liste erzeugt, die AOA, (A), Z und O enthält
                     und mit der Funktion "getRandomNumber()" zufällige Zeichenketten generiert.
                     Die Listenelemente werden dazu einfach aneinander gereiht.
-                    Am Ende werden alle As durch Zs ersetzt. In der Funktion "generateRandomWrongExpr()" wird abgefangen 
+                    Am Ende werden alle As durch Zs ersetzt. In der Funktion "generateRandomWrongExpr()" wird abgefangen
                     ob zufällig ein richtiges Wort generiert worden ist. Zuden werden die Os und Zs ersetzt.
                     <br>
                     <br>
-                    <strong>Richtiger Ausdruck:</strong> wird durch die Funktion "getRichtigAusdruck(ex)" erzeugt. Diesmal
+                    <strong>Richtiger Ausdruck:</strong> wird durch die Funktion "getRichtigAusdruck(ex)" erzeugt.
+                    Diesmal
                     greifen wir auf eine Liste zu, die nur AOA und Z erhält. (A) wird extra abgefragt, damit man keine
                     Ausdrücke mit Klammern in Klammern erzeugt. Nun verwenden wir eine For-Loop, die durch
                     "max"-maximale Iterationsdurchläufe begrenzt ist. Die Funktion sucht beim existierenden
@@ -287,23 +288,24 @@
                 <div class="ka_left">
                     <h3>Was ist ein Kellerautomat</h3>
                     <p>Ein Kellerautomat (KA) ist ein 6-Tupel (Q,Σ, Γ, δ, q0, F) mit:</p>
-                    <p><strong>Q</strong> ist eine nichtleere, endlich Zustandsmenge, 
+                    <p><strong>Q</strong> ist eine nichtleere, endlich Zustandsmenge,
                         <strong>&sum;</strong> ist das Eingabealphabet,
                         Γ ist das Kelleralphabet,
-                        δ : Q ×&sum;<sub>&epsilon;</sub>× Γ<sub>&epsilon;</sub>→P(Q × Γ<sub>&epsilon;</sub>) ist die ¨Uberf¨uhrungsfunktion,
+                        δ : Q ×&sum;<sub>&epsilon;</sub>× Γ<sub>&epsilon;</sub>→P(Q × Γ<sub>&epsilon;</sub>) ist die
+                        ¨Uberf¨uhrungsfunktion,
                         <strong>qo</strong> ∈ Q ist der Startzustand, und
                         <strong>F ⊆ Q</strong> ist die Menge von End- bzw. akzeptierenden Zust¨anden.
                     </p>
                     <br>
                     <p>Ein Kellerautomat arbeitet nun wie ein endlicher Automat, nur dass bei seinen
                         ¨Uberf¨uhrungen der Keller zu ber¨ucksichtigen ist.</p>
-                        <br>
+                    <br>
                     <h3>Aufgabenstellung</h3>
                     <p>
                         Erzeugen Sie mit Hilfe der Grammatik aus Aufgabe P2 einen zufälligen arithmetische Ausdruck.
                         Die Grammar in P2 hat die Vorgaben: <br>
-                        einstelligen natürlichen Zahlen mit den Operanden "+,-,*,/" und beliebig geschachtelten 
-                        runden Klammeren, z.B.: 2*(3*(4+7)-9) oder 9+2 oder 
+                        einstelligen natürlichen Zahlen mit den Operanden "+,-,*,/" und beliebig geschachtelten
+                        runden Klammeren, z.B.: 2*(3*(4+7)-9) oder 9+2 oder
                         (3) oder nur 7 sind gültig, ungültig sind 12 oder () oder (+3) oder -1.
                     </p>
                 </div>
@@ -320,8 +322,74 @@
 
                 <div class="ka_right">
                     <h3>Fachliche Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>Funktion <strong>„checkWord“</strong> managet Autoplay und schrittweise. In ihr werden alle
+                        Funktionen gebündelt.
+                        Die Prüfung des Wortes ist aufgeteilt in zwei Funktionen. Check(); und test();
+                        Eine für richtige Ausdrücke und eine für falsche Ausdrücke.
+                        Richtige Ausdrücke lassen sich wie im verlinkten Video (video: von Gramma zum Keller) leicht
+                        abarbeiten, da dort die Entstehungsschritte bekannt sind. Beim falschen Wort gibt es jedoch
+                        keine Entstehungsschritte.
+                    </p>
+                    <br>
+                    <h4>Funktion für richtige Ausdrücke: check();</h4>
+                    <p>Wir haben zwei wichtige Konstanten.
+                        con = false (für continue) und suc = false (für sucsses )<br>
+                        <br>
+                        Im ersten Schritt, beim noch leeren keller.length === 0, initialisieren wir das „word“ mit der
+                        Eingabe im Eingabefeld.
+                        Dabei steht „word“ für die Eingabe und „w“ steht für das Wort unter dem Eingabefeld, dass wir
+                        abarbeiten.
+                        Im Keller pushen wir „$“ rein.<br>
+                        Beim Nächster durchlauf der Funktion ist die keller.length === 1, durch das $. Hier wird ein Z
+                        in den Keller gelegt, sollte das abzuarbeitende wort w nicht die länge 0 haben.<br>
+                        <br>
+
+                        Ab Zeile 308 beginnt die tatsächliche Prüfung des Wortes durch den Keller.
+                        Dazu haben wir die Variablen: <br>
+                        f = w[0]; - speichert den ersten Buchstaben des Wortes das wir abarbeiten<br>
+                        f2 = w[1]; - speichert den zweiten Buchstaben des Wortes das wir abarbeiten<br>
+                        ke = keller[keller.length - 1]; - speichert das oberste Element auf den Keller<br>
+                        ke2 = keller[keller.length - 2] – speichert das zweiten Element auf den Keller<br>
+                        <br>
+                        Wenn f und ke nicht übereinstimmen, dann könnten wir pushen (Zeile 361)
+                        Dann gehen wir in die Liste „stepss“ mit den Entstehungsschritten der Grammatik und wenden diese
+                        an. Sollten wir danach poppen können, so wird dieses getan, sonst wird Chronologisch der zweite
+                        Entstehungsschritt angewendet etc.
+                        Die Chronologische Reihenfolge ergibt sich in „checkWord“ indem wir dort durch die Grammatik
+                        wissen wo im Index das die Regel angewendet wurde. <br>
+                        <br>
+                        wenn f und ke übereinstimmen, dann könnte man beide Popen. (Zeile 331)
+                        Jedoch nur, wenn einige Konditionen zutreffen:
+                        Wenn wir im abzuarbeitenden Wort noch mehrere Zs haben aber im Keller nur noch ein steht, dann
+                        NICHT poppen, sondern ersetzen. Oder, wenn f2 nicht gleich ke2 ist. Dies gilt für den Fall, dass
+                        ein Z ganz oben steht.
+                        Wenn eine „(“ oben steht, dann müssen wir es poppen, da wir hier nichts ersetzten können.
+                        Jedes mal wird wieder geprüft ob keller.length === 1 und das wort die länge 0 hat, um zu sehen
+                        ob nun das $ gepoppt werden kann und die Prüfung erfolgreich verlaufen ist.
+                    </p>
+                    <br>
+                    <br>
+                    <h4>Funktion für falsche Ausdrücke: test();</h4>
+                    <p>
+                        Diese Funktion ist sehr ähnlich der Funktion für dir richtigen Ausdrücke.
+                        Erster Unterschied. Es existiert eine Abbruchsbedingung für fehlerhafte Ausdrücke(00, ZZ, )(, A(
+                        etc.). Diese Sind in einer Liste gespeichert. Diese Ausdrücke besitzen 2 Zeichen und diese
+                        werden mit den ersten zwei Buchstaben des abzuarbeitenden Wortes verglichen. Stimmen sie
+                        überein, setzten wir con nicht auf true.<br>
+                        Zweiter Unterschied. Wenn wir was pushen wollen, so ist dieses Random zwischen ZOZ oder (Z),
+                        sollten wir beim poppen später auf ein Fehler stoßen, so gehen wir zurück zum ersten push und
+                        versuchen es mit dem anderen Ausdruck der Grammatik.<br>
+                        <br>
+
+                        Wie merkt sich die Funktion den Ort an denen sie schon mal einen Ausdruck gepushed hatte um dort
+                        bei bedarf zurückzukommen. (Zeile 483)
+                        Durch eine Liste, die bevor gepushed wird speichert: Wie sah das Wort im Keller aus vor dem
+                        Push?, wie sieht es nach dem Push aus?, Was habe ich gepushed? Und die anzahl der an diesem Ort
+                        durchgeführten pushs. Zu beginn ist die Anzahl 0 und wird zu 1 gesetzt. Sollte wir zum Step
+                        zurück und dort nochmal pushen, wird sie auf 2 gesetzt, was verhindert, dass man dort zum
+                        Dritten mal pushen, da dies größer als zwei zum Abbruch der Funktion führt.
+
+                    </p>
                 </div>
             </div>
 
