@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+    scroll-behavior: smooth;
+    font-family: 'Slabo 27px', serif;
+}
+
+body{
+    background-color: rgb(41, 41, 41);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0px 100px;
+    z-index: 999;
+    background-color: rgba(122, 122, 122, 1);
+}
+
+nav .logo {
+    text-decoration: none;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+    color:  rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px  rgba(255, 140, 0, 0.809);
+}
+
+nav ul {
+    background: rgb(122, 122, 122);
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  
+nav li {
+    color: #fff;
+    background: rgb(122, 122, 122);
+    display: block;
+    float: left;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.3s;
+  }
+
+  nav li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+  }
+  
+nav li:hover {
+    background: rgba(255, 140, 0, 0.809);
+    cursor: pointer;
+  }
+  
+nav ul li ul {
+    background: rgba(255, 140, 0, 0.809);
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    margin-top: 1rem;
+    left: 0;
+    display: none;
+  }
+
+
+/*--------------------------Main Layout ---------------------------*/
+
+main {
+    display: flex;
+    margin: auto 50px;
+    padding-top: 70px;
+}
+
+.leeresZeichen {
+    writing-mode: vertical-lr;
+}
+
+/*-------------------------- tmSim Layout ---------------------------*/
+
+
+
+.textbox{
+    height: fit-content;
+    padding: 10px;
+    width: 270px;
+}
+
+.tmDef {
+    padding: 17px;
+    background-color:white;
+}
+
+.tmDef p{
+    font-size: 18px;
+}
+
+.eingabe,
+.container_control{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.eingabe button,
+.container_control button {
+    height: 30px;
+    font-size: 18px;
+    margin: 2px 0;
+}
+
+.eingabe form {
+    margin-top: 10px;
+}
+
+.eingabe form input{
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding: 2px;
+}
+
+.eingabe form label {
+    color: #fff;
+}
+
+.slidecontainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    color: #fff;
+}
+
+
+/* --------------------   Tabelle-section   --------------------- */
+
+.tmbox {
+    background-color: #fff;
+    margin: 2px 20px 0px 20px;
+    padding: 5px;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+
+table{
+    width: 300px;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+table thead tr th {
+    padding:3px;
+    background-color: rgba(255, 242, 65, 0.809);
+    font-size: 20px;
+    font-weight: lighter;
+  }
+
+table tbody tr td{
+    text-align: center;
+    padding: 2px 0px;
+    font-size: 16px;
+
+  }
+
+
+
+/* --------------------   Tabelle-section   --------------------- */
+
+ /* --------------------   SVG Design  --------------------- */
+
+
+ .conatiner_gr {
+    margin: 0 20px;
+    align-self: center;
+  }
+
+  svg {
+    display: flex;
+    height: 600px;
+    width: 800px;
+    border: rgba(255, 242, 65, 0.809) solid;
+    border-radius: 5px;
+  }
+
+   svg .knoten-text{
+     fill: rgb(86, 86, 86);
+     font-weight: bold;
+     font-size: 4px;
+     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   }
+
+   svg .kanten-text{
+    fill: rgb(136, 141, 186);
+    font-weight: bold;
+    font-size: 4px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  svg .arrow-circle {
+    fill: none;
+    /* stroke: rgb(71, 71, 71); */
+    stroke-width: 0.5px;
+  }
+
+  svg .knoten-body {
+    stroke: none;
+    stroke-width: 0.5px;
+  }
+
+  svg .kanten-body {
+    /* stroke: rgb(181, 11, 11); */
+    stroke-width: 0.5px;
+  }
+
+  svg .bg-grid {
+    stroke: rgba(179, 179, 179, 0.088);
+    stroke-width: 0.2px;
+  }
+

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TM-Simulator</title>
+    <link rel="stylesheet" href="css/tm.css">
+
+</head>
+
+<body>
+
+    <div class="tmSim">
+
+    </div>
+
+    <nav class="deaSim-nav">
+        <a class="logo">Tec/info</a>
+        <h2 class="rg_h2">Turingmaschine</h2>
+        <ul class="nav_conatiner">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#grammatik_aufgabe">Technik & Fachlich</a></li>
+        </ul>
+
+    </nav>
+
+    <main>
+        <div class="textbox">
+
+            <div class="tmDef">
+                <p>Turingmaschine T = <br>(Q, &sum;, &Gamma;, &delta;, qo, q<sub>accept</sub>, q<sub>reject</sub>)</p>
+
+                <p class="g">
+                    <br>
+                    K = ({qStart, qA, qB, qC, qD, qE, qF, qEnd,<br>
+                    q1, q2, q3, q4, q5, q6},<br>
+                    { B, P, T, S, X, V, E } ,
+                    { B, P, T, S, X, V, E, <span class="leeresZeichen">]</span>}<br>
+                    qStart, qAccept, qRejekt)
+                </p>
+            </div>
+
+            <div class="eingabe">
+                <button id="gen_but_corr" onclick="generateRandomRightWord()">Richtiger Audruck</button>
+
+                <button id="gen_but_wrong" onclick="generateRandomWrongExpr()">Falscher Ausdruck</button>
+
+                <form onsubmit="return false" autocomplete="off">
+                    <label for="fname">Eingabe:</label><br>
+                    <input autocomplete="off" type="text|submit" id="word_input" name="fname"
+                        oninput="value = value.toUpperCase()"></input>
+
+                </form>
+                <span id="isExpCorrect"></span>
+            </div>
+
+
+            <div class="container_control">
+
+                <button id="start" onclick="checkWord(true)">Start</button>
+                <button id="stop" onclick="pause()">Stop</button>
+                <button id="step" onclick="checkWord(false)">Schrittweise</button>
+                <button id="neu_laden" onClick="history.go(0);">Zurücksetzen</button>
+
+                <div class="slidecontainer">
+                    <span id="geschwind">Geschwindigkeit:</span>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange"
+                        oninput="setSpeed(value)">
+                </div>
+
+            </div>
+
+        </div>
+
+        <svg  viewBox="0 0 170 230">
+    
+            <!-- Arrow gebogen für die Kanten die im Selben Zusatnd Enden  -->
+            <path id="arrow2-2" class="arrow-circle" stroke="green" d="M53 21 A6 6, 0, 1 1, 57 18"></path>
+            <path id="arrowhead2-2" class="arrow-circle" stroke="green" d="M53 19 v4 l2 -2 z" />
+            <path id="arrow3-3" class="arrow-circle" stroke="green" d="M53 81 A6 6, 0, 1 0, 57 82"></path>
+            <path id="arrowhead3-3" class="arrow-circle" stroke="green" d="M53 79 v4 l2 -2 z" />
+    
+            <!-- KNOTEN  -->
+            <circle id="node0" class="knoten-body" cx="10" cy="140" r="7" />
+            <circle id="node0" class="knoten-body" cx="10" cy="95" r="7" />
+            <circle id="node0" class="knoten-body" cx="-30" cy="140" r="7" />
+
+            <circle id="node0" class="knoten-body" cx="10" cy="50" r="5" />
+            <circle id="node1" class="knoten-body" cx="40" cy="50" r="5" />
+    
+            <circle id="node2" class="knoten-body" cx="60" cy="20" r="5" />
+            <circle id="node3" class="knoten-body" cx="60" cy="80" r="5" />
+            <circle id="node4" class="knoten-body" cx="110" cy="20" r="5" />
+            <circle id="node5" class="knoten-body" cx="110" cy="80" r="5" />
+    
+            <circle id="node7" class="knoten-body" cx="160" cy="50" r="5" />
+            <circle id="node6" class="knoten-body" cx="130" cy="50" r="5" />
+
+            <circle id="node0" class="knoten-body" cx="90" cy="140" r="7" />
+            <circle id="node0" class="knoten-body" cx="90" cy="95" r="7" />
+            <circle id="node0" class="knoten-body" cx="200" cy="140" r="7" />
+    
+    
+            <!-- KANTEN  -->
+            <marker id="arrow0-1" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+              markerUnits="strokeWidth">
+              <path d="M0,0 L0,4 L3,2 z" />
+            </marker>
+            <line id="arrow_0-1" class="kanten-body" stroke="green" x1="15" y1="50" x2="33.2" y2="50"
+              marker-end="url(#arrow0-1)" />
+    
+            <marker id="arrow1-2" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+              markerUnits="strokeWidth">
+              <path d="M0,0 L0,4 L3,2 z"  />
+              </marker>
+              <line id="arrow_1-2" class="kanten-body" stroke="green" x1="43" y1="46" x2="56" y2="26"
+                marker-end="url(#arrow1-2)" />
+    
+              <marker id="arrow1-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                markerUnits="strokeWidth">
+                <path d="M0,0 L0,4 L3,2 z"  />
+              </marker>
+              <line id="arrow_1-3" class="kanten-body" stroke="green" x1="43" y1="54" x2="55" y2="75"
+                  marker-end="url(#arrow1-3)" />
+    
+                <marker id="arrow2-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                  markerUnits="strokeWidth">
+                  <path d="M0,0 L0,4 L3,2 z"  />
+              </marker>
+              <line id="arrow_2-4" class="kanten-body" stroke="green" x1="65" y1="20" x2="103" y2="20"
+                    marker-end="url(#arrow2-4)" />
+    
+                  <marker id="arrow3-5" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                    markerUnits="strokeWidth">
+                    <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_3-5" class="kanten-body" stroke="green" x1="65" y1="80" x2="103" y2="80"
+                      marker-end="url(#arrow3-5)" />
+    
+                    <marker id="arrow4-3" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto"
+                      markerUnits="strokeWidth">
+                      <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_4-3" class="kanten-body" stroke="green" x1="107" y1="24" x2="65" y2="75"
+                        marker-end="url(#arrow4-3)" />
+    
+                      <marker id="arrow4-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                        orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_4-6" class="kanten-body" stroke="green" x1="113" y1="24" x2="126" y2="44"
+                          marker-end="url(#arrow4-6)" />
+    
+                        <marker id="arrow5-4" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                          orient="auto" markerUnits="strokeWidth">
+                          <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_5-4" class="kanten-body" stroke="green" x1="110" y1="75" x2="110" y2="27"
+                            marker-end="url(#arrow5-4)" />
+    
+                          <marker id="arrow5-6" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                            orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_5-6" class="kanten-body" stroke="green" x1="113" y1="76" x2="125.5" y2="55.5"
+                              marker-end="url(#arrow5-6)" />
+    
+                            <marker id="arrow6-7" stroke="green" markerWidth="10" markerHeight="10" refX="0" refY="2"
+                              orient="auto" markerUnits="strokeWidth">
+                              <path d="M0,0 L0,4 L3,2 z" />
+              </marker>
+              <line id="arrow_6-7" class="kanten-body" stroke="green" x1="135" y1="50" x2="153" y2="50"
+                                marker-end="url(#arrow6-7)" />
+    
+                              <!-- KNOTEN-BEZEICHNUNG  -->
+                              <text class="knoten-text" x="07" y="51"> q0 </text>
+                              <text class="knoten-text" x="37" y="51"> q1 </text>
+                              <text class="knoten-text" x="57" y="21"> q2 </text>
+                              <text class="knoten-text" x="57" y="81"> q3 </text>
+                              <text class="knoten-text" x="107" y="21"> q4 </text>
+                              <text class="knoten-text" x="107" y="81"> q5 </text>
+                              <text class="knoten-text" x="127" y="51"> q6 </text>
+                              <text class="knoten-text" x="157" y="51"> q7 </text>
+    
+                              <!-- KANTEN-BEZEICHNUNG  -->
+                              <text id="letter0-1" class="kanten-text" x="23" y="48"> B </text>
+                              <text id="letter1-2" class="kanten-text" x="45" y="35"> T </text>
+                              <text id="letter4-3" class="kanten-text" x="82" y="48"> X </text>
+                              <text id="letter1-3" class="kanten-text" x="43" y="68"> P </text>
+                              <text id="letter5-4" class="kanten-text" x="105" y="52"> P </text>
+                              <text id="letter2-4" class="kanten-text" x="83" y="19"> X </text>
+                              <text id="letter3-5" class="kanten-text" x="83" y="85"> V </text>
+                              <text id="letter4-6" class="kanten-text" x="123" y="34"> S </text>
+                              <text id="letter5-6" class="kanten-text" x="123" y="69"> V </text>
+                              <text id="letter6-7" class="kanten-text" x="143" y="48"> E </text>
+    
+                              <text id="letter2-2" class="kanten-text" x="45" y="10"> S </text>
+                              <text id="letter3-3" class="kanten-text" x="45" y="93"> T </text>
+    
+          </svg>
+
+        <div class="trybox">
+
+
+            <div class="tmbox">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Q</th>
+                            <th> &Gamma;</sub></th>
+                            <th> Q</sub></th>
+                            <th> &Gamma;</th>
+                            <th>{ L,R}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>qStart</td>
+                            <td>B</td>
+                            <td>qA</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qA</td>
+                            <td>P</td>
+                            <td>qB</td>
+                            <td>P</td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qA</td>
+                            <td>T</td>
+                            <td>qB</td>
+                            <td>T</td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qB</td>
+                            <td>B</td>
+                            <td>q1</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q1</td>
+                            <td>T</td>
+                            <td>q2</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q1</td>
+                            <td>P</td>
+                            <td>q3</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q2</td>
+                            <td>S</td>
+                            <td>q2</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q3</td>
+                            <td>T</td>
+                            <td>q3</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q2</td>
+                            <td>X</td>
+                            <td>q4</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q3</td>
+                            <td>V</td>
+                            <td>q5</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q4</td>
+                            <td>X</td>
+                            <td>q3</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q5</td>
+                            <td>P</td>
+                            <td>q4</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q4</td>
+                            <td>S</td>
+                            <td>q6</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q5</td>
+                            <td>V</td>
+                            <td>q6</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>q6</td>
+                            <td>E</td>
+                            <td>qC</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qC</td>
+                            <td>P</td>
+                            <td>qD</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qC</td>
+                            <td>T</td>
+                            <td>qE</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qD</td>
+                            <td>E</td>
+                            <td>qF</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qE</td>
+                            <td>E</td>
+                            <td>qG</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>R</td>
+                        </tr>
+                        <tr>
+                            <td>qF</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>qF</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>L</td>
+                        </tr>
+                        <tr>
+                            <td>qG</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>qG</td>
+                            <td><span class="leeresZeichen">]</span></td>
+                            <td>L</td>
+                        </tr>
+                        <tr>
+                            <td>qF</td>
+                            <td>P</span></td>
+                            <td>qAccept</td>
+                            <td>P</span></td>
+                            <td>L</td>
+                        </tr>
+                        <tr>
+                            <td>qG</td>
+                            <td>T</span></td>
+                            <td>qAccept</td>
+                            <td>T</span></td>
+                            <td>L</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </div>
+       
+        
+
+
+
+    </main>
+
+</body>
+
+</html>

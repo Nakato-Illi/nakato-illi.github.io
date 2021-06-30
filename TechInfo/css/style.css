@@ -250,7 +250,7 @@ nav ul li ul li a:hover{
     height: auto;
     padding: 40px;
     margin: 2px;
-    background-color: rgb(255, 100, 234);
+    background-color: rgba(255, 242, 65, 0.809);
     transition: all 300ms;
   }
   .pro4:hover {
