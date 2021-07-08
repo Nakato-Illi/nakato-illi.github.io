@@ -85,8 +85,8 @@ nav ul li ul {
 
 main {
     display: flex;
-    margin: auto 50px;
-    padding-top: 70px;
+    justify-content: center;
+    margin-top: 70px;
 }
 
 .leeresZeichen {
@@ -187,34 +187,54 @@ table tbody tr td{
 
 /* --------------------   Tabelle-section   --------------------- */
 
+.du {
+  display: block;
+  margin-top:10px ;
+  border-top: 2px solid rgba(255, 242, 65, 0.809);
+  border-bottom: 2px solid rgba(255, 242, 65, 0.809);
+  border-left: 2px solid rgba(255, 242, 65, 0.809);
+  height: 40px;
+}
+
+.du span p {
+  padding: 3px;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 15px;
+  text-transform: uppercase;
+}
  /* --------------------   SVG Design  --------------------- */
 
 
  .conatiner_gr {
-    margin: 0 20px;
     align-self: center;
   }
 
   svg {
     display: flex;
-    height: 600px;
-    width: 800px;
+    height: 570px;
+    width: 870px;
     border: rgba(255, 242, 65, 0.809) solid;
     border-radius: 5px;
   }
 
    svg .knoten-text{
-     fill: rgb(86, 86, 86);
+     fill: rgb(238, 238, 238);
      font-weight: bold;
      font-size: 4px;
      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
    }
 
    svg .kanten-text{
-    fill: rgb(136, 141, 186);
+    fill: rgb(196, 196, 196);
     font-weight: bold;
     font-size: 4px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+   svg .kanten-textm {
+    fill: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 8px;
   }
 
   svg .arrow-circle {

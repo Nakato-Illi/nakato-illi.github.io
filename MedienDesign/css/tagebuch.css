@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+}
+
+/*--------------------Body-------------------*/
+
+body {
+    padding: 0;
+    margin: 0 200px;
+    background-image: url("/MedienDesign/css/pic/coronatagebuch/fertigeSeite/bodypic1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;  
+    background-attachment: fixed;
+}
+
+/*--------------------header-------------------*/
+
+header {
+  display: flex;
+}
+
+header img{
+  background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    margin-bottom: 200px;
+}
+
+/*--------------------section1-------------------*/
+
+.section1 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 200px;
+  padding: 50px;
+  border: 2px solid rgb(165, 91, 42);
+  background-color: rgba(0, 0, 0, 0.421);
+  flex-wrap: wrap;
+}
+
+.slidepic1 {
+  display: flex;
+  width: 600px;
+}
+
+.leftsec1{
+  width: 400px;
+  color: white;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.leftsec1 p{
+  line-height: 30px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding-right: 10px;
+}
+
+
+.mySlides {
+  display:none;
+  width: 90%;
+  height: 60%;
+}
+
+.rightsec1 .button{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+.rightsec1 .button button {
+  width: 100%;
+  padding: 5px 0;
+  border: 1px solid black;
+  margin: 2px;
+  background-color: rgb(165, 91, 42);
+  color: white;
+}
+
+.rightsec1 .button button:hover {
+  background-color: rgb(79, 43, 19);
+}
+
+/*--------------------section2-------------------*/
+
+.section2 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 200px;
+  padding: 50px;
+  border: 2px solid rgb(165, 91, 42);
+  background-color: rgba(0, 0, 0, 0.421);
+  flex-wrap: wrap;
+}
+
+.rightsec2 {
+  width: 400px;
+  color: white;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 40px;
+}
+
+.rightsec2 p{
+  line-height: 30px;
+  font-size:20px;
+  letter-spacing: 1px;
+}
+
+.mySlides1 {
+  display:none;
+  width: 90%;
+}
+
+.slidepic2 {
+  
+}
+
+.slidepic2 img {
+  width: 540px;
+  height: 410px;
+}
+
+.leftsec2 .button{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.leftsec2 .button button {
+  width: 100%;
+  padding: 5px 0;
+  border: 1px solid black;
+  margin: 2px;
+  background-color: rgb(165, 91, 42);
+  color: white;
+}
+
+.leftsec2 .button button:hover {
+  background-color: rgb(79, 43, 19);
+}
+
+/*--------------------section3-------------------*/
+
+.section3 {
+  color: white;
+  margin-bottom: 200px;
+  padding: 50px;
+  border: 2px solid rgb(165, 91, 42);
+  background-color: rgba(0, 0, 0, 0.421);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.leftsec3 {
+  text-align: center;
+  width: 800px;
+  margin: 30px auto;
+  line-height: 30px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  
+}
+
+.textbox p{
+  width: 100%;
+}
+
+.rightsec3 {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.rightsec3 img {
+  margin: 10px;
+  width: 100%;
+}
+
+/*--------------------section4-------------------*/
+
+.section4 {
+  background-color: black;
+  border: 2px solid rgb(165, 91, 42);
+}
+
+.rightsec4 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: white;
+  padding: 50px 0;
+}
+
+.textsec4 {
+  margin: 0 300px;
+  background-image:url("/MedienDesign/css/pic/coronatagebuch/fertigeSeite/bodypic1.jpg");
+  padding: 20px;
+}
+
+.rightsec4 img {
+  margin: 40px;
+}
+
+/*--------------------section5-------------------*/
+
+.section5 {
+  margin: 200px 0;
+  border: 2px solid rgb(165, 91, 42);
+}
+
+
+.kontrast1 {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.421);
+}
+
+
+.kontrast3 {
+  display: flex;
+  justify-content: end;
+  background-color: rgba(0, 0, 0, 0.421);
+}
+
+.kontrast4 {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.421);
+}
+
+.kontrast5 {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.421);
+}
+
+.kontrast1 img,
+.kontrast2 img,
+.kontrast3 img,
+.kontrast4 img,
+.kontrast5 img {
+  padding: 7px 7px 4px 7px;
+}
+
+/*--------------------section6-------------------*/
+
+.section6 {
+  color: white;
+  margin-bottom: 200px;
+  padding: 50px;
+  border: 2px solid rgb(165, 91, 42);
+  background-color: rgba(0, 0, 0, 0.421);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*--------------------section6-------------------*/
+
+.section7 {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 200px;
+  padding: 50px;
+  border: 2px solid rgb(165, 91, 42);
+  background-color: rgba(0, 0, 0, 0.421);
+  flex-wrap: wrap;
+}
+
+.slidepic img {
+  width: 540px;
+  height: 540px;
+}
+
+.leftsec7 .button{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
