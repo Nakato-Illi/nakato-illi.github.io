@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brennweite</title>
+    <link rel="stylesheet" href="../css/brennweite.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/MedienDesign/html/brennweite.html">&#8678; Brennweite</a></li>
+                <li><a href="/MedienDesign/html/tagebuch.html"> Home</a></li>
+                <li><a href="/MedienDesign/html/tiefenscharf.html">Tiefenschärfe &#8680;</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="rightsec1">
+            <h1>Verschlusszeit</h1>
+            <div class="slidepic">
+                <img class="mySlides" src="../css/pic/coronatagebuch/2-1Verschlusszeit.JPG">
+                <img class="mySlides" src="../css/pic/coronatagebuch/2-2Verschlusszeit.JPG">
+                <img class="mySlides" src="../css/pic/coronatagebuch/2-3Verschlusszeit.JPG">
+
+            </div>
+            <div class="button">
+                <button class="" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="" onclick="plusDivs(1)">&#10095;</button>
+            </div>
+        </div>
+
+    </main>
+
+
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+
+    </script>
+</body>
+
+</html>

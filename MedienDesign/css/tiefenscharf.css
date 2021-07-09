@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=Satisfy&display=swap');
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*--------------------navi-------------------*/
+
+header {
+    background-color: black;
+    position: absolute;
+    width: 100vw;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+header nav ul li {
+    list-style: none;
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+header nav ul li a:hover{
+    background-color: rgba(93, 93, 93, 0.415);
+}
+
+/*--------------------Body-------------------*/
+
+body {
+    padding: 0;
+    background-image: url("/MedienDesign/css/pic/coronatagebuch/fertigeSeite/bodypic1.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;  
+    background-attachment: fixed;
+    font-family: 'Cormorant Garamond', serif,'Satisfy', cursive;
+    color: aliceblue;
+  }
+
+
+/*---------------------main------------------*/
+
+main{
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.809);
+    padding-top: 90px;
+}
+
+h1{
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+/*---------------------main------------------*/
+
+
+
+.bild {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.mySlides {
+    width: 450px;
+}
