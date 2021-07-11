@@ -82,3 +82,7 @@ h1{
 .button button:hover {
     background-color: gray;
 }
+
+.slidepic1 {
+    height: 350px;
+}

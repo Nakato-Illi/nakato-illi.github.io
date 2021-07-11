@@ -403,7 +403,15 @@
             <div class="tm_textcontainer">
                 <div class="tm_left">
                     <h3>Was ist eine Turning Maschine</h3>
-                    <p>Some Text </p>
+                    <p>Ein 7-Tupel T = (Q,Σ, Γ, δ, q0, qaccept, qreject) heißt Turingmaschine (TM), wobei:<br>
+                        • Q ist eine nicht-leere, endliche Zustandsmenge.<br>
+                        • Σ ist das Eingabealphabet, das nicht das Blank enthält <br>
+                        • Γ ist das Bandalphabet mit Σ ⊆ Γ und Blank enthalten in Γ.<br>
+                        • δ : Q × Γ → Q × Γ × {L,R}<br>
+                        • q0 ∈ Q ist der Startzustand.<br>
+                        • qaccept ∈ Q ist der akzeptierende Zustand.<br>
+                        • qreject ∈ Q ist der verwerfende Zustand, mit qaccept = qreject.
+                    </p>
                     <h3>Aufgabenstellung</h3>
                     <p>
                         Simulieren einer Turing Maschine (TM) die die Embedded Reber Grammar (ERG) entscheidet.
@@ -412,14 +420,22 @@
 
                 <div class="tm_center">
                     <h3>Technische Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                        Das Layout der Turingmaschienen-Seite ist mit CSS und HTML5 entwickelt worden.<br>
+                        Die Einzelnen Eelemente wurden mit der Felxbox arrangiert.
+                        Die Funktionalitäten der Buttons, des Eingabefeld und der Überführungsregeln wurden mit
+                        js erzeugt.
+                    </p>
                 </div>
 
                 <div class="tm_right">
                     <h3>Fachliche Umsetzung</h3>
-                    <p>Some Text </p>
-                    <p>Somet Text</p>
+                    <p>
+                        Die Programmierung des Automaten ist stark an der Programmierung des des DEA angelehnt. Die Funktionen "generateRandomRightWord", "generateRandomWrongExpr", "isExpCorrect"
+                        "getNextPossible", "isLetterCorrect" und die Funktion für das Einfärben sind gleich geblieben.
+                        Ein Unterschied besteht darin, dass die Tabelle diesmal nicht in Js erstellt worden ist, sonder Js die in der HTML erstellen Tabelle anspricht in der Funktion "initProgram()". 
+                        Diese Funktiom initilalisiert eine Liste mit den Knoten und Kanten der Gramma.
+                    </p>
                 </div>
             </div>
 

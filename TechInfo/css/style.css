@@ -459,9 +459,9 @@ nav ul li ul li a:hover{
       width: 100px;
     }
     .tm_Container {
-  
-      background-color: rgb(124, 124, 124);
-      margin: 0 200px;
+      color: #fff;
+      border: rgb(207, 231, 48) solid 3px;
+      padding-bottom: 40px;
     }
   
     .tm_Container h2 {
@@ -480,3 +480,27 @@ nav ul li ul li a:hover{
       line-height: 23px;
     }
   
+    .tm_textcontainer h4,
+    .tm_textcontainer h3 {
+      color: rgb(49, 49, 49);
+      padding-bottom: 5px;
+      padding-top: 10px;
+    }
+
+    .tm_textcontainer .tm_left {
+      padding:  10px 20px;
+      background-color: rgb(255, 255, 255);
+      margin: 0 100px;
+    }
+    .tm_textcontainer .tm_center {
+      padding: 10px 20px;
+      background-color: rgb(240, 240, 240);
+      overflow: hidden;
+      margin: 0 100px;
+    }
+
+    .tm_textcontainer .tm_right {
+      padding: 10px 20px;
+      background-color: rgb(240, 240, 240);
+      margin: 0 100px;
+    }

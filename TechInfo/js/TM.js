@@ -12,16 +12,20 @@ var inputAlphabet = document.getElementById('eingabe');
 var tBody = document.getElementById('tBody');
 var result = document.getElementById('isExpCorrect');
 var inputWord = document.getElementById('word_input');
+var tmWord = document.getElementById('tm_word');
 var kanten = [];
 var knoten = [];
+var alphabet = [];
 var maxLength = 10;
 var minLength = 5;
 
 //Variablen für das Aussehen
-var activeColor = 'rgb(255, 161, 47)';
-var edgeColor = 'lightgrey';
-var nodeColor = 'white';
-var tableColor = 'lightgrey';
+var activeColor = 'grey';
+// var activeColor = 'rgb(255, 161, 47)';
+var edgeColor = 'rgba(255, 242, 65, 0.809)';
+var nodeColor = 'black';
+var tableColor = 'white';
+var textColor = 'white';
 var faildColor = 'red';
 var successColor = 'lightgreen';
 var startIndicator = '->';
@@ -40,14 +44,23 @@ var activeNode;
 var maxSpeed = 2000;
 var speed = maxSpeed * 0.2;
 var isEdge = false;
-
+var turing = false;
 
 inputWord.addEventListener('input', (evt) => {
     let word = inputWord.value;
     word.match(/[^a-z]/gi) && (inputWord.value = word.replace(/[^a-z]/gi, ''));
     manageStates();
+    // console.log('inputWord input: ', inputWord.value);
     result.style.padding = '5px';
+    // if(inAction){
+        tmWord.innerHTML = '';
+        originWord = inputWord.value
+        reset();
+        inAction = false;
+    // }
+    
     result.style.backgroundColor = !inputWord.value ? 'transparent' : isWordCorrect() ? 'lightgreen' : 'red';
+    
 });
 
 /**
@@ -56,10 +69,12 @@ inputWord.addEventListener('input', (evt) => {
  * 
  * 
  */
-function generateRandomRightWord() {
+function generateRandomRightWord(wrong) {
+    const kanten = this.kanten.filter((k) => k.getKantenName() !== '_');
     let previous = kanten.find((kante) => kante.isStart());
     let resultWord = previous.getKantenName();
     playEndAnim = false;
+    inAction = true;
     originWord && (inputWord.value = originWord);
     originWord = null;
     for (let i = 0; true; i++) {
@@ -68,16 +83,46 @@ function generateRandomRightWord() {
         previous = poss[getRandomNumber(0, poss.length - 1)]
         resultWord += previous.getKantenName();
     }
+    resultWord = resultWord.substr(0, resultWord.length-1);
+    resultWord = resultWord.split('');
+    resultWord[resultWord.length-2] = resultWord[1];
+    resultWord = resultWord.join('');
+
     console.log('1 generateRandomRightWord: ', resultWord, originWord, inputWord.value);
     if (resultWord === inputWord.value) {
         console.log('2 generateRandomRightWord: ', resultWord, originWord, inputWord.value);
-        generateRandomRightWord();
+        generateRandomRightWord(wrong);
     }
-    else {
-        inputWord.value = resultWord;
+    else { 
+        if(wrong){
+            const p = getRandomNumber(0, 9)
+            const r = kanten.find((k) => k.getStartPos() === 1 && k.getKantenName() !== resultWord[1]);
+            if(r && p < 6) {
+                resultWord = replaceStringChar(resultWord, r.getKantenName(), resultWord.length-2);
+            } else {
+                const ww = resultWord;
+                const c = getRandomNumber(1, (resultWord.length-1)/2);
+                const l = [2];
+                for(let i = 0; i < c; i++){
+                    const rk = alphabet[getRandomNumber(0, alphabet.length-1)];
+                    const ind = getRandomNumber(1, resultWord.length-1, l);
+                    l.push(ind);
+                    resultWord = replaceStringChar(resultWord, rk, ind);
+                    console.log('the wrong word: ', resultWord, ww, ww.length, c, ind, rk, l);
+                }
+                
+            }
+            
+        }
+        if(isWordCorrect(resultWord) === !!wrong){
+            generateRandomRightWord(wrong);
+        }else {
+           inputWord.value = resultWord;
         console.log(resultWord[3]);
-        isWordCorrect();
-        manageStates();
+        inputWord.dispatchEvent(new Event('input'));
+        manageStates(); 
+        }
+        
     }
 
 }
@@ -89,49 +134,25 @@ function generateRandomRightWord() {
  * 
  */
 function generateRandomWrongWord() {
-
-    let length = getRandomNumber(minLength, maxLength - minLength);
-    let previous = kanten.find((kante) => kante.isStart());
-    let resultWord = previous.getKantenName();
-    playEndAnim = false;
-    originWord && (inputWord.value = originWord);
-    originWord = null;
-    for (let i = 0; i < length; i++) {
-        let r = getRandomNumber(0, 10);
-        let poss = getNextPossible(previous, kanten);
-        // console.log('rand: ',r, length);
-        previous = r < 5 ? poss.length > 0 ? poss[getRandomNumber(0, poss.length - 1)] : kanten[getRandomNumber(0, kanten.length - 1)] : kanten[getRandomNumber(0, kanten.length - 1)];
-        resultWord += previous.getKantenName();
-    }
-
-    console.log('1 generateRandomWrongWord: ', resultWord, originWord, inputWord.value);
-    if ((resultWord === inputWord.value) || isWordCorrect(resultWord)) {
-        console.log('2 generateRandomWrongWord: ', resultWord, originWord, inputWord.value);
-        generateRandomWrongWord();
-    }
-    else {
-        inputWord.value = resultWord;
-        //isWordCorrect(resultWord);
-        console.log(resultWord[3]);
-        isWordCorrect();
-        manageStates();
-    }
-
-
+    generateRandomRightWord(true);
+ 
 }
 
 /**
  * resets several parameters in order to start from the very beginning.
  */
 function reset() {
+    console.log('===================================reset')
     index = 0;
     isEdge = false;
     prev = null;
     activeNode = null;
+    turing = false;
     wordToCheck = originWord || inputWord.value;
     originWord || (originWord = new String(wordToCheck));
-    kanten.forEach((k) => k.reset());
-    knoten.forEach((n) => n.reset());
+    // kanten.forEach((k) => k.reset());
+    // knoten.forEach((n) => n.reset());
+    initColors();
 }
 
 /**
@@ -140,17 +161,20 @@ function reset() {
  * @param isauto wether to continue the word-checking automatically or manually.
  */
 function checkWord(isauto) {
-    if (inputWord.value === hintWord) return;
-    inputWord.value = '';
+    if (!inputWord.value) return;
+    
     if (!inAction) {
-        inAction = true;
+        tmWord.innerHTML = inputWord.value;
         manageClickability(true);
         reset();
+        inAction = true;
     }
     auto = isauto;
     manageStates();
     isLetterCorrect();
 }
+
+
 
 /**
  * checks the word, one letter at a time.
@@ -160,7 +184,7 @@ function checkWord(isauto) {
  */
 function isLetterCorrect() {
     let edge;
-    if (index === 0) {
+    if (!turing && index === 0) {
         if (!isEdge) {
             let node = knoten.find((n) => n.isStart());
             node.setColor(activeColor);
@@ -175,20 +199,38 @@ function isLetterCorrect() {
         }
     }
     else {
-        // if (!isEdge) node = knoten.find((n) => n.getNumber() === index);
         if (isEdge) {
             let poss = getNextPossible(prev);
-            edge = poss.find((kante) => kante.getKantenName() === wordToCheck[index]);
+            if(!turing){
+                edge = poss.find((kante) => kante.getKantenName() === wordToCheck[index]);
+                edge && index > 1 && (tmWord.innerHTML = replaceStringChar(tmWord.textContent, '_', index));
+            } else {
+                if(index === 1){
+                    
+                    edge = poss.find((kante) => kante.getKantenName() === inputWord.value[1]);
+                    edge && (tmWord.innerHTML = replaceStringChar(tmWord.textContent, '_', index));
+                    console.log('turing index 1 ', inputWord.value[1], edge, poss, prev)
+                } else{
+                    edge = poss.find((kante) => kante.getKantenName() === '_');
+                }
+                
+            }
+            
         }
     }
-    if (edge || !isEdge) {
+    if ((edge || !isEdge) && (!turing || index >= 0)) {
         if (!isEdge) {
             if (prev) prev.setInactive();
         }
+        
         if (isEdge) {
+            turing = turing || wordToCheck.length - 1 === index && edge.isPreEnd();
+            changeLetterColor(activeColor, true);
             edge.setActive();
             prev = edge;
-            index++;
+            if(turing){
+                index--;
+            } else index++;
         }
         isEdge = !isEdge;
 
@@ -197,9 +239,9 @@ function isLetterCorrect() {
         }, speed);
 
     } else {
-        let end = prev && prev.isEnd();
-        finishCheck(wordToCheck.length == index && end ? true : false);
-        console.log('finiche-----------------------', wordToCheck.length, ' ', index, ' ', edge, ' ', prev, wordToCheck);
+        let end = prev?.isEnd();
+        finishCheck(turing && index === 0 && end ? true : false);
+        console.log('finiche-----------------------', wordToCheck.length, index, wordToCheck[index], turing, edge, prev, wordToCheck);
     }
 
 }
@@ -209,6 +251,7 @@ function isLetterCorrect() {
  * @param success indicates wether the word is correct or not.
  */
 function finishCheck(success) {
+    turing = false;
     //console.log('finiche-----------------------',success);
     inAction = false;
     manageStates();
@@ -216,7 +259,7 @@ function finishCheck(success) {
     playEndAnim = true;
     endAnimation(10, success);
     if (success) {
-
+        changeLetterColor(activeColor, true);
     } else {
 
         changeLetterColor(faildColor);
@@ -238,17 +281,29 @@ function endAnimation(count, success) {
  * changes color of a single letter in the word.
  * @param color the new color for the letter.
  */
-function changeLetterColor(color) {
-    let text = inputWord.textContent;
-    console.log('col: ', text);
+function changeLetterColor(color, bg) {
+    let text = tmWord.textContent;
+    // console.log('col: ', text);
     let i = 0;
     let newText = "";
     newText = Array.prototype.map.call(text, function (letter) {
-        let res = letter.fontcolor(i == index ? color : 'white');
+        // console.log('changeLetterColor: ', letter);
+        const sty = bg ? 'background-color' : 'color';
+        const col = i == index ? color : bg ? 'tranparent': textColor;
+        // let res = letter.fontcolor(i == index ? color : 'white');
+        let res = '<span style="'+sty+':'+col+';">'+letter+'</span>';
         i++;
         return res;
     }).join('');
-    inputWord.value = newText;
+    tmWord.innerHTML = newText;
+}
+
+function replaceStringChar(stri, cha, ind){
+    let str = stri.substr(0, stri.length);
+    str = str.split('');
+    str[ind] = cha;
+    str = str.join('');
+    return str;
 }
 
 /**
@@ -265,46 +320,32 @@ function isWordCorrect(w) {
     let last = kanten.filter((k) => k.getEndPos() === 8);
 
     let previous = kanten.find((kante) => kante.getKantenName() === word[0] && kante.isStart());
-    console.log('check word first: ', word, res, previous);
+    // console.log('check word first: ', word, res, previous);
     let ind = 0;
-    if(res)for (let i = 1; i < word.length; i++) {
+    if(res && word[1] !== word[word.length-2]) res = false;
+    if(res) for (let i = 1; i < word.length; i++) {
         ind = i;
         if (!previous) { res = false; break; }
         let poss = getNextPossible(previous);
-        console.log(i+' check word poss: ', word, res, poss);
+        // console.log(i+' check word poss: ', word, res, poss);
         if (poss) {
             previous = poss.find((kante) => kante.getKantenName() === word[i]);
-            console.log(i+' - check word prev: ', word, res, previous, word[i]);
+            // console.log(i+' - check word prev: ', word, res, previous, word[i]);
         } else {
             if (i < word.length - 1) { res = false; break; }
         }
-        // if (i === 1) {
-        //     console.log(i+' check word: ', word, res, word[i] !== 'B');
-        //     if (word[i] !== 'B') { res = false; break; }
-        // }
-        // if (i === 1) {
-        //     if (word[i] !== 'P' || word[i] !== 'T') { res = false; break; }
-        // }
-        // if (i === word.length - 4) {
-        //     let vl = last.find((kante) => kante.getKantenName() === word[i]);
-        //     console.log('i:' + i + ' vorletztes: ', word[i], vl);
-        //     if (!vl) { res = false; break; }
-        // }
-        // if (i === word.length - 3) {
-        //     let l = kanten.find((kante) => kante.isEnd()).getKantenName() === word[i];
-        //     console.log('i:' + i + ' letztes: ', word[i], l);
-        //     if (!l) { res = false; break; }
-        // }
+        if(i === word.length -1) {
+            if (!previous || previous.getEndPos() !== 12 && previous.getEndPos() !== 13) { res = false; break; }
+        }
     }
-    // if(!w){
-    //     inputWord.value = '';
-    //     result.style.color = res ? successColor : faildColor;
-    //     result.style.fontSize = '20px';
-    //     result.style.padding = '5px';
-    //     result.innerHTML = res ? 'richtig' : 'falsch';
-    // }
-    console.log('check word: ', word, res, ind);
+    // console.log('check word: ', word, res, ind);
     return res;
+}
+
+function checkBreak(word, i, edge){
+    if(edge){
+        if(word[i] !== edge.getKantenName());
+    }
 }
 
 function manageClickability(status) {
@@ -317,12 +358,20 @@ function manageClickability(status) {
 
 function manageStates() {
     // console.log('manageStates: ', inputWord.value);
-    let s = inputWord.value === hintWord;
-    start.disabled = s || inAction ? true : false;
+    let s = !inputWord.value;
+    start.disabled = s || inAction && auto ? true : false;
+    inputWord.disabled = inAction && auto;
+    genCorrectButton.disabled = inAction && auto;
+    genWrongButton.disabled = inAction && auto;
     step.disabled = s ? true : false;
     stopp.disabled = inAction && auto ? false : true;
     // editText.disabled = s||inAction?true:false;
 }
+
+stopp.addEventListener('click', (ev) => {
+    auto = false;
+    manageStates();
+});
 
 function editWord() {
     inputWord.value = originWord || inputWord.value;
@@ -365,7 +414,8 @@ function setSpeed(value) {
  * @param current the edge in the grammer that is being checked.
  * @returns array of edges that can follow after the current.
  */
-function getNextPossible(current) {
+function getNextPossible(current, kanten) {
+    !kanten && (kanten = this.kanten);
     return kanten.filter((k) => k.getStartPos() === current.getEndPos());
 }
 
@@ -376,8 +426,8 @@ function getNextPossible(current) {
 function initProgram() {
 
     kanten.push(new Kante("qStart", "B", "qA", [0, 1]));
-    kanten.push(new Kante("qA", "T", "qB", [1, 2]));
     kanten.push(new Kante("qA", "P", "qB", [1, 2]));
+    kanten.push(new Kante("qA", "T", "qB", [1, 2]));
     kanten.push(new Kante("qB", "B", "q1", [2, 3]));
     kanten.push(new Kante("q1", "T", "q2", [3, 4]));
     kanten.push(new Kante("q1", "P", "q3", [3, 5]));
@@ -399,7 +449,9 @@ function initProgram() {
     kanten.push(new Kante("qF", "T", "qAccept", [12, 14]));
     kanten.push(new Kante("qG", "P", "qAccept", [13, 14]));
 
-    const l = [...kanten.map((k) => { return { kan: k.end, num: k.endPos } }), { kan: 'qStart', num: 0 }]
+    const l = [...kanten.map((k) => { 
+        !alphabet.includes(k.kante) && k.kante !== '_' && alphabet.push(k.kante);
+        return { kan: k.end, num: k.endPos } }), { kan: 'qStart', num: 0 }]
 
     for (let i = 0; i <= 14; i++) {
         knoten.push(new Knoten(l.find((e) => e.num === i).kan, i));
@@ -429,8 +481,9 @@ function initColors() {
  * @param length length of the interval
  * @returns an int
  */
-function getRandomNumber(start, length) {
-    return start + Math.round(Math.random() * length);
+function getRandomNumber(start, length, ex) {
+    const n =  start + Math.round(Math.random() * length);
+    return ex?.includes(n) && length > ex?.length ? getRandomNumber(start, length, ex) : n;
 }
 
 class Kante {
@@ -442,7 +495,10 @@ class Kante {
     endPos;
     svgRef;
     constructor(start, name, end, pos) {
-        this.row = document.getElementById(start + '-' + name);
+        const tbody = document.getElementById('tm_tbody');
+        // this.row = Array.from(tbody.children).find((tr) => tr.children[0].innerHTML ===  start && (tr.children[1].textContent === name || tr.children[2].textContent === end));
+        this.row = document.getElementById(start+'_'+name); 
+        
         this.start = start;
         this.kante = name;
         this.end = end;
@@ -454,24 +510,16 @@ class Kante {
         this.svgRef = {
             arrow: document.getElementById('arrow' + from + '-' + to),
             arrow2: document.getElementById('arrow_' + from + '-' + to),
-            letter: document.getElementById('letter' + from + '-' + to),
+            letter: to===2&&document.getElementById('letter' + from + '-' + to + (to===2?'_'+name:'')),
             arrowHead: (from - to) === 0 ? document.getElementById('arrowhead' + from + '-' + to) : null,
         }
+        console.log('tbody: ', name,  this.row, this.svgRef.letter);
     }
 
     setActive() {
         this.setColor(activeColor);
+        this.setLetterColor(activeColor)
         this.setRowColor(activeColor);
-        // let text = inputWord.textContent;
-        // console.log('col: ',text);
-        // let i = 0;
-        // let newText = Array.prototype.map.call(text, function(letter) {
-        //     let res = letter.fontcolor(i == index?activeColor:'white');
-        //     i++;
-        //     return res;
-        // }).join('');
-        // inputWord.value = newText;
-        //console.log('col: ', text.charAt(index));
         let n = knoten.find((node) => node.getName() === this.start);
         if (n) {
             n.setColor(nodeColor);
@@ -480,6 +528,7 @@ class Kante {
 
     setInactive() {
         this.setColor(edgeColor);
+        this.setLetterColor(textColor)
         this.setRowColor(tableColor);
         let n = knoten.find((node) => node.getName() === this.end);
         if (n) {
@@ -489,17 +538,17 @@ class Kante {
     }
 
     setColor(color) {
-        // this.svgRef.arrow.style.stroke = color;
-        // this.svgRef.arrow2 && (this.svgRef.arrow2.style.stroke = color);
-        // this.svgRef.arrowHead && (this.svgRef.arrowHead.style.stroke = color);
+        this.svgRef.arrow && (this.svgRef.arrow.style.stroke = color);
+        this.svgRef.arrow2 && (this.svgRef.arrow2.style.stroke = color);
+        this.svgRef.arrowHead && (this.svgRef.arrowHead.style.stroke = color);
     }
 
     setLetterColor(color) {
-        this.svgRef.letter.style.stroke = color;
+        this.svgRef.letter && (this.svgRef.letter.style.fill = color);
     }
 
     setRowColor(color) {
-        // this.row.childNodes.forEach((r) => r.style.backgroundColor = color);
+        (!turing || index > 0) && (this.row.style.backgroundColor = color);
     }
 
     reset() {
@@ -522,6 +571,10 @@ class Kante {
         return this.end === 'qAccept';
     }
 
+    isPreEnd(){
+        return this.endPos === 12 || this.endPos === 13;
+    }
+
     getStartPos() {
         return this.startPos;
     }
@@ -537,7 +590,7 @@ class Knoten {
     svgRef;
     constructor(name, num) {
         this.name = name;
-        this.number = this.num;
+        this.number = num;
         this.svgRef = {
             node: document.getElementById('node' + this.number),
         }
@@ -552,7 +605,7 @@ class Knoten {
     }
 
     setColor(color) {
-        // this.svgRef.node.style.fill = color;
+        this.svgRef.node && (this.svgRef.node.style.fill = color);
     }
 
     reset() {
@@ -560,11 +613,11 @@ class Knoten {
     }
 
     isStart() {
-        return this.number === '0';
+        return this.number === 0;
     }
 
     isEnd() {
-        return this.number === '7';
+        return this.number === 14;
     }
 }
 

@@ -19,7 +19,7 @@ body {
   }
 
 
-/*--------------------header-------------------*/
+/*--rgb(0, 155, 155)------------------header-------------------*/
 
 header {
   height: 100vh;
@@ -54,6 +54,7 @@ header {
 /*--------------------navi-------------------*/
 
 .overvew{
+  margin-top: 300px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
