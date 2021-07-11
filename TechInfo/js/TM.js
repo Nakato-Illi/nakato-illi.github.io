@@ -20,7 +20,7 @@ var maxLength = 10;
 var minLength = 5;
 
 //Variablen für das Aussehen
-var activeColor = 'grey';
+var activeColor = 'rgb(0, 152, 142)';
 // var activeColor = 'rgb(255, 161, 47)';
 var edgeColor = 'rgba(255, 242, 65, 0.809)';
 var nodeColor = 'black';
