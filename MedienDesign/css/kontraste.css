@@ -76,7 +76,8 @@ h1{
 }
 
 .mySlides {
-    width: 800px;
+    width: 700px;
+    height: 700px;
 }
 
 .bild {
@@ -87,4 +88,8 @@ h1{
 
 .oben{
     margin: 80px 0 ;
+}
+
+.oben img {
+    overflow: hidden;
 }
