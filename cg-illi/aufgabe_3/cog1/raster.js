@@ -133,6 +133,9 @@ function(exports, shader, framebuffer, data) {
 		// return;
 		var err = dXAbs + dYAbs;
 		// Skip it, if the line is just a point.
+		if(x === endX && y === endY) {
+			return;
+		}
 		while(true) {
 			framebuffer.set(x, y, getZ(x, y), color);
 			if(x === endX && y === endY) {
