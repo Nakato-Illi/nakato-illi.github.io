@@ -103,10 +103,9 @@ header h1 {
     background-image: url('./img/glyphicons/png/glyphicons-82-refresh.png');
 }
 
-.myapp-img-play
- {
+.myapp-img-play {
     background-image: url('./img/glyphicons/png/glyphicons-388-log-out.png');
- }
+}
 
 
 /* MAIN ELEMENTE */
@@ -138,7 +137,7 @@ main ul {
 }
 
 li {
-    height: var(--myapp-listitem-height);    
+    height: var(--myapp-listitem-height);
     border-bottom: 2px solid var(--myapp-listitem-bordercolor);
     display: grid;
     grid-template-columns: 100px 1fr;
@@ -151,7 +150,7 @@ li {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc( var(--myapp-image-height) + var(--myapp-default-space));
+    height: calc(var(--myapp-image-height) + var(--myapp-default-space));
 }
 
 .container-web-datum {
@@ -161,7 +160,7 @@ li {
 }
 
 .listbuttons {
-    
+
     background-color: transparent;
     font-size: 0;
     height: var(--myapp-listitem-fontsize);
@@ -177,23 +176,25 @@ li {
 
 .container-play-dot-sero {
     display: grid;
-    grid-template-columns:25px 1fr 25px;
+    grid-template-columns: 25px 1fr 25px;
 }
 
 .playbutton {
     background-image: url('./img/glyphicons/png/glyphicons-174-play.png');
 }
+
 .dotdotdot {
+    margin-left: 0 15px;
     background-image: url('./img/glyphicons/png/glyphicons-518-option-vertical.png');
 }
 
-li p{
+li p {
     color: var(--myapp-main-color);
 }
 
 li h2 {
     font-size: var(--myapp-listitem-fontsize);
-    
+
 }
 
 .myapp-img-edit {
@@ -210,6 +211,24 @@ img {
 
 /* TILES ELEMENTE */
 
+.fade-also,
+.fade-in {
+    animation: fadeinout 2s linear forwards;
+}
+
+
+@keyframes fadeinout {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+
+
 .myapp-tiles .dotdotdot {
     display: inline-block;
 }
@@ -225,7 +244,7 @@ img {
 }
 
 .myapp-tiles ul {
-    margin: 15px  15px 0 15px ;
+    margin: 15px 15px 0 15px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     column-gap: 5px;
@@ -244,12 +263,20 @@ img {
 
 }
 
-.myapp-tiles ul li::after {
-    content: url(img/glyphicons/png/glyphicons-518-option-vertical.png);
+
+
+
+.myapp-tiles ul li div{
+    display: inline;
     position: absolute;
     right: 10px;
     bottom: 10px;
-    filter: invert(132%);
+    
+}
+
+.myapp-tiles ul li div button.dotdotdot {
+    display: inline;
+    filter: invert(122%);
 }
 
 
@@ -266,4 +293,3 @@ footer {
 
 
 /*  View after viewchange  */
-
