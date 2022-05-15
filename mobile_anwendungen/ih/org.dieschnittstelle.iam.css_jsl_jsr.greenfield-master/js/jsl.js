@@ -1,43 +1,20 @@
 
-class ViewContoller {
-    root = document.body;
-    constructor() {
 
-    }
-
-    initialiseView() {
-        this.prepareViewSwitching();
-    }
-
-    prepareViewSwitching() {
-        const mainEl = this.root.getElementsByTagName("main")[0];
-        const viewSwitch = this.root.querySelector("header");
-
-        viewSwitch.onlick = () => {
-            mainEl.setAttribute("class", "fade-in");
-        }
-    }
-
-}
-
-window.onload = () => {
-    const vc = new ViewContoller(document.body);
-    vc.root = document.body;
-    vc.initialiseView();
-}
 
 
 // {
 //     "use strict"
 
 
-    function mytile() {
+function mytile() {
 
-        var para = document.getElementsByClassName("myapp-tile")[0];
-        var paro = document.getElementsByTagName("ul")[0];
-        var pari = document.getElementsByTagName("main")[0];
-        
+    const kachel = document.getElementsByClassName("myapp-img-kachel")[0];
 
+    const para = document.getElementsByClassName("myapp-tile")[0];
+    const paro = document.getElementsByTagName("ul")[0];
+    const pari = document.getElementsByTagName("main")[0];
+
+    kachel.onclick = () => {
         if (para.classList.contains("myapp-tiles")) {
             paro.classList.remove("fade-also");
             setTimeout(function () {
@@ -54,13 +31,13 @@ window.onload = () => {
                 para.classList.add("myapp-tiles");
             }, 1000);
         }
-
-        // console.log(paro)
-
     }
+
+}
 
     
     window.onload = () => {
+        mytile();
         const listitem = document.getElementsByTagName("li");
         const listoption = document.getElementsByClassName("dotdotdot");
 
