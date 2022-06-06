@@ -105,7 +105,7 @@ function xhr(method, requestpath, obj, onsuccess, onerror) {
             */
 
             // send the request and pass the json string as content or do not pass any content
-            console.log("sending request...");
+            console.log("sending request.......");
             if (obj) {
                 xmlhttp.send(json);
             } else {
