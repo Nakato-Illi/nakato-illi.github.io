@@ -4,3 +4,7 @@
     height: 50px;
     object-fit: cover;
 }
+
+#mediaReadview main img {
+    width: 100%;
+}

@@ -3,6 +3,7 @@
  */
 import { xhr } from "../../lib/js/framework-modules.js";
 import { create } from "../../lib/js/mwf/crud/mwfXhr.js";
+import { Application } from "../../lib/js/mwf/mwf.js";
 import { mwf } from "../Main.js";
 import { entities } from "../Main.js";
 import { GenericCRUDImplLocal } from "../Main.js";
@@ -11,15 +12,12 @@ import MyApplication from "../MyApplication.js";
 export default class ListviewViewController extends mwf.ViewController {
 
     constructor() {
-        super();
-
-        
+        super();        
 
         this.addNewMediaItemElement = null;
 
         this.crudops = GenericCRUDImplLocal.newInstance("MediaItem");
 
-        console.log("----------------ListviewViewController()", this.crudops);
     }
 
     /*
@@ -27,30 +25,76 @@ export default class ListviewViewController extends mwf.ViewController {
      */
     async oncreate() {
         // TODO: do databinding, set listeners, initialise the view
-        console.log("---------oncreate(): ", this.root);
-
-        this.addNewMediaItemElement = this.root.querySelector("header button:last-child");
-        this.addNewMediaItemElement.onclick = () => {
-
-            const allitemdata = [
-                [100,200,"lirem"],
-                [300,100,"dipsi"],
-                [100,50,"kanup"],
-                [200,200,"haddem"],
-            ];
-            const [x,y,title] = allitemdata[Date.now() % allitemdata.length];
-            const newitem = new entities.MediaItem(title, `https://placekitten.com/${x}/${y}`);
-            newitem.create().then(() => this.addToListview(newitem));
-            
-        }
-
-        entities.MediaItem.readAll().then(items => this.initialiseListview(items));
+        console.log("---------oncreate(): ", this.root);    
+        
+        this.prepareAddingNewElements();
+        this.prepareCRUDSwitching();
+        this.initialiseListitemsInListview();
        
-        // this.initialiseListview(this.items);
 
         // call the superclass once creation is done
         super.oncreate();
     }
+
+    prepareAddingNewElements() {
+
+        this.addNewMediaItemElement = this.root.querySelector("header button:last-child");
+        this.addNewMediaItemElement.onclick = () => {
+            this.nextView("mediaEditview", {item: new entities.MediaItem()});
+        }
+
+    }
+
+    prepareCRUDSwitching() {
+
+        const switchingElement = this.root.querySelector("footer .mwf-img-refresh");
+        switchingElement.onclick = () => {
+            if(this.application.currentCRUDScope == "local") {
+                this.application.switchCRUD("remote");
+            } else {
+                this.application.switchCRUD("local");
+            }
+            this.initialiseListitemsInListview();
+        }
+    }
+
+    initialiseListitemsInListview() {
+        entities.MediaItem.readAll().then(items => this.initialiseListview(items));
+    }
+    // async onresume() {
+    //     // TODO: do databinding, set listeners, initialise the view
+    //     this.addNewMediaItemElement = this.root.querySelector("header button:last-child");
+    //     this.addNewMediaItemElement.onclick = () => {
+    //
+    //         const allitemdata = [
+    //             [100,200,"lirem"],
+    //             [300,100,"dipsi"],
+    //             [100,50,"kanup"],
+    //             [200,200,"haddem"],
+    //         ];
+    //         const [x,y,title] = allitemdata[Date.now() % allitemdata.length];
+    //         const newitem = new entities.MediaItem(title, `https://placekitten.com/${x}/${y}`);
+    //         newitem.create().then(() => this.addToListview(newitem));
+    //
+    //     }
+    //
+    //     entities.MediaItem.readAll().then(items => this.initialiseListview(items));
+    //
+    //     // call the superclass once creation is done
+    //     super.onresume();
+
+//     getListviewAdapter(): undefined mwf.js:171:13
+//     template myapp-listitem uses databinding. Return as root+body segmented object... mwf.js:429:25
+//     bindListItemView(): mwf.js:1665:17
+//     applyDatabinding(): using template body and root children:
+// <img class="mwf-left-align" src="{{src}}">
+// <div class="mwf-li-titleblock">
+// <h2>{{title}} {{_id}}</h2>
+// <h3>{{addedDateString}}</h3>
+// </div>
+// <button class="mwf-imgbutton mwf-img-options-vertical mwf-right-align mwf-listitem-menu-control"></button>
+// 0
+    // }
 
     /*
      * for views with listviews: bind a list item to an item view
@@ -77,7 +121,8 @@ export default class ListviewViewController extends mwf.ViewController {
      */
     onListItemSelected(itemobj, listviewid) {
         // TODO: implement how selection of itemobj shall be handled
-        alert("id " + itemobj._id);
+        // alert("id " + itemobj._id);
+        this.nextView("mediaReadview", {item: itemobj});
     }
 
     /*
@@ -114,6 +159,18 @@ export default class ListviewViewController extends mwf.ViewController {
      */
     async onReturnFromNextView(nextviewid, returnValue, returnStatus) {
         // TODO: check from which view, and possibly with which status, we are returning, and handle returnValue accordingly
+        // if(nextviewid === "mediaReadview") {
+            if(returnValue) {
+                if(returnValue.deletedItem) {
+                    this.removeFromListview(returnValue.deletedItem._id);
+                } else if(returnValue.updateItem){
+                    this.updateInListview(returnValue.updateItem._id, returnValue.updateItem);
+                } else if(returnValue.createItem) {
+                    this.addToListview(returnValue.createItem);
+                }
+            }
+        // }
+        // // this.oncreate();
     }
 
     deleteItem(item) {
@@ -126,4 +183,3 @@ export default class ListviewViewController extends mwf.ViewController {
     }
 
 }
-

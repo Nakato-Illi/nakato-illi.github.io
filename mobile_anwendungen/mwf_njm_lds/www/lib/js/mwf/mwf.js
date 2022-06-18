@@ -127,8 +127,10 @@ function addRemoveOnFadedToElement(el) {
         const removeOnFaded = () => {
             el.removeEventListener("transitionend",removeOnFaded);
             if (el.parentNode) {
-                console.log("REFACVIEWS: transitionend(): remove element from parent: ",el);
-                el.parentNode.removeChild(el);
+                const p = el.parentNode;
+                console.log("1REFACVIEWS: transitionend(): remove element from parent: ", el.id, p.children);
+                [...el.classList].includes('mwf-view-initial') || el.parentNode.removeChild(el);
+                console.log("2REFACVIEWS: transitionend(): remove element from parent: ", p.children);
             }
             else {
                 console.log("REFACVIEWS: transitionend(): remove element from parent not possible as parent has not been set");
@@ -639,9 +641,10 @@ class ViewController {
         console.log("ViewController.setViewAndArgs(): " + view.id);
         console.log("ViewController.setViewAndArgs() view: " + view + ", args: " + (args ? mwfUtils.stringify(args) : " no args"));
 
-        this.root = view;
-        this.args = args;
-
+        // if (view.id == 'mediaListview') {
+            this.root =  view;
+            this.args = args;
+        // }
         // REFACVIEWS:
         // here, we attach the root to the document body
         document.body.appendChild(this.root);
@@ -1163,7 +1166,7 @@ class ViewController {
         // document.body.appendChild(this.root);
         console.log("2 ViewController.onresume(): " + this.root.id);
         // REFACVIEWS: in order for transitions to work on freshly appended views, we need a timeout
-        await mwfUtils.timeout(1000);
+        await mwfUtils.timeout(100);
         console.log("3 ViewController.onresume(): " + this.root.id);
         // on resume the next view will be displayed!
         if (this.isDialogCtrl) {
