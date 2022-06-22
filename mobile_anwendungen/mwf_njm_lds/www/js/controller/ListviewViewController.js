@@ -31,6 +31,10 @@ export default class ListviewViewController extends mwf.ViewController {
         this.prepareCRUDSwitching();
         this.initialiseListitemsInListview();
        
+        // this.viewProxy = this.bindElement("mediaListviewTemplate", {item: myitem}, this.root).viewProxy;
+        // this.viewProxy.bindAction("updateItemAction", () => {
+        //     this.updateItem(myitem);
+        // }); 
 
         // call the superclass once creation is done
         super.oncreate();
@@ -62,6 +66,7 @@ export default class ListviewViewController extends mwf.ViewController {
         entities.MediaItem.readAll().then(items => this.initialiseListview(items));
     }
     // async onresume() {
+    //     this.initialiseListitemsInListview();
     //     // TODO: do databinding, set listeners, initialise the view
     //     this.addNewMediaItemElement = this.root.querySelector("header button:last-child");
     //     this.addNewMediaItemElement.onclick = () => {
@@ -81,7 +86,7 @@ export default class ListviewViewController extends mwf.ViewController {
     //     entities.MediaItem.readAll().then(items => this.initialiseListview(items));
     //
     //     // call the superclass once creation is done
-    //     super.onresume();
+        // super.onresume();
 
 //     getListviewAdapter(): undefined mwf.js:171:13
 //     template myapp-listitem uses databinding. Return as root+body segmented object... mwf.js:429:25
@@ -163,10 +168,10 @@ export default class ListviewViewController extends mwf.ViewController {
             if(returnValue) {
                 if(returnValue.deletedItem) {
                     this.removeFromListview(returnValue.deletedItem._id);
-                } else if(returnValue.updateItem){
-                    this.updateInListview(returnValue.updateItem._id, returnValue.updateItem);
-                } else if(returnValue.createItem) {
-                    this.addToListview(returnValue.createItem);
+                } else if(returnValue.updatedItem){
+                    this.updateInListview(returnValue.updatedItem._id, returnValue.updateItem);
+                } else if(returnValue.createdItem) {
+                    this.addToListview(returnValue.createdItem);
                 }
             }
         // }

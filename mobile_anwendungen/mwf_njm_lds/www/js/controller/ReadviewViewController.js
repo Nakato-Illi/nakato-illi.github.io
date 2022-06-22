@@ -34,6 +34,9 @@ export default class ReadviewViewController extends mwf.ViewController {
         this.viewProxy.bindAction("deleteItemAction", () => {
            this.deleteItem(myitem);
         });
+        // this.viewProxy.bindAction("updateItemAction", () => {
+        //     this.updateItem(item);
+        // }); 
 
         // call the superclass once creation is done
         super.oncreate();
@@ -41,6 +44,11 @@ export default class ReadviewViewController extends mwf.ViewController {
 
     deleteItem(item) {
         item.delete().then(() => this.previousView({deletedItem: item}));
+    }
+
+    updateItem(item) {
+        item.title += (" " + item.title);
+        item.update().then(() => this.updateInListview(item._id,item));
     }
 
     /*

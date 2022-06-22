@@ -98,7 +98,7 @@
                 <form on-submit="saveItem">
                     <input placeholder="URL" type="url" name="url" value="{{item.src}}">
                     <input placeholder="Titel" type="text" name="title" value="{{item.title}}">
-                    <input type="submit" value="Speichern">
+                    <input on-click="updateItemAction" type="submit" value="Speichern">
                 </form>
             </main>
             <footer>
