@@ -17,17 +17,22 @@ function(exports, scenegraph, animation) {
 	 */
 	function init() {
 
-		var cubeNode1 = scenegraph.createNodeWithModel("alle", "sphere", {scale:140});
-		cubeNode1.translate([50,300,0]);
+		var cubeNode1 = scenegraph.createNodeWithModel("alle", "sphere", {scale:80});
+		cubeNode1.translate([50,100,0]);
 		
 		var cubeNode2 = scenegraph.createNodeWithModel("drei", "sphere", {scale:130}, cubeNode1);
-		cubeNode2.translate([100,-240,0]);
+		cubeNode2.translate([-50,-240,0]);
 
-		var cubeNode3 = scenegraph.createNodeWithModel("zwei", "sphere", {scale:120}, cubeNode2);
-		cubeNode3.translate([-10,-240,0]);
+		var cubeNode3 = scenegraph.createNodeWithModel("zwei", "sphere", {scale:40}, cubeNode2);
+		cubeNode3.translate([-50,-180,0]);
 		
-		var cubeNode4 = scenegraph.createNodeWithModel("einer", "sphere", {scale:110}, cubeNode3);
-		cubeNode4.translate([-140,-170,0]);
+
+
+		animation.assign(cubeNode1, "rotate", {rotationSpeed: [0.01, 0.0, 0.0]});
+
+        animation.assign(cubeNode2, "rotate", {rotationSpeed: [0.0, 0.0, 0.01]} );
+
+        animation.assign(cubeNode3, "rotate", {rotationSpeed: [0.0, 0.02, 0.00]});
 		
 
 
