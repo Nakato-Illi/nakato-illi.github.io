@@ -1,0 +1,437 @@
+
+:root {
+    --line-color: #cbd5e1;
+    --orange: #f97316;
+    --light-background: #f8fafe;
+    --schrift-navi: #6b7280;
+    --nav-height: 66px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;    
+    font-family: sans-serif;
+    list-style: none;
+
+}
+
+.page-container {    
+    display: grid;
+    grid-template-columns: 20.6vw 1fr 16vw;
+}
+
+.page-left {
+    border-right: 2px solid var(--line-color) ;
+    color: var(--schrift-navi);
+
+    
+    
+}
+.page-left .img-left{
+    height: var(--nav-height);
+    border-bottom: 2px solid var(--line-color);
+    /* background-color: var(--light-background); */
+    display: flex;
+}
+.page-left .img-left img{
+    height: 220%;
+    z-index: -1;
+    position: relative;
+    top: -59%;
+    margin-left: 10%;
+}
+
+.page-left .use-case-text {
+    width: 90%;
+    /* background-color: #f97316; */
+    margin: 10px auto;
+    padding: 30px;
+    box-shadow: #f97316 3px 3px 10px;
+    font-size: 18px;
+    line-height: 2em;
+}
+
+.page-left .navi-links {
+    width: 80%;
+    margin: 10px auto;
+}
+.page-left .navi-links ul {
+    border-bottom: 2px solid lightgray;
+}
+.page-left .navi-links ul li {
+    margin: 8px 0;
+    font-size: 12px;
+    font-weight:bolder;
+    color: lightgray;
+}
+
+
+
+.page-mitte nav{
+    color: var(--schrift-navi);
+    height: var(--nav-height);
+    border-bottom: 2px solid var(--line-color);
+    background-color: var(--light-background);
+
+}
+
+.page-mitte nav ul {
+    display: flex;
+    height:calc(var(--nav-height)*1.42) ;
+    align-items: center;
+    justify-content: end;    
+    padding-right: 10px;
+}
+
+.page-mitte nav ul li {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-left: 3%;
+    height: calc(var(--nav-height)/1.71);
+}
+.page-mitte nav ul .active,
+.page-mitte nav ul li:hover {
+    color: black;
+    border-bottom: 2px solid var(--orange);
+}
+
+.page-mitte .button-box {
+    display: flex;
+    justify-content: stretch;
+    /* background-color: yellow; */
+    
+}
+
+.page-mitte .button-box button {
+    margin: 5px 50px ;
+    padding: 10px;
+    width: 300px;
+    background-color: var(--schrift-navi);
+    color: #f8fafe;
+    border-radius: 5px;
+    font-size: larger;
+}
+
+.page-mitte .button-box button:hover {
+    background-color: var(--orange);
+}
+
+.page-right {
+
+    background-color: #475569;
+    height: 100vh;
+    color: var(--light-background);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.page-right .dropdown-prof-ansicht {
+    display: flex;
+    margin: calc(var(--nav-height)/3.5) ;
+    /* align-items: center; */
+    justify-content: space-evenly;
+}
+
+.page-right .dropdown-prof-ansicht .group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 1px;
+}
+.page-right .dropdown-prof-ansicht .group:hover{
+    background-color: #cbd5e1;
+    color: #475569;
+}
+
+.page-right .dropdown-prof-ansicht .group div{
+    display: flex;
+    width: 100px;
+}
+.hoch {
+    line-height: 2px;
+    font-weight: bolder;
+}
+.hocher {
+    line-height: 14px;
+}
+.rechts-unten {
+    border-top: #6b7280 solid 2px;
+    margin: 50px auto;
+}
+.rechts-unten p{
+    margin: 6px 0;
+    padding: 0 30px;
+}
+
+
+.rechts-unten p span {
+    width: 20px;
+    background-color: #cbd5e1;
+    padding: 3px;
+    border-radius: 50%;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.umfragebogen-container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--schrift-navi) 0.3px 0.2px 4px;
+    background-color: var(--light-background);
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 5%;
+    width: 90%;
+    height: 80vh;
+    border-radius: 4px;
+    overflow: auto;
+
+    font-size: 1.02em;
+}
+
+
+label {
+    line-height: 40px;
+    padding: 10px;
+}
+
+.umfragebogen-container form p{
+    font-size: larger;
+    color: var(--schrift-navi);
+    padding: 20px 1px;
+}
+
+.umfragebogen-container form fieldset{
+    padding: 15px 1px;
+    margin: 15px;
+}
+
+.umfragebogen-container form legend {
+    font-style: italic;
+    font-size: small;
+    
+}
+
+
+/*                          HTMT Personenübersicht                        */
+.container-usicht h1{
+    margin-bottom: 0.5em;
+}
+
+.container-usicht h2{
+    margin: 3em 0 0.3em 0;
+}
+
+.container-usicht p{
+    line-height: 2em;
+}
+
+
+.button-container-usicht {
+    display: flex;
+    /* background-color: gray; */
+    justify-content: space-around;
+}
+
+
+.page-left .navi-links-pu {
+    width: 80%;
+    margin: 10px auto;
+}
+.page-left .navi-links-pu ul {
+    border-bottom: 2px solid lightgray;
+}
+
+.page-left .navi-links-pu p {
+    font-size: 28px;
+}
+
+.page-left .navi-links-pu ul li {
+    padding: 13px;
+    font-size: 15px;
+    font-weight:bolder;
+    color: var(--schrift-navi);
+}
+.page-left .navi-links-pu ul li.active,
+.page-left .navi-links-pu ul li:hover {
+    background-color: var(--line-color);
+    padding: 13px;
+    border-radius: 5px;
+}
+
+.dropdown-prof-ansicht {
+    /* background-color: #6b7280; */
+}
+.dropdown-prof-ansicht .navi-links-pu {
+    /* background-color: #cbd5e1; */
+    width: 100%;
+}
+
+.dropdown-prof-ansicht .navi-links-pu ul li{
+    margin: 10px 0;
+    padding: 5px 0 0 20px;
+    border: #6b7280 solid 2px;
+    border-radius: 5px;
+}
+
+.dropdown-prof-ansicht .navi-links-pu ul li.active{
+    background-color: #f8fafc;
+    color: #475569;
+    border: #f97316 2px solid;
+}
+.dropdown-prof-ansicht .navi-links-pu ul li:hover{
+    border: #f97316 2px solid;
+}
+
+/*                          HTMT Teamübersicht                       */
+
+.container-tsicht-gsicht {
+    height: 100vh;
+}
+
+.container-tsicht  h2{
+margin-bottom: 3em;
+}
+
+.teamsicht {
+    display: flex;
+    border: #6b7280 solid 0.5px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 30px 0;
+}
+
+.teamsicht div div div div {
+    margin: 0 10px;
+    padding: 10px;
+    /* border: #475569 solid 0.5px; */
+    border-radius: 5px;
+    background-color: white;
+    line-height:20px;
+}
+
+.teamsicht div div div div p{
+    margin: 0 10px;
+    padding: 10px;
+    border-bottom: #475569 solid 0.5px;
+    border-radius: 5px;
+    /* background-color: white; */
+    line-height: 30px;
+    font-size: smaller;
+    /* font-weight: bolder; */
+}
+
+.teamsicht div div div div p em{
+    font-weight: bolder;
+}
+
+.text-g {
+    background-color: #f8fafc;
+    padding: 15px;
+    /* margin: 2%; */
+}
+
+.text-g p{
+    background-color: #f8fafc;
+    padding: 45px 0;
+    line-height: 2em;
+    /* margin: 2%; */
+}
+
+.space {
+    border: #cbd5e1 solid 1px;
+    border-radius: 5px;
+    margin: 2%  0;
+}
+
+
+.umfragebogen-container-g {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--schrift-navi) 0.3px 0.2px 4px;
+    margin: 0 auto;
+    padding: 2%;
+    width: 97%;
+    height: calc(100vh - var(--nav-height));
+    border-radius: 4px;
+    overflow: auto;
+
+    font-size: 1.02em;
+}
+
+.dropdown span{
+    padding: 0 8px;
+    margin:  0 8px;
+    /* background-color: #f97316; */
+    display: block;
+    width: 150px;
+    border-left: 2px solid var(--schrift-navi);    
+}
+
+.dropdown span:hover{
+    color: #f97316;
+    border-left: 2px solid var(--orange);  
+    cursor: pointer;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: fixed;
+    right: 270px;
+    bottom: 5%;
+    background-color: #f9f9f9;
+    width: 60vw;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+
+  .dropdown-content div h2 {
+    padding: 5px 0;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content .container-drop {
+      display: flex;
+      flex-direction: row;
+  }
+
+  .rechts-unten .navi-team-doz {
+    border-bottom: #6b7280 solid 2px;
+    
+}
+
+  .rechts-unten .navi-team-doz a{
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: #6b7280;
+  }
+
+  .rechts-unten .navi-team-doz a.active,
+  .rechts-unten .navi-team-doz a:hover{
+    color: #f97316;
+}
+
+.text-g img {
+    width: 100%;
+}

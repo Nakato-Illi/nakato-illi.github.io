@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>SPMS Mockup dummy</title>
+</head>
+
+<body>
+    <div class="page-container">
+
+        <div class="page-left">
+
+            <div class="img-left">
+                <img src="img/bht.png" alt="">
+            </div>
+
+            <div class="use-case-text">
+                <p>Hallo Benjamin!
+                    Wilkommen im Team MIB-2.
+                    Fülle bitte den Fragebogen aus um zum Teambereich weitergeleitet zu werden!
+                </p>
+            </div>
+
+            <ul class="navi-links">
+                <ul>
+                    <li>Übersicht</li>
+                    <li>Teammitglieder</li>
+                    <li>Projektplan</li>
+                    <li>Aufgabenverteilung</li>
+                </ul>
+            </ul>
+        </div>
+
+
+        <div class="page-mitte">
+
+            <nav>
+                <ul>
+                    <li>Seminar</li>
+                    <li class="active">Team</li>
+                    <li>1. Innovation</li>
+                    <li>2. As is</li>
+                    <li>3. To-be</li>
+                    <li>4. Trends</li>
+                    <li>Input</li>
+                    <li>Aufgaben &#8897;</li>
+                </ul>
+            </nav>
+
+            <div class="umfragebogen-container">
+                <form id="fragebogen" action="#">
+                    <p>Fragen zum Stuidium</p>
+                    <fieldset>
+                        <legend>In Welchem Semester befinden Sie sich?</legend>
+
+
+                        <label for="eins">1.</label>
+                        <input type="radio" name="sem" id="eins" value="eins">
+
+                        <label for="zwei">2.</label>
+                        <input type="radio" name="sem" id="zwei" value="zwei">
+
+                        <label for="drei">3.</label>
+                        <input type="radio" name="sem" id="drei" value="drei">
+
+                        <label for="vier">4.</label>
+                        <input type="radio" name="sem" id="vier" value="vier">
+
+                        <label for="fünf">5.</label>
+                        <input type="radio" name="sem" id="fünf" value="fünf">
+
+                        <label for="sechs">6.</label>
+                        <input type="radio" name="sem" id="sechs" value="sechs">
+
+                        <label for="sieben">höher</label>
+                        <input type="radio" name="sem" id="sieben" value="sieben">
+                        </label>
+
+                    </fieldset>
+                    <fieldset>
+                        <legend>Projektrelevante Kurse, welche haben Sie abgeschlossen?</legend>
+
+                        <div>
+                            <label for="kDrei">Grundlagen der Mathematik </label>
+                            <input type="checkbox" name="Kurs3" id="kDrei" value="kDrei">
+                        </div>
+
+                        <div>
+                            <label for="kVier">Grundlagen der Programmierung 1 </label>
+                            <input type="checkbox" name="Kurs4" id="kVier" value="kVier">
+                        </div>
+
+                        <div>
+                            <label for="kFünf">Kommunikation, Führung und Selbstmanagement</label>
+                            <input type="checkbox" name="Kurs5" id="kFünf" value="kFünf">
+                        </div>
+
+                        <div>
+                            <label for="kSechs">Mediendesign 1</label>
+                            <input type="checkbox" name="Kurs6" id="kSechs" value="kSechs">
+                        </div>
+
+                        <div>
+                            <label for="kSieben">Grundlagen der Programmierung 2</label>
+                            <input type="checkbox" name="Kurs7" id="kSieben" value="kSieben">
+                        </div>
+
+                        <div>
+                            <label for="kAcht">Mediendesign 2</label>
+                            <input type="checkbox" name="Kurs8" id="kAcht" value="kAcht">
+                        </div>
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Zeitliche Kapazitäten</legend>
+                        <label for="erwachsen">Wieviel Kurse haben Sie dieses Semester belegt</label>
+                        <input type="number" id="erwachsen" max="100" min="1" required name="erwachene" class="pinfo">
+
+                    </fieldset>
+
+                    <p>Fragen zu Erfahrungen im Projektmanagement</p>
+                    <fieldset>
+                        <legend>Haben sie schon an einem Gruppenprojekt teilgenommen?</legend>
+                        <label for="gPja">Ja</label>
+                        <input type="radio" name="gP" id="gPja" value="gPja">
+                        <br>
+                        <label for="gPnein">Nein</label>
+                        <input type="radio" name="gP" id="gPnein" value="gPnein">
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Wenn Ja, was waren ihre Aufgaben</legend>
+
+                        <div>
+                            <label for="rose">Der Projektmanager bzw. Projektleiter</label>
+                            <input type="checkbox" name="blume" id="rose" value="Rose">
+                        </div>
+
+                        <div>
+                            <label for="veilchen">Projektplan</label>
+                            <input type="checkbox" name="blume" id="veilchen" value="Veilchen">
+                        </div>
+
+                        <div>
+                            <label for="melisse">Ablaufplaner</label>
+                            <input type="checkbox" name="blume" id="melisse" value="Melisse">
+                        </div>
+
+                        <div>
+                            <label for="melisse">Terminplaner</label>
+                            <input type="checkbox" name="blume" id="melisse" value="Melisse">
+                        </div>
+
+                        <div>
+                            <label for="melisse">Ressourcenplaner</label>
+                            <input type="checkbox" name="blume" id="melisse" value="Melisse">
+                        </div>
+
+                        <div>
+                            <label for="sonnenblume">Qualitätsmanager</label>
+                            <input type="checkbox" name="blume" id="sonnenblume" value="Sonnenblume">
+                        </div>
+
+                        <div>
+                            <label for="tulpe">Risikomanagement</label>
+                            <input type="checkbox" name="blume" id="tulpe" value="Tulpe">
+                        </div>
+
+                        <div>
+                            <label for="tulpe1">Designer</label>
+                            <input type="checkbox" name="blume" id="tulpe1" value="Tulpe1">
+                        </div>
+
+                        <div>
+                            <label for="tulpe2">Frontend</label>
+                            <input type="checkbox" name="blume" id="tulpe2" value="Tulpe2">
+                        </div>
+
+                        <div>
+                            <label for="tulpe3">Backend</label>
+                            <input type="checkbox" name="blume" id="tulpe3" value="Tulpe3">
+                        </div>
+                        <div>
+                            <label for="tulpe4">Protokollierung</label>
+                            <input type="checkbox" name="blume" id="tulpe4" value="Tulpe4">
+                        </div>
+
+
+                        <br>
+                        <label for="blumenWahl"> Sonstige Aufgaben: </label>
+                        <input list="myblume" name="blumenWahl" id="blumenWahl">
+                        <datalist id="myblume">
+                            <option value="Beschaffung">
+                            <option value="Finanzierung">
+                            <option value="Raumplanung">
+                            <option value="Verpflegung">
+                            <option value="Vertretungmanagement">
+                            <option value="Koordinationsmanagement">
+                            <option value="Präsentieren">
+                        </datalist>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Weitere Wünsche, Erwartungen und Ideen zur Projektarbeit</legend>
+                        <textarea name="anmerkungen" id="anmerkungen" cols="35" rows="10"></textarea>
+
+                    </fieldset>
+
+                </form>
+            </div>
+            <div class="button-box">
+                <a href="personuebersicht.html">
+                    <button type="submit"> Formular Senden
+                    </button></a>
+
+            </div>
+
+        </div>
+
+
+        <div class="page-right">
+            <div class="dropdown-prof-ansicht">
+                <div class="group">                    
+                        <p>MIB-2</p> 
+                    <p class="hoch"> </p>
+                </div>
+            </div>
+
+            <div class="rechts-unten">
+                <div class="navi-team-doz">
+                <p>Navi-Mockup</p>
+                    <a class="active" href="#"><p>Fragebogenansicht</p></a>
+                    <a href="personuebersicht.html"><p>Personenübersicht</p></a>
+                    <a href="gruppeuebersicht.html"><p>Teamübersicht</p></a>
+                    <a href="professorindex.html"><p>Dozentenansicht/Team</p></a>
+                    <a href="professorkurssicht.html"><p>Dozentenansicht/Kurs</p></a>
+                </div>
+                <p>Autoren festlegen</p>
+                <p>Fehler melden</p>
+                <p>Vorschlag machen</p>
+                <p>Benjamin</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
