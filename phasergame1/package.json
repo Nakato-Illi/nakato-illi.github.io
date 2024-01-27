@@ -9,6 +9,7 @@
   },
   "author": "",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
     "parcel-bundler": "^1.12.5",
     "phaser": "^3.70.0",
