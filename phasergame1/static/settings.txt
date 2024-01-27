@@ -1,0 +1,4 @@
+root: C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\7_Semester\RMA\phasergame1\static 
+path: C:\Program Files\nodejs 
+arch: 64 
+proxy: none
