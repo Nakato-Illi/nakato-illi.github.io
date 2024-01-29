@@ -1,11 +1,17 @@
-window.onload = function () {
-
-    var config = {
-        width: 800,
-        height: 600,
-        backgroundColor: 0x345345,
-        scene: [Scene1, Scene2]
+var config = {
+    width: 800,
+    height: 600,
+    backgroundColor: 0x345345,
+    scene: [BootGame, TitleScene, Level1],
+    pixeArt: true,
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: { y: 0 },
+            debug: true
+        }
     }
 
-    var game = new Phaser.Game(config);
 }
+
+var game = new Phaser.Game(config);

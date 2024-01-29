@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1bc8a74a-baa2-4492-89d3-c0c3a7220178" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rmaGame.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scene1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scene2.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phaser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/titleScrene.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +24,7 @@
         <option value="package.json" />
         <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -45,16 +44,22 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/illi-/OneDrive/Desktop/BerlinerHochschuleFTechnik/4_Semester/nakato-illi.github.io/rmaGame/images",
+    "last_opened_file_path": "C:/Users/illi-/OneDrive/Desktop/BerlinerHochschuleFTechnik/4_Semester/nakato-illi.github.io/rmaGame/assets/images",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame\assets\images" />
+      <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame" />
+      <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame\scenes" />
+      <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame\assets\spritesheets" />
       <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -64,6 +69,21 @@
       <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\4_Semester\nakato-illi.github.io\rmaGame\src" />
       <recent name="C:\Users\illi-\OneDrive\Desktop\BerlinerHochschuleFTechnik\7_Semester\rmaGame" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="rmaGame" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="rmaGame" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -77,6 +97,9 @@
       <workItem from="1706382364285" duration="972000" />
       <workItem from="1706383919488" duration="1356000" />
       <workItem from="1706385438233" duration="4798000" />
+      <workItem from="1706395492140" duration="165000" />
+      <workItem from="1706395687537" duration="83000" />
+      <workItem from="1706395812638" duration="31531000" />
     </task>
     <servers />
   </component>
