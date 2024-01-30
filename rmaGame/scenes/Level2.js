@@ -6,14 +6,29 @@ class Level2 extends Phaser.Scene {
     }
 
     create() {
+        // Background image
         this.background = this.add.tileSprite(0, 0, 1600, 1200, "background");
 
+        //Scene Text
+        this.add.text(20, 20, "Level 2", {
+            font: "25px Arial", 
+            fill: "yellow"
+        });
+
+        // Scene Music & Sound
+        this.hitMusic = this.sound.add("hit_sound");
+        this.starMusic = this.sound.add("star_sound");
+        this.jumpMusic = this.sound.add("jump_sound");
+        this.loseMusic = this.sound.add("lose_sound");
+
+        // Create Player
         this.player = this.physics.add.sprite(20, 490, 'dude');
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
         this.player.body.setGravityY(500);
         this.physics.add.existing(this.player, true);
 
+        // Check if other animations already exist and create them if not
         if (!this.anims.exists('left')) {
             this.anims.create({
                 key: 'left',
@@ -40,6 +55,7 @@ class Level2 extends Phaser.Scene {
             });
         }
 
+        // Create Butterflyanimation 1-3
         this.butter1 = this.physics.add.sprite(140, 400, "butterfly");
         this.butter1.setScale(2, 2);
         this.butter1.setFlipY(true);
@@ -80,10 +96,16 @@ class Level2 extends Phaser.Scene {
         }
         this.butter3.anims.play('fly3Animation');
 
+        // Adding images 
         this.live1 = this.add.image(720, 30, "leben");
         this.live2 = this.add.image(750, 30, "leben");
         this.live3 = this.add.image(690, 30, "leben");
+        this.star = this.physics.add.image(770, 490, "star");
+        this.water1 = this.physics.add.image(543, 575, "wasser");
+        this.water2 = this.physics.add.image(290, 575, "wasser");
+        this.water2.setScale(0.4, 1);
 
+        // Designing World Structure
         this.plate1 = this.add.rectangle(50, 564, 150, 90, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate2 = this.add.rectangle(750, 564, 100, 90, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate3 = this.add.rectangle(175, 525, 100, 150, 0x000000, .8).setOrigin(0.5, 0.5);
@@ -97,11 +119,8 @@ class Level2 extends Phaser.Scene {
         this.plate11 = this.add.rectangle(620, 400, 50, 30, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate12 = this.add.rectangle(95, 280, 50, 30, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate13 = this.add.rectangle(770, 450, 70, 10, 0x000000, .8).setOrigin(0.5, 0.5);
-        this.star = this.physics.add.image(770, 490, "star");
-        this.water1 = this.physics.add.image(543, 575, "wasser");
-        this.water2 = this.physics.add.image(290, 575, "wasser");
-        this.water2.setScale(0.4, 1);
 
+        // Adding physicality to images and recs and player
         this.physics.add.existing(this.plate1, true);
         this.physics.add.existing(this.plate2, true);
         this.physics.add.existing(this.plate3, true);
@@ -117,41 +136,47 @@ class Level2 extends Phaser.Scene {
         this.physics.add.existing(this.plate13, true);
         this.physics.add.existing(this.water1, true);
         this.physics.add.existing(this.water2, true);
+        this.physics.add.existing(this.player, true);
 
+        // Player can stand on plates
         this.physics.add.collider(this.player, [this.plate1, this.plate2, this.plate3, this.plate4, this.plate5, this.plate6, this.plate7, this.plate8, this.plate9, this.plate10, this.plate11, this.plate12, this.plate13]);
 
+        // Functionality if player collides with Obstacles
         this.physics.add.overlap(this.player, this.butter1, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.butter2, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.butter3, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.water1, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.water2, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.star, this.winGame, null, this);
-
-        this.add.text(20, 20, "Level 2", {font: "25px Arial", fill: "yellow"});
     }
 
+    // play star Musik and switch to Scene playGame2
     winGame(){
+        this.starMusic.play();
         this.scene.start("winGame");
     }
 
+    // player Life reduction Scene reset
     resetGame() {
         this.resetCount++;
 
         if (this.live1 && this.resetCount === 1) {
+            this.hitMusic.play();
             this.live3.destroy();
         } else if (this.live2 && this.resetCount === 2) {
+            this.hitMusic.play();
             this.live1.destroy();
         } else if (this.live3 && this.resetCount === 3) {
             this.live2.destroy();
         }
-
+        // If reset count reaches 4, transition to Scene loseGame
         if (this.resetCount >= 3) {
             this.resetCount = 0;
-            // If reset count reaches 4, transition to the title scene
+            this.loseMusic.play();
             this.scene.start("loseGame");
         } else {
             // Otherwise, restart the current scene
-            this.player.setPosition(20, 490);
+            this.player.setPosition(20, 480);
             this.butter1.setPosition(140, 400);
             this.butter2.setPosition(410, 170);
             this.butter3.setPosition(530, 270);
@@ -160,12 +185,11 @@ class Level2 extends Phaser.Scene {
 
 
     update() {
+        // background scrolling animation
         this.background.tilePositionX += 0.3;
 
-        // Move the butterfly vertically between 100 and 400
+        // Butterfly1-3 vertically movements
         this.butter1.y += this.butter1.speed;
-
-        // Reverse direction when reaching the top or bottom
         if (this.butter1.y >= 400) {
             this.butter1.setFlipY(false);
             this.butter1.speed = -3;
@@ -196,6 +220,7 @@ class Level2 extends Phaser.Scene {
         }
 
 
+        // Keyboard and player movement logic
         this.cursors = this.input.keyboard.createCursorKeys();
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
@@ -207,15 +232,14 @@ class Level2 extends Phaser.Scene {
             this.player.setVelocityX(0);
             this.player.anims.play('turn');
         }
-
+        // player can only jump once
         if (this.cursors.space.isDown && this.canJump) {
+            this.jumpMusic.play();
             this.player.setVelocityY(-330);
-            this.canJump = false; // Nach dem Sprung die Variable auf false setzen
+            this.canJump = false;
         }
-
-        // Überprüfen Sie, ob der Spieler auf einer Plattform steht
         if (this.player.body.blocked.down) {
-            this.canJump = true; // Erlaube dem Spieler zu springen, wenn er auf dem Boden ist
+            this.canJump = true;
         }
     }
 }
