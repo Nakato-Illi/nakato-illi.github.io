@@ -6,12 +6,16 @@ class BootGame extends Phaser.Scene {
     preload() {
         this.load.image("title", "assets/images/title.jpg");
         this.load.image("fire", "assets/images/fire.png");
+        this.load.image("wasser", "assets/images/wasser.png");
         this.load.image("background", "assets/images/forest.jpg");
+        this.load.image("win", "assets/images/win.jpg");
+        this.load.image("lose", "assets/images/lose.jpg");
         this.load.image("fly1", "assets/images/fly1.png");
         this.load.image("fly2", "assets/images/fly2.png");
         this.load.image("fly3", "assets/images/fly3.png");
         this.load.image("fly4", "assets/images/fly4.png");
         this.load.image("leben", "assets/images/leben.png");
+        this.load.image("star", "assets/images/star.png");
 
         this.load.spritesheet("butterfly", "assets/spritesheets/butterfly.png",{
             frameWidth: 16,
@@ -26,6 +30,6 @@ class BootGame extends Phaser.Scene {
 
     create() {
         this.add.text(20, 20, "Loading Game...");
-        this.scene.start("playGame");
+        this.scene.start("titleScene");
     }
 }

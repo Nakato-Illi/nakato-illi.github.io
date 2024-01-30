@@ -2,6 +2,7 @@ class Level1 extends Phaser.Scene {
     constructor() {
         super("playGame");
         this.resetCount = 0;
+        this.canJump = true;
     }
 
     create() {
@@ -33,24 +34,12 @@ class Level1 extends Phaser.Scene {
                 repeat: -1
             });
         }
-        //
-        // this.fly1 = this.physics.add.sprite(100, 100, "fly1");
-        // this.fly1.setScale(3, 3);
-        // this.fly1.setFlipY(true);
-        // if (!this.anims.exists('fly1Animation')) {
-        //     this.anims.create({
-        //         key: 'fly1Animation',
-        //         frames: this.anims.generateFrameNumbers('fly1', { start: 0, end: 2 }),
-        //         frameRate: 10,
-        //         repeat: -1
-        //     });
-        // }
-        // this.fly1.anims.play('fly1Animation');
 
         this.fly1 = this.physics.add.image(100, 100, "fly1");
         this.fly2 = this.physics.add.image(400, 100, "fly2");
         this.fly3 = this.physics.add.image(500, 100, "fly3");
         this.fly4 = this.physics.add.image(600, 100, "fly4");
+        this.star = this.physics.add.image(770, 490, "star");
 
         this.live1 = this.add.image(720, 30, "leben");
         this.live2 = this.add.image(750, 30, "leben");
@@ -65,6 +54,7 @@ class Level1 extends Phaser.Scene {
         this.plate4 = this.add.rectangle(250, 334, 40, 50, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate5 = this.add.rectangle(450, 334, 40, 50, 0x000000, .8).setOrigin(0.5, 0.5);
         this.plate6 = this.add.rectangle(550, 234, 40, 50, 0x000000, .8).setOrigin(0.5, 0.5);
+        this.plate7 = this.add.rectangle(770, 450, 70, 10, 0x000000, .8).setOrigin(0.5, 0.5);
 
         this.physics.add.existing(this.plate1, true);
         this.physics.add.existing(this.plate2, true);
@@ -72,6 +62,7 @@ class Level1 extends Phaser.Scene {
         this.physics.add.existing(this.plate4, true);
         this.physics.add.existing(this.plate5, true);
         this.physics.add.existing(this.plate6, true);
+        this.physics.add.existing(this.plate7, true);
         this.physics.add.existing(this.fire, true);
         this.physics.add.existing(this.fly1, true);
         this.physics.add.existing(this.fly2, true);
@@ -84,15 +75,21 @@ class Level1 extends Phaser.Scene {
         this.player.body.setGravityY(500);
         this.physics.add.existing(this.player, true);
 
-        this.physics.add.collider(this.player, [this.plate1, this.plate2, this.plate3, this.plate4, this.plate5, this.plate6]);
+        this.physics.add.collider(this.player, [this.plate1, this.plate2, this.plate3, this.plate4, this.plate5, this.plate6, this.plate7]);
 
         this.physics.add.overlap(this.player, this.fire, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.fly1, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.fly2, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.fly3, this.resetGame, null, this);
         this.physics.add.overlap(this.player, this.fly4, this.resetGame, null, this);
+        this.physics.add.overlap(this.player, this.star, this.nextLevel, null, this);
+
 
         this.add.text(20, 20, "Level 1", {font: "25px Arial", fill: "yellow"});
+    }
+
+    nextLevel() {
+        this.scene.start("playGame2");
     }
 
     resetGame() {
@@ -109,10 +106,14 @@ class Level1 extends Phaser.Scene {
         if (this.resetCount >= 3) {
             this.resetCount = 0;
             // If reset count reaches 4, transition to the title scene
-            this.scene.start("titleScene");
+            this.scene.start("loseGame");
         } else {
             // Otherwise, restart the current scene
             this.player.setPosition(20, 490);
+            this.fly1.setPosition(100, 100);
+            this.fly2.setPosition(400, 100);
+            this.fly3.setPosition(500, 100);
+            this.fly4.setPosition(600, 100);
         }
     }
 
@@ -138,24 +139,25 @@ class Level1 extends Phaser.Scene {
         this.background.tilePositionX += 0.3;
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        if (this.cursors.left.isDown)
-        {
+        if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
             this.player.anims.play('left', true);
-        }
-        else if (this.cursors.right.isDown)
-        {
+        } else if (this.cursors.right.isDown) {
             this.player.setVelocityX(160);
             this.player.anims.play('right', true);
-        }
-        else
-        {
+        } else {
             this.player.setVelocityX(0);
             this.player.anims.play('turn');
         }
 
-        this.input.keyboard.once('keydown-SPACE', () => {
+        if (this.cursors.space.isDown && this.canJump) {
             this.player.setVelocityY(-330);
-        });
+            this.canJump = false; // Nach dem Sprung die Variable auf false setzen
+        }
+
+        // Überprüfen Sie, ob der Spieler auf einer Plattform steht
+        if (this.player.body.blocked.down) {
+            this.canJump = true; // Erlaube dem Spieler zu springen, wenn er auf dem Boden ist
+        }
     }
 }
