@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1bc8a74a-baa2-4492-89d3-c0c3a7220178" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/spritesheets/explosion.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/BootGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/BootGame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/Level1.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/Level1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/Level2.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/Level2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/Lose.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/Lose.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/TitleScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/TitleScene.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/Win.js" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/Win.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +96,7 @@
       <workItem from="1706395492140" duration="165000" />
       <workItem from="1706395687537" duration="83000" />
       <workItem from="1706395812638" duration="31531000" />
-      <workItem from="1706518813395" duration="39212000" />
+      <workItem from="1706518813395" duration="40487000" />
     </task>
     <servers />
   </component>
